@@ -232,6 +232,136 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.coolcoolcoder.com/c_night/2017/10/22/Gradle之进阶-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CoolYellow">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="coolyellow的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/22/Gradle之进阶-1/" itemprop="url">Gradle之进阶</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-22T16:56:40+08:00">
+                2017-10-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h2><h5 id="上一节我们讲解了gradle的基本用法，这一节我们研究一下gradle的进阶方法。"><a href="#上一节我们讲解了gradle的基本用法，这一节我们研究一下gradle的进阶方法。" class="headerlink" title="上一节我们讲解了gradle的基本用法，这一节我们研究一下gradle的进阶方法。"></a>上一节我们讲解了gradle的基本用法，这一节我们研究一下gradle的进阶方法。</h5><h2 id="二、更改项目结构"><a href="#二、更改项目结构" class="headerlink" title="二、更改项目结构"></a>二、更改项目结构</h2><h5 id="Gradle提供了自定义项目目录结构的方法，在前面讲到的android领域中，可以配置Android项目相关的配置。如下所示："><a href="#Gradle提供了自定义项目目录结构的方法，在前面讲到的android领域中，可以配置Android项目相关的配置。如下所示：" class="headerlink" title="Gradle提供了自定义项目目录结构的方法，在前面讲到的android领域中，可以配置Android项目相关的配置。如下所示："></a>Gradle提供了自定义项目目录结构的方法，在前面讲到的android领域中，可以配置Android项目相关的配置。如下所示：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">sourceSets &#123;</div><div class="line">	main &#123;</div><div class="line">		java.srcDirs=[&apos;java&apos;]</div><div class="line">		res.srcDirs=[&apos;res&apos;]</div><div class="line">		assets.srcDirs=[&apos;assets&apos;]</div><div class="line">		jni.srcDirs=[&apos;jni&apos;]</div><div class="line">		jniLibs.srcDirs=[&apos;libs&apos;]</div><div class="line">		manifest.srcFile=&apos;AndroidManifest.xml&apos;</div><div class="line">		&#125;</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
+<h5 id="上面的代码相信大家都能看懂，只需要制定具体的Android所必须文件夹的路径，就等于告诉Gradle需要使用自定义目录结构，而不是使用默认项目结构。"><a href="#上面的代码相信大家都能看懂，只需要制定具体的Android所必须文件夹的路径，就等于告诉Gradle需要使用自定义目录结构，而不是使用默认项目结构。" class="headerlink" title="上面的代码相信大家都能看懂，只需要制定具体的Android所必须文件夹的路径，就等于告诉Gradle需要使用自定义目录结构，而不是使用默认项目结构。"></a>上面的代码相信大家都能看懂，只需要制定具体的Android所必须文件夹的路径，就等于告诉Gradle需要使用自定义目录结构，而不是使用默认项目结构。</h5><h4 id="通过sourceSets也可以完全自定义代码的目录结构便于代码的整理，例如："><a href="#通过sourceSets也可以完全自定义代码的目录结构便于代码的整理，例如：" class="headerlink" title="通过sourceSets也可以完全自定义代码的目录结构便于代码的整理，例如："></a>通过sourceSets也可以完全自定义代码的目录结构便于代码的整理，例如：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">sourceSets&#123;</div><div class="line">	main &#123;</div><div class="line">		res.srcDirs = [&apos;src/main/res/&apos;,&apos;src/main/res/layout/activity&apos;,&apos;src/main/res/layout/fragment&apos;]</div><div class="line">		&#125;</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
+<h5 id="在这个脚本中，更改了默认的sourceSets，在原有src-main-res资源目录下增加了两个新目录activity跟fragment，在新建的两个目录中新建layout目录（因为Android资源文件只能识别该目录），重新编译可以发现，新增的两个目录activity跟fragment已经被识别为资源目录了，这样在代码中可以直接使用。对于项目路的管理整个结构一目了然。"><a href="#在这个脚本中，更改了默认的sourceSets，在原有src-main-res资源目录下增加了两个新目录activity跟fragment，在新建的两个目录中新建layout目录（因为Android资源文件只能识别该目录），重新编译可以发现，新增的两个目录activity跟fragment已经被识别为资源目录了，这样在代码中可以直接使用。对于项目路的管理整个结构一目了然。" class="headerlink" title="在这个脚本中，更改了默认的sourceSets，在原有src/main/res资源目录下增加了两个新目录activity跟fragment，在新建的两个目录中新建layout目录（因为Android资源文件只能识别该目录），重新编译可以发现，新增的两个目录activity跟fragment已经被识别为资源目录了，这样在代码中可以直接使用。对于项目路的管理整个结构一目了然。"></a>在这个脚本中，更改了默认的sourceSets，在原有src/main/res资源目录下增加了两个新目录activity跟fragment，在新建的两个目录中新建layout目录（因为Android资源文件只能识别该目录），重新编译可以发现，新增的两个目录activity跟fragment已经被识别为资源目录了，这样在代码中可以直接使用。对于项目路的管理整个结构一目了然。</h5><h2 id="三、构建全局配置"><a href="#三、构建全局配置" class="headerlink" title="三、构建全局配置"></a>三、构建全局配置</h2><h5 id="我们平时写代码，对于多处都要使用的常量，通常会提取出来作为一个全局常量。同样的，在Gradle中也可以使用全局配置，例如在多个moudle中配置compileSdkVersion等参数："><a href="#我们平时写代码，对于多处都要使用的常量，通常会提取出来作为一个全局常量。同样的，在Gradle中也可以使用全局配置，例如在多个moudle中配置compileSdkVersion等参数：" class="headerlink" title="我们平时写代码，对于多处都要使用的常量，通常会提取出来作为一个全局常量。同样的，在Gradle中也可以使用全局配置，例如在多个moudle中配置compileSdkVersion等参数："></a>我们平时写代码，对于多处都要使用的常量，通常会提取出来作为一个全局常量。同样的，在Gradle中也可以使用全局配置，例如在多个moudle中配置compileSdkVersion等参数：</h5><ol>
+<li><p>配置全局参数(注意一定是ext)</p>
+<h5 id="在根目录下的build-gradle中，通过ext领域可以制定全局的配置信息，代码如下"><a href="#在根目录下的build-gradle中，通过ext领域可以制定全局的配置信息，代码如下" class="headerlink" title="在根目录下的build.gradle中，通过ext领域可以制定全局的配置信息，代码如下:"></a>在根目录下的build.gradle中，通过ext领域可以制定全局的配置信息，代码如下:</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ext &#123;</div><div class="line">	compileSdkVersion=23</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>引用配置</p>
+<h5 id="在配置好全局参数后，就可以在每个moudle中使用这些配置了："><a href="#在配置好全局参数后，就可以在每个moudle中使用这些配置了：" class="headerlink" title="在配置好全局参数后，就可以在每个moudle中使用这些配置了："></a>在配置好全局参数后，就可以在每个moudle中使用这些配置了：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">android &#123;</div><div class="line">	compileSdkVersion rootProject.ext.compileSdkVersion</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h5 id="方法非常简单，通过rootProject-ext可以引用所有的全局参数，另外我们也可以把ext全局配置写在allprojects领域中，这样在每个moudle中就可以直接引用申的变量了："><a href="#方法非常简单，通过rootProject-ext可以引用所有的全局参数，另外我们也可以把ext全局配置写在allprojects领域中，这样在每个moudle中就可以直接引用申的变量了：" class="headerlink" title="方法非常简单，通过rootProject.ext可以引用所有的全局参数，另外我们也可以把ext全局配置写在allprojects领域中，这样在每个moudle中就可以直接引用申的变量了："></a>方法非常简单，通过rootProject.ext可以引用所有的全局参数，另外我们也可以把ext全局配置写在allprojects领域中，这样在每个moudle中就可以直接引用申的变量了：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">allprojects &#123;</div><div class="line">	repositories&#123;</div><div class="line">		jcenter()</div><div class="line">		&#125;</div><div class="line">	ext &#123;</div><div class="line">		COMPILE_SDK_VERSION = 22</div><div class="line">		&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="这样写的好处是可以讲配置统一管理，但是Grandle的版本更新通知检查机制就无效了。"><a href="#这样写的好处是可以讲配置统一管理，但是Grandle的版本更新通知检查机制就无效了。" class="headerlink" title="这样写的好处是可以讲配置统一管理，但是Grandle的版本更新通知检查机制就无效了。"></a>这样写的好处是可以讲配置统一管理，但是Grandle的版本更新通知检查机制就无效了。</h5>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.coolcoolcoder.com/c_night/2017/10/18/Gradle之初探-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -654,7 +784,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
