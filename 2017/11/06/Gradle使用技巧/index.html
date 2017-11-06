@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="一、简介在这一节中，我们总结一下在实际开发中Gradle的一些使用技巧。二、技巧 Gradle peer not authenticated 在更新Gradle依赖包事，经常会出现这个错误，导致Gradle编译失败，相信大家已经知道怎么解决了，使用VPN进行网络访问即可，另外通过修改jcenter库的地址也能修复这个问题：123jcenter&amp;#123;    url &amp;quot;http://j">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gradle使用技巧">
+<meta property="og:url" content="http://www.coolcoolcoder.com/c_night/2017/11/06/Gradle使用技巧/index.html">
+<meta property="og:site_name" content="coolyellow的博客">
+<meta property="og:description" content="一、简介在这一节中，我们总结一下在实际开发中Gradle的一些使用技巧。二、技巧 Gradle peer not authenticated 在更新Gradle依赖包事，经常会出现这个错误，导致Gradle编译失败，相信大家已经知道怎么解决了，使用VPN进行网络访问即可，另外通过修改jcenter库的地址也能修复这个问题：123jcenter&amp;#123;    url &amp;quot;http://j">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-11-06T14:32:12.872Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Gradle使用技巧">
+<meta name="twitter:description" content="一、简介在这一节中，我们总结一下在实际开发中Gradle的一些使用技巧。二、技巧 Gradle peer not authenticated 在更新Gradle依赖包事，经常会出现这个错误，导致Gradle编译失败，相信大家已经知道怎么解决了，使用VPN进行网络访问即可，另外通过修改jcenter库的地址也能修复这个问题：123jcenter&amp;#123;    url &amp;quot;http://j">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.coolcoolcoder.com/c_night/2017/11/06/Gradle使用技巧/"/>
+
+
+
+
+
+  <title>Gradle使用技巧 | coolyellow的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">coolyellow的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">cool</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.coolcoolcoder.com/c_night/2017/11/06/Gradle使用技巧/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CoolYellow">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="coolyellow的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Gradle使用技巧</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-06T20:38:41+08:00">
+                2017-11-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h2><h5 id="在这一节中，我们总结一下在实际开发中Gradle的一些使用技巧。"><a href="#在这一节中，我们总结一下在实际开发中Gradle的一些使用技巧。" class="headerlink" title="在这一节中，我们总结一下在实际开发中Gradle的一些使用技巧。"></a>在这一节中，我们总结一下在实际开发中Gradle的一些使用技巧。</h5><h2 id="二、技巧"><a href="#二、技巧" class="headerlink" title="二、技巧"></a>二、技巧</h2><ol>
+<li><p>Gradle peer not authenticated</p>
+<h5 id="在更新Gradle依赖包事，经常会出现这个错误，导致Gradle编译失败，相信大家已经知道怎么解决了，使用VPN进行网络访问即可，另外通过修改jcenter库的地址也能修复这个问题："><a href="#在更新Gradle依赖包事，经常会出现这个错误，导致Gradle编译失败，相信大家已经知道怎么解决了，使用VPN进行网络访问即可，另外通过修改jcenter库的地址也能修复这个问题：" class="headerlink" title="在更新Gradle依赖包事，经常会出现这个错误，导致Gradle编译失败，相信大家已经知道怎么解决了，使用VPN进行网络访问即可，另外通过修改jcenter库的地址也能修复这个问题："></a>在更新Gradle依赖包事，经常会出现这个错误，导致Gradle编译失败，相信大家已经知道怎么解决了，使用VPN进行网络访问即可，另外通过修改jcenter库的地址也能修复这个问题：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">jcenter&#123;</div><div class="line">    url &quot;http://jcenter.bintray.com/&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>Gradle性能检测</p>
+<h5 id="其实Gradle编译工具本身就内置了性能分析工具—profile。通过Gradle编译的使用，只需要增加-profile参数即可打开这个功能。执行一下脚本："><a href="#其实Gradle编译工具本身就内置了性能分析工具—profile。通过Gradle编译的使用，只需要增加-profile参数即可打开这个功能。执行一下脚本：" class="headerlink" title="其实Gradle编译工具本身就内置了性能分析工具—profile。通过Gradle编译的使用，只需要增加-profile参数即可打开这个功能。执行一下脚本："></a>其实Gradle编译工具本身就内置了性能分析工具—profile。通过Gradle编译的使用，只需要增加-profile参数即可打开这个功能。执行一下脚本：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gradle build -profile</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h5 id="通过以上脚本，我们就可以在根目录的Build目录下生成一个profile文件，该文件显示了完整的Grdle编译过程的耗时，通过查看这个profiel文件，就可以进一步优化Gradle脚本。例如关闭lint这个task、在debug版本中，可以使用以下代码提高AAPT的速度："><a href="#通过以上脚本，我们就可以在根目录的Build目录下生成一个profile文件，该文件显示了完整的Grdle编译过程的耗时，通过查看这个profiel文件，就可以进一步优化Gradle脚本。例如关闭lint这个task、在debug版本中，可以使用以下代码提高AAPT的速度：" class="headerlink" title="通过以上脚本，我们就可以在根目录的Build目录下生成一个profile文件，该文件显示了完整的Grdle编译过程的耗时，通过查看这个profiel文件，就可以进一步优化Gradle脚本。例如关闭lint这个task、在debug版本中，可以使用以下代码提高AAPT的速度："></a>通过以上脚本，我们就可以在根目录的Build目录下生成一个profile文件，该文件显示了完整的Grdle编译过程的耗时，通过查看这个profiel文件，就可以进一步优化Gradle脚本。例如关闭lint这个task、在debug版本中，可以使用以下代码提高AAPT的速度：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">aaptOptions &#123;</div><div class="line">    cruncherEnabled = false</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="这里要注意，由于资源没有经过AAPT优化，可能会导致一些运行问题，所以最好只在Debug时采用，而在release时一定不要采用。"><a href="#这里要注意，由于资源没有经过AAPT优化，可能会导致一些运行问题，所以最好只在Debug时采用，而在release时一定不要采用。" class="headerlink" title="这里要注意，由于资源没有经过AAPT优化，可能会导致一些运行问题，所以最好只在Debug时采用，而在release时一定不要采用。"></a>这里要注意，由于资源没有经过AAPT优化，可能会导致一些运行问题，所以最好只在Debug时采用，而在release时一定不要采用。</h5><ol>
+<li>Gradle加速<h5 id="前面我们介绍了如何对Gradle的task进行加速，接下来我们就从Gradle本身讲解如何提速。由于Gradle在编译期间会执行大量的task，同时生成大量的中间文件，所以磁盘IO会造成编译速度慢，解决该问题最好的方式是使用固态硬盘，同时减少本地库项目的依赖，多使用aar进行依赖。其次，可以在gradle-properties文件中增加如下代码："><a href="#前面我们介绍了如何对Gradle的task进行加速，接下来我们就从Gradle本身讲解如何提速。由于Gradle在编译期间会执行大量的task，同时生成大量的中间文件，所以磁盘IO会造成编译速度慢，解决该问题最好的方式是使用固态硬盘，同时减少本地库项目的依赖，多使用aar进行依赖。其次，可以在gradle-properties文件中增加如下代码：" class="headerlink" title="前面我们介绍了如何对Gradle的task进行加速，接下来我们就从Gradle本身讲解如何提速。由于Gradle在编译期间会执行大量的task，同时生成大量的中间文件，所以磁盘IO会造成编译速度慢，解决该问题最好的方式是使用固态硬盘，同时减少本地库项目的依赖，多使用aar进行依赖。其次，可以在gradle.properties文件中增加如下代码："></a>前面我们介绍了如何对Gradle的task进行加速，接下来我们就从Gradle本身讲解如何提速。由于Gradle在编译期间会执行大量的task，同时生成大量的中间文件，所以磁盘IO会造成编译速度慢，解决该问题最好的方式是使用固态硬盘，同时减少本地库项目的依赖，多使用aar进行依赖。其次，可以在gradle.properties文件中增加如下代码：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">org.gradle.daemo =true</div><div class="line">org.gradle.parallel=true</div><div class="line">org.gradle.configureondemand = true</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h5 id="同时，在build-gradle中增加如下代码："><a href="#同时，在build-gradle中增加如下代码：" class="headerlink" title="同时，在build.gradle中增加如下代码："></a>同时，在build.gradle中增加如下代码：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">dexOptions &#123;</div><div class="line">    incremental true</div><div class="line">	javaMaxHeapSize &quot;4g&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="gradle-properties文件中的代码，表示开启Gradle的多线程跟多核心支持。而build-gradle中的代码，表示开启Gradle的增量编译，增加编译的内存到4G。"><a href="#gradle-properties文件中的代码，表示开启Gradle的多线程跟多核心支持。而build-gradle中的代码，表示开启Gradle的增量编译，增加编译的内存到4G。" class="headerlink" title="gradle.properties文件中的代码，表示开启Gradle的多线程跟多核心支持。而build.gradle中的代码，表示开启Gradle的增量编译，增加编译的内存到4G。"></a>gradle.properties文件中的代码，表示开启Gradle的多线程跟多核心支持。而build.gradle中的代码，表示开启Gradle的增量编译，增加编译的内存到4G。</h5><ol>
+<li><p>增加编译内存</p>
+<h5 id="对于编译时的内存溢出问题，我们可以在gradle-properties文件中增加一下内存配置，让Gradle获取更多内存。一般来说使用默认的即可。"><a href="#对于编译时的内存溢出问题，我们可以在gradle-properties文件中增加一下内存配置，让Gradle获取更多内存。一般来说使用默认的即可。" class="headerlink" title="对于编译时的内存溢出问题，我们可以在gradle.properties文件中增加一下内存配置，让Gradle获取更多内存。一般来说使用默认的即可。"></a>对于编译时的内存溢出问题，我们可以在gradle.properties文件中增加一下内存配置，让Gradle获取更多内存。一般来说使用默认的即可。</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">org.gradle.jvmargs=-Xmx1536m</div></pre></td></tr></table></figure>
+</li>
+<li><p>使用Gradle精简资源</p>
+<h5 id="前面我们提到了minifyEnabled指令，这个指令不仅可以用于混淆，也可以对代码进行优化、精简。同时配合shrinkResources指令，还可以清楚醒目中的无效的资源文件，但是要注意一点的是，shrinkResources指令依赖于minifyEnabled指令，只有后者开启了，前者才起作用，代码如下："><a href="#前面我们提到了minifyEnabled指令，这个指令不仅可以用于混淆，也可以对代码进行优化、精简。同时配合shrinkResources指令，还可以清楚醒目中的无效的资源文件，但是要注意一点的是，shrinkResources指令依赖于minifyEnabled指令，只有后者开启了，前者才起作用，代码如下：" class="headerlink" title="前面我们提到了minifyEnabled指令，这个指令不仅可以用于混淆，也可以对代码进行优化、精简。同时配合shrinkResources指令，还可以清楚醒目中的无效的资源文件，但是要注意一点的是，shrinkResources指令依赖于minifyEnabled指令，只有后者开启了，前者才起作用，代码如下："></a>前面我们提到了minifyEnabled指令，这个指令不仅可以用于混淆，也可以对代码进行优化、精简。同时配合shrinkResources指令，还可以清楚醒目中的无效的资源文件，但是要注意一点的是，shrinkResources指令依赖于minifyEnabled指令，只有后者开启了，前者才起作用，代码如下：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">release &#123;</div><div class="line">            minifyEnabled true</div><div class="line">	    shrinkResources true</div><div class="line">            proguardFiles getDefaultProguardFile(&apos;proguard-android.txt&apos;), &apos;proguard-rules.pro&apos;</div><div class="line">        &#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h5 id="这里要注意，这种精简资源的方式属于静态检测，一些动态加载的资源是无法检测的。"><a href="#这里要注意，这种精简资源的方式属于静态检测，一些动态加载的资源是无法检测的。" class="headerlink" title="这里要注意，这种精简资源的方式属于静态检测，一些动态加载的资源是无法检测的。"></a>这里要注意，这种精简资源的方式属于静态检测，一些动态加载的资源是无法检测的。</h5><ol>
+<li>清除Gradle缓存<h5 id="开发中经常遇到上传同一版本的aar到maven库，在主项目中无法获得最新的aar库的。这时候就需要将本地的Gradle缓存删除，让项目重新从Maven库中拉取最新的aar库。而在平时处理多使用gradle-clean指令来清理Gradle缓存以外，Gradle还提供了一个指令来重新刷新全部的依赖库—gradle-–refresh-dependencies-通过这个指令，可以强制刷新所依赖的库项目。"><a href="#开发中经常遇到上传同一版本的aar到maven库，在主项目中无法获得最新的aar库的。这时候就需要将本地的Gradle缓存删除，让项目重新从Maven库中拉取最新的aar库。而在平时处理多使用gradle-clean指令来清理Gradle缓存以外，Gradle还提供了一个指令来重新刷新全部的依赖库—gradle-–refresh-dependencies-通过这个指令，可以强制刷新所依赖的库项目。" class="headerlink" title="开发中经常遇到上传同一版本的aar到maven库，在主项目中无法获得最新的aar库的。这时候就需要将本地的Gradle缓存删除，让项目重新从Maven库中拉取最新的aar库。而在平时处理多使用gradle clean指令来清理Gradle缓存以外，Gradle还提供了一个指令来重新刷新全部的依赖库—gradle –refresh dependencies.通过这个指令，可以强制刷新所依赖的库项目。"></a>开发中经常遇到上传同一版本的aar到maven库，在主项目中无法获得最新的aar库的。这时候就需要将本地的Gradle缓存删除，让项目重新从Maven库中拉取最新的aar库。而在平时处理多使用gradle clean指令来清理Gradle缓存以外，Gradle还提供了一个指令来重新刷新全部的依赖库—gradle –refresh dependencies.通过这个指令，可以强制刷新所依赖的库项目。</h5></li>
+<li>Gradle版本问题导致的编译失败<h5 id="开发这经常在会遇到Gradle-Version-导致的问题，通常这个问题是由gradle-wrapper导致的，要解决这个问题，只需要按照一下步骤进行检查即可。"><a href="#开发这经常在会遇到Gradle-Version-导致的问题，通常这个问题是由gradle-wrapper导致的，要解决这个问题，只需要按照一下步骤进行检查即可。" class="headerlink" title="开发这经常在会遇到Gradle Version 导致的问题，通常这个问题是由gradle wrapper导致的，要解决这个问题，只需要按照一下步骤进行检查即可。"></a>开发这经常在会遇到Gradle Version 导致的问题，通常这个问题是由gradle wrapper导致的，要解决这个问题，只需要按照一下步骤进行检查即可。</h5><h5 id="a-打开Setting界面，在Build-Build-Tools-Gradle标签中，选择Project-Level-settiong-并勾选Use-default-gradle-wrapper"><a href="#a-打开Setting界面，在Build-Build-Tools-Gradle标签中，选择Project-Level-settiong-并勾选Use-default-gradle-wrapper" class="headerlink" title="a. 打开Setting界面，在Build-Build Tools-Gradle标签中，选择Project-Level-settiong,并勾选Use default gradle wrapper."></a>a. 打开Setting界面，在Build-Build Tools-Gradle标签中，选择Project-Level-settiong,并勾选Use default gradle wrapper.</h5><h5 id="b-使用当前版本的AS创建一个空的Android工程并进行编译运行，目的是让Android-Studio拉取可能新增的依赖包。"><a href="#b-使用当前版本的AS创建一个空的Android工程并进行编译运行，目的是让Android-Studio拉取可能新增的依赖包。" class="headerlink" title="b. 使用当前版本的AS创建一个空的Android工程并进行编译运行，目的是让Android Studio拉取可能新增的依赖包。"></a>b. 使用当前版本的AS创建一个空的Android工程并进行编译运行，目的是让Android Studio拉取可能新增的依赖包。</h5><h5 id="c-复制刚刚创建的Android工程的Gradle目录，病粘贴到发生错误的工程中，替换原有的Gradle目录。"><a href="#c-复制刚刚创建的Android工程的Gradle目录，病粘贴到发生错误的工程中，替换原有的Gradle目录。" class="headerlink" title="c. 复制刚刚创建的Android工程的Gradle目录，病粘贴到发生错误的工程中，替换原有的Gradle目录。"></a>c. 复制刚刚创建的Android工程的Gradle目录，病粘贴到发生错误的工程中，替换原有的Gradle目录。</h5><h5 id="d-检查根目录下的build-gradle文件，检查Gradle的plugin版本，最好与空的Android工程中的plugin版本相同。"><a href="#d-检查根目录下的build-gradle文件，检查Gradle的plugin版本，最好与空的Android工程中的plugin版本相同。" class="headerlink" title="d. 检查根目录下的build.gradle文件，检查Gradle的plugin版本，最好与空的Android工程中的plugin版本相同。"></a>d. 检查根目录下的build.gradle文件，检查Gradle的plugin版本，最好与空的Android工程中的plugin版本相同。</h5><h5 id="执行完上边的步骤，在编译工程，基本都会解决该问题。不过我们更推荐在本地配置稳定的Gradle版本。"><a href="#执行完上边的步骤，在编译工程，基本都会解决该问题。不过我们更推荐在本地配置稳定的Gradle版本。" class="headerlink" title="执行完上边的步骤，在编译工程，基本都会解决该问题。不过我们更推荐在本地配置稳定的Gradle版本。"></a>执行完上边的步骤，在编译工程，基本都会解决该问题。不过我们更推荐在本地配置稳定的Gradle版本。</h5><h2 id="三、总结"><a href="#三、总结" class="headerlink" title="三、总结"></a>三、总结</h2><h5 id="关于Gradle我们就总结到这里，相信这些掌握了这些技巧已经能够应对日常开发了，当然如果你还想更深入的研究Gradle等，就需要自己查找官网或者其他书籍等来学习了。"><a href="#关于Gradle我们就总结到这里，相信这些掌握了这些技巧已经能够应对日常开发了，当然如果你还想更深入的研究Gradle等，就需要自己查找官网或者其他书籍等来学习了。" class="headerlink" title="关于Gradle我们就总结到这里，相信这些掌握了这些技巧已经能够应对日常开发了，当然如果你还想更深入的研究Gradle等，就需要自己查找官网或者其他书籍等来学习了。"></a>关于Gradle我们就总结到这里，相信这些掌握了这些技巧已经能够应对日常开发了，当然如果你还想更深入的研究Gradle等，就需要自己查找官网或者其他书籍等来学习了。</h5></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/04/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">CoolYellow</p>
+              <p class="site-description motion-element" itemprop="description">c_night</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、简介"><span class="nav-number">1.</span> <span class="nav-text">一、简介</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#在这一节中，我们总结一下在实际开发中Gradle的一些使用技巧。"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">在这一节中，我们总结一下在实际开发中Gradle的一些使用技巧。</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、技巧"><span class="nav-number">2.</span> <span class="nav-text">二、技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#在更新Gradle依赖包事，经常会出现这个错误，导致Gradle编译失败，相信大家已经知道怎么解决了，使用VPN进行网络访问即可，另外通过修改jcenter库的地址也能修复这个问题："><span class="nav-number">2.0.0.1.</span> <span class="nav-text">在更新Gradle依赖包事，经常会出现这个错误，导致Gradle编译失败，相信大家已经知道怎么解决了，使用VPN进行网络访问即可，另外通过修改jcenter库的地址也能修复这个问题：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#其实Gradle编译工具本身就内置了性能分析工具—profile。通过Gradle编译的使用，只需要增加-profile参数即可打开这个功能。执行一下脚本："><span class="nav-number">2.0.0.2.</span> <span class="nav-text">其实Gradle编译工具本身就内置了性能分析工具—profile。通过Gradle编译的使用，只需要增加-profile参数即可打开这个功能。执行一下脚本：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#通过以上脚本，我们就可以在根目录的Build目录下生成一个profile文件，该文件显示了完整的Grdle编译过程的耗时，通过查看这个profiel文件，就可以进一步优化Gradle脚本。例如关闭lint这个task、在debug版本中，可以使用以下代码提高AAPT的速度："><span class="nav-number">2.0.0.3.</span> <span class="nav-text">通过以上脚本，我们就可以在根目录的Build目录下生成一个profile文件，该文件显示了完整的Grdle编译过程的耗时，通过查看这个profiel文件，就可以进一步优化Gradle脚本。例如关闭lint这个task、在debug版本中，可以使用以下代码提高AAPT的速度：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#这里要注意，由于资源没有经过AAPT优化，可能会导致一些运行问题，所以最好只在Debug时采用，而在release时一定不要采用。"><span class="nav-number">2.0.0.4.</span> <span class="nav-text">这里要注意，由于资源没有经过AAPT优化，可能会导致一些运行问题，所以最好只在Debug时采用，而在release时一定不要采用。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#前面我们介绍了如何对Gradle的task进行加速，接下来我们就从Gradle本身讲解如何提速。由于Gradle在编译期间会执行大量的task，同时生成大量的中间文件，所以磁盘IO会造成编译速度慢，解决该问题最好的方式是使用固态硬盘，同时减少本地库项目的依赖，多使用aar进行依赖。其次，可以在gradle-properties文件中增加如下代码："><span class="nav-number">2.0.0.5.</span> <span class="nav-text">前面我们介绍了如何对Gradle的task进行加速，接下来我们就从Gradle本身讲解如何提速。由于Gradle在编译期间会执行大量的task，同时生成大量的中间文件，所以磁盘IO会造成编译速度慢，解决该问题最好的方式是使用固态硬盘，同时减少本地库项目的依赖，多使用aar进行依赖。其次，可以在gradle.properties文件中增加如下代码：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#同时，在build-gradle中增加如下代码："><span class="nav-number">2.0.0.6.</span> <span class="nav-text">同时，在build.gradle中增加如下代码：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#gradle-properties文件中的代码，表示开启Gradle的多线程跟多核心支持。而build-gradle中的代码，表示开启Gradle的增量编译，增加编译的内存到4G。"><span class="nav-number">2.0.0.7.</span> <span class="nav-text">gradle.properties文件中的代码，表示开启Gradle的多线程跟多核心支持。而build.gradle中的代码，表示开启Gradle的增量编译，增加编译的内存到4G。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#对于编译时的内存溢出问题，我们可以在gradle-properties文件中增加一下内存配置，让Gradle获取更多内存。一般来说使用默认的即可。"><span class="nav-number">2.0.0.8.</span> <span class="nav-text">对于编译时的内存溢出问题，我们可以在gradle.properties文件中增加一下内存配置，让Gradle获取更多内存。一般来说使用默认的即可。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#前面我们提到了minifyEnabled指令，这个指令不仅可以用于混淆，也可以对代码进行优化、精简。同时配合shrinkResources指令，还可以清楚醒目中的无效的资源文件，但是要注意一点的是，shrinkResources指令依赖于minifyEnabled指令，只有后者开启了，前者才起作用，代码如下："><span class="nav-number">2.0.0.9.</span> <span class="nav-text">前面我们提到了minifyEnabled指令，这个指令不仅可以用于混淆，也可以对代码进行优化、精简。同时配合shrinkResources指令，还可以清楚醒目中的无效的资源文件，但是要注意一点的是，shrinkResources指令依赖于minifyEnabled指令，只有后者开启了，前者才起作用，代码如下：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#这里要注意，这种精简资源的方式属于静态检测，一些动态加载的资源是无法检测的。"><span class="nav-number">2.0.0.10.</span> <span class="nav-text">这里要注意，这种精简资源的方式属于静态检测，一些动态加载的资源是无法检测的。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#开发中经常遇到上传同一版本的aar到maven库，在主项目中无法获得最新的aar库的。这时候就需要将本地的Gradle缓存删除，让项目重新从Maven库中拉取最新的aar库。而在平时处理多使用gradle-clean指令来清理Gradle缓存以外，Gradle还提供了一个指令来重新刷新全部的依赖库—gradle-–refresh-dependencies-通过这个指令，可以强制刷新所依赖的库项目。"><span class="nav-number">2.0.0.11.</span> <span class="nav-text">开发中经常遇到上传同一版本的aar到maven库，在主项目中无法获得最新的aar库的。这时候就需要将本地的Gradle缓存删除，让项目重新从Maven库中拉取最新的aar库。而在平时处理多使用gradle clean指令来清理Gradle缓存以外，Gradle还提供了一个指令来重新刷新全部的依赖库—gradle –refresh dependencies.通过这个指令，可以强制刷新所依赖的库项目。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#开发这经常在会遇到Gradle-Version-导致的问题，通常这个问题是由gradle-wrapper导致的，要解决这个问题，只需要按照一下步骤进行检查即可。"><span class="nav-number">2.0.0.12.</span> <span class="nav-text">开发这经常在会遇到Gradle Version 导致的问题，通常这个问题是由gradle wrapper导致的，要解决这个问题，只需要按照一下步骤进行检查即可。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#a-打开Setting界面，在Build-Build-Tools-Gradle标签中，选择Project-Level-settiong-并勾选Use-default-gradle-wrapper"><span class="nav-number">2.0.0.13.</span> <span class="nav-text">a. 打开Setting界面，在Build-Build Tools-Gradle标签中，选择Project-Level-settiong,并勾选Use default gradle wrapper.</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#b-使用当前版本的AS创建一个空的Android工程并进行编译运行，目的是让Android-Studio拉取可能新增的依赖包。"><span class="nav-number">2.0.0.14.</span> <span class="nav-text">b. 使用当前版本的AS创建一个空的Android工程并进行编译运行，目的是让Android Studio拉取可能新增的依赖包。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#c-复制刚刚创建的Android工程的Gradle目录，病粘贴到发生错误的工程中，替换原有的Gradle目录。"><span class="nav-number">2.0.0.15.</span> <span class="nav-text">c. 复制刚刚创建的Android工程的Gradle目录，病粘贴到发生错误的工程中，替换原有的Gradle目录。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#d-检查根目录下的build-gradle文件，检查Gradle的plugin版本，最好与空的Android工程中的plugin版本相同。"><span class="nav-number">2.0.0.16.</span> <span class="nav-text">d. 检查根目录下的build.gradle文件，检查Gradle的plugin版本，最好与空的Android工程中的plugin版本相同。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#执行完上边的步骤，在编译工程，基本都会解决该问题。不过我们更推荐在本地配置稳定的Gradle版本。"><span class="nav-number">2.0.0.17.</span> <span class="nav-text">执行完上边的步骤，在编译工程，基本都会解决该问题。不过我们更推荐在本地配置稳定的Gradle版本。</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、总结"><span class="nav-number">3.</span> <span class="nav-text">三、总结</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#关于Gradle我们就总结到这里，相信这些掌握了这些技巧已经能够应对日常开发了，当然如果你还想更深入的研究Gradle等，就需要自己查找官网或者其他书籍等来学习了。"><span class="nav-number">3.0.0.1.</span> <span class="nav-text">关于Gradle我们就总结到这里，相信这些掌握了这些技巧已经能够应对日常开发了，当然如果你还想更深入的研究Gradle等，就需要自己查找官网或者其他书籍等来学习了。</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CoolYellow</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
