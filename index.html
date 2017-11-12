@@ -232,6 +232,143 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.coolcoolcoder.com/c_night/2017/11/12/Android消息机制从源码分析Handelr、Looper、Message/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CoolYellow">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="coolyellow的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/11/12/Android消息机制从源码分析Handelr、Looper、Message/" itemprop="url">Android消息机制从源码分析Handelr、Looper、Message</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-12T10:24:12+08:00">
+                2017-11-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><h5 id="关于Android消息机制想必大家都非常熟悉了，而且面试必问问题之一，如果我们仍旧只是知道怎么使用，那就太更不上时代步伐了，想想当面试问你handler机制时，你从源码给其分析一遍，那你已经踏进offer大门一只左脚了，所以这里我们一起从源码查看一下消息机制。"><a href="#关于Android消息机制想必大家都非常熟悉了，而且面试必问问题之一，如果我们仍旧只是知道怎么使用，那就太更不上时代步伐了，想想当面试问你handler机制时，你从源码给其分析一遍，那你已经踏进offer大门一只左脚了，所以这里我们一起从源码查看一下消息机制。" class="headerlink" title="关于Android消息机制想必大家都非常熟悉了，而且面试必问问题之一，如果我们仍旧只是知道怎么使用，那就太更不上时代步伐了，想想当面试问你handler机制时，你从源码给其分析一遍，那你已经踏进offer大门一只左脚了，所以这里我们一起从源码查看一下消息机制。"></a>关于Android消息机制想必大家都非常熟悉了，而且面试必问问题之一，如果我们仍旧只是知道怎么使用，那就太更不上时代步伐了，想想当面试问你handler机制时，你从源码给其分析一遍，那你已经踏进offer大门一只左脚了，所以这里我们一起从源码查看一下消息机制。</h5><h2 id="二、源码解析"><a href="#二、源码解析" class="headerlink" title="二、源码解析"></a>二、源码解析</h2><h3 id="1、ActivityThread-main-方法跟Looper"><a href="#1、ActivityThread-main-方法跟Looper" class="headerlink" title="1、ActivityThread.main()方法跟Looper"></a>1、ActivityThread.main()方法跟Looper</h3><h5 id="我刚接触android时，大家都跟我说application的oncreate方法是，APP的入口，但这其实是不正确的，APP的真正的入口是ActivityThread类的main方法，这里要注意虽然叫ActivityThread其实它并不是我们平时所说的线程，由于我们这里只是分析消息机制，所以感兴趣的小伙伴可以自己去查询一下相关知识，既然main方法是入口，那我们就看看APP在启动时都做了什么，源码如下："><a href="#我刚接触android时，大家都跟我说application的oncreate方法是，APP的入口，但这其实是不正确的，APP的真正的入口是ActivityThread类的main方法，这里要注意虽然叫ActivityThread其实它并不是我们平时所说的线程，由于我们这里只是分析消息机制，所以感兴趣的小伙伴可以自己去查询一下相关知识，既然main方法是入口，那我们就看看APP在启动时都做了什么，源码如下：" class="headerlink" title="我刚接触android时，大家都跟我说application的oncreate方法是，APP的入口，但这其实是不正确的，APP的真正的入口是ActivityThread类的main方法，这里要注意虽然叫ActivityThread其实它并不是我们平时所说的线程，由于我们这里只是分析消息机制，所以感兴趣的小伙伴可以自己去查询一下相关知识，既然main方法是入口，那我们就看看APP在启动时都做了什么，源码如下："></a>我刚接触android时，大家都跟我说application的oncreate方法是，APP的入口，但这其实是不正确的，APP的真正的入口是ActivityThread类的main方法，这里要注意虽然叫ActivityThread其实它并不是我们平时所说的线程，由于我们这里只是分析消息机制，所以感兴趣的小伙伴可以自己去查询一下相关知识，既然main方法是入口，那我们就看看APP在启动时都做了什么，源码如下：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">  public static void main(String[] args) &#123;</div><div class="line">//省略代码</div><div class="line">......</div><div class="line">       Looper.prepareMainLooper();</div><div class="line"></div><div class="line">       ActivityThread thread = new ActivityThread();</div><div class="line">       thread.attach(false);</div><div class="line"></div><div class="line">       if (sMainThreadHandler == null) &#123;</div><div class="line">           sMainThreadHandler = thread.getHandler();</div><div class="line">       &#125;</div><div class="line"></div><div class="line">       if (false) &#123;</div><div class="line">           Looper.myLooper().setMessageLogging(new</div><div class="line">                   LogPrinter(Log.DEBUG, &quot;ActivityThread&quot;));</div><div class="line">       &#125;</div><div class="line"></div><div class="line">       // End of event ActivityThreadMain.</div><div class="line">       Trace.traceEnd(Trace.TRACE_TAG_ACTIVITY_MANAGER);</div><div class="line">       Looper.loop();</div><div class="line"></div><div class="line">       throw new RuntimeException(&quot;Main thread loop unexpectedly exited&quot;);</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<h5 id="我们很容易注意到-Looper-prepareMainLooper-，Looper-loop-这两句代码，具体他们都是做什么的，我们一个一个来分析，先来看看第一句源码："><a href="#我们很容易注意到-Looper-prepareMainLooper-，Looper-loop-这两句代码，具体他们都是做什么的，我们一个一个来分析，先来看看第一句源码：" class="headerlink" title="我们很容易注意到 Looper.prepareMainLooper()，Looper.loop()这两句代码，具体他们都是做什么的，我们一个一个来分析，先来看看第一句源码："></a>我们很容易注意到 Looper.prepareMainLooper()，Looper.loop()这两句代码，具体他们都是做什么的，我们一个一个来分析，先来看看第一句源码：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">public static void prepareMainLooper() &#123;</div><div class="line">        prepare(false);</div><div class="line">        synchronized (Looper.class) &#123;</div><div class="line">            if (sMainLooper != null) &#123;</div><div class="line">                throw new IllegalStateException(&quot;The main Looper has already been prepared.&quot;);</div><div class="line">            &#125;</div><div class="line">            sMainLooper = myLooper();</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h5 id="这里又调用了prepare-false-跟myLooper-方法"><a href="#这里又调用了prepare-false-跟myLooper-方法" class="headerlink" title="这里又调用了prepare(false)跟myLooper()方法"></a>这里又调用了prepare(false)跟myLooper()方法</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">private static void prepare(boolean quitAllowed) &#123;</div><div class="line">        if (sThreadLocal.get() != null) &#123;</div><div class="line">            throw new RuntimeException(&quot;Only one Looper may be created per thread&quot;);</div><div class="line">        &#125;</div><div class="line">        sThreadLocal.set(new Looper(quitAllowed));</div><div class="line">    &#125;</div><div class="line"></div><div class="line">  public static @Nullable Looper myLooper() &#123;</div><div class="line">        return sThreadLocal.get();</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h5 id="prepare-false-方法大家很熟悉了吧，其实它内部非常简单，就几行代码，这里就要涉及另一个类ThreadLocal了，这个类我们一样不详细说明了，感兴趣的小伙伴多去查询吧，ThreadLocal这个类是用来绑定当前线程的，我们这里就当做一个map使用即可，好，我们再来看prepare方法，先是判断当前线程是否已经绑定Looper了，如果绑定就抛出异常，这也就说明了，一个线程只能有一个Looper实例，如果没有绑定，我们就new出一个实例并且绑定到当前线程。"><a href="#prepare-false-方法大家很熟悉了吧，其实它内部非常简单，就几行代码，这里就要涉及另一个类ThreadLocal了，这个类我们一样不详细说明了，感兴趣的小伙伴多去查询吧，ThreadLocal这个类是用来绑定当前线程的，我们这里就当做一个map使用即可，好，我们再来看prepare方法，先是判断当前线程是否已经绑定Looper了，如果绑定就抛出异常，这也就说明了，一个线程只能有一个Looper实例，如果没有绑定，我们就new出一个实例并且绑定到当前线程。" class="headerlink" title="prepare(false)方法大家很熟悉了吧，其实它内部非常简单，就几行代码，这里就要涉及另一个类ThreadLocal了，这个类我们一样不详细说明了，感兴趣的小伙伴多去查询吧，ThreadLocal这个类是用来绑定当前线程的，我们这里就当做一个map使用即可，好，我们再来看prepare方法，先是判断当前线程是否已经绑定Looper了，如果绑定就抛出异常，这也就说明了，一个线程只能有一个Looper实例，如果没有绑定，我们就new出一个实例并且绑定到当前线程。"></a>prepare(false)方法大家很熟悉了吧，其实它内部非常简单，就几行代码，这里就要涉及另一个类ThreadLocal了，这个类我们一样不详细说明了，感兴趣的小伙伴多去查询吧，ThreadLocal这个类是用来绑定当前线程的，我们这里就当做一个map使用即可，好，我们再来看prepare方法，先是判断当前线程是否已经绑定Looper了，如果绑定就抛出异常，这也就说明了，一个线程只能有一个Looper实例，如果没有绑定，我们就new出一个实例并且绑定到当前线程。</h5><h5 id="myLooper-方法更简单了，就是从当前线程获取绑定的Looper实例。"><a href="#myLooper-方法更简单了，就是从当前线程获取绑定的Looper实例。" class="headerlink" title="myLooper()方法更简单了，就是从当前线程获取绑定的Looper实例。"></a>myLooper()方法更简单了，就是从当前线程获取绑定的Looper实例。</h5><h5 id="也就是说prepareMainLooper-方法就是创建一个Looper并与当前线程绑定，那么loop-方法又做了什么呢，源码如下："><a href="#也就是说prepareMainLooper-方法就是创建一个Looper并与当前线程绑定，那么loop-方法又做了什么呢，源码如下：" class="headerlink" title="也就是说prepareMainLooper()方法就是创建一个Looper并与当前线程绑定，那么loop()方法又做了什么呢，源码如下："></a>也就是说prepareMainLooper()方法就是创建一个Looper并与当前线程绑定，那么loop()方法又做了什么呢，源码如下：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">public static void loop() &#123;</div><div class="line">       final Looper me = myLooper();</div><div class="line">       if (me == null) &#123;</div><div class="line">           throw new RuntimeException(&quot;No Looper; Looper.prepare() wasn&apos;t called on this thread.&quot;);</div><div class="line">       &#125;</div><div class="line">       final MessageQueue queue = me.mQueue;</div><div class="line"></div><div class="line">       for (;;) &#123;</div><div class="line">           Message msg = queue.next(); // might block</div><div class="line">           if (msg == null) &#123;</div><div class="line">               // No message indicates that the message queue is quitting.</div><div class="line">               return;</div><div class="line">           &#125;</div><div class="line"></div><div class="line">           try &#123;</div><div class="line">               msg.target.dispatchMessage(msg);</div><div class="line">               end = (slowDispatchThresholdMs == 0) ? 0 : SystemClock.uptimeMillis();</div><div class="line">           &#125; finally &#123;</div><div class="line">               if (traceTag != 0) &#123;</div><div class="line">                   Trace.traceEnd(traceTag);</div><div class="line">               &#125;</div><div class="line">           &#125;</div><div class="line"></div><div class="line">           msg.recycleUnchecked();</div><div class="line">       &#125;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<h5 id="loop-方法我这里只贴出了需要的代码，这里第一句也是调用了myLooper-方法，也即获取当前线程绑定的Looper，而me-mQueue是什么呢，其实就是message内部的一个MessageQueue，我们看一下Looper的构造方法："><a href="#loop-方法我这里只贴出了需要的代码，这里第一句也是调用了myLooper-方法，也即获取当前线程绑定的Looper，而me-mQueue是什么呢，其实就是message内部的一个MessageQueue，我们看一下Looper的构造方法：" class="headerlink" title="loop()方法我这里只贴出了需要的代码，这里第一句也是调用了myLooper()方法，也即获取当前线程绑定的Looper，而me.mQueue是什么呢，其实就是message内部的一个MessageQueue，我们看一下Looper的构造方法："></a>loop()方法我这里只贴出了需要的代码，这里第一句也是调用了myLooper()方法，也即获取当前线程绑定的Looper，而me.mQueue是什么呢，其实就是message内部的一个MessageQueue，我们看一下Looper的构造方法：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">private Looper(boolean quitAllowed) &#123;</div><div class="line">      mQueue = new MessageQueue(quitAllowed);</div><div class="line">      mThread = Thread.currentThread();</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<h5 id="就两句代码第一句就是创建了一个MessageQueue，第二句就是获取当前线程，由于一个线程只能有一个Looper实例，而一个Looper实例也只创建一个MessageQueue实例，所以一个线程只能绑定一个MessageQueue实例，好了，我们接着看loop-方法，获取message内部的messageQueue实例后，接着就是一个死循坏，当然这里说是死循坏并不恰当，后面我们会说明为什么，这个循坏里面不断从消息队列messageQueue中获取message实例，注意这句话might-bolck意思是说可能会阻塞，具体我们后面会说道，接下来，获取到message实例后会调用message-target-dispatchMessage-msg-方法，这里的target其实就是发送该message的handel看下message创建实例的方法："><a href="#就两句代码第一句就是创建了一个MessageQueue，第二句就是获取当前线程，由于一个线程只能有一个Looper实例，而一个Looper实例也只创建一个MessageQueue实例，所以一个线程只能绑定一个MessageQueue实例，好了，我们接着看loop-方法，获取message内部的messageQueue实例后，接着就是一个死循坏，当然这里说是死循坏并不恰当，后面我们会说明为什么，这个循坏里面不断从消息队列messageQueue中获取message实例，注意这句话might-bolck意思是说可能会阻塞，具体我们后面会说道，接下来，获取到message实例后会调用message-target-dispatchMessage-msg-方法，这里的target其实就是发送该message的handel看下message创建实例的方法：" class="headerlink" title="就两句代码第一句就是创建了一个MessageQueue，第二句就是获取当前线程，由于一个线程只能有一个Looper实例，而一个Looper实例也只创建一个MessageQueue实例，所以一个线程只能绑定一个MessageQueue实例，好了，我们接着看loop()方法，获取message内部的messageQueue实例后，接着就是一个死循坏，当然这里说是死循坏并不恰当，后面我们会说明为什么，这个循坏里面不断从消息队列messageQueue中获取message实例，注意这句话might bolck意思是说可能会阻塞，具体我们后面会说道，接下来，获取到message实例后会调用message.target.dispatchMessage(msg)方法，这里的target其实就是发送该message的handel看下message创建实例的方法："></a>就两句代码第一句就是创建了一个MessageQueue，第二句就是获取当前线程，由于一个线程只能有一个Looper实例，而一个Looper实例也只创建一个MessageQueue实例，所以一个线程只能绑定一个MessageQueue实例，好了，我们接着看loop()方法，获取message内部的messageQueue实例后，接着就是一个死循坏，当然这里说是死循坏并不恰当，后面我们会说明为什么，这个循坏里面不断从消息队列messageQueue中获取message实例，注意这句话might bolck意思是说可能会阻塞，具体我们后面会说道，接下来，获取到message实例后会调用message.target.dispatchMessage(msg)方法，这里的target其实就是发送该message的handel看下message创建实例的方法：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">public static Message obtain(Handler h) &#123;</div><div class="line">       Message m = obtain();</div><div class="line">       m.target = h;</div><div class="line"></div><div class="line">       return m;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<h5 id="很清楚这里创建message实例时要传入一个handler，也就是每一个message都要绑定发送它的handler。而handler-despatchMessage-message-方法都做了什么呢，源码如下："><a href="#很清楚这里创建message实例时要传入一个handler，也就是每一个message都要绑定发送它的handler。而handler-despatchMessage-message-方法都做了什么呢，源码如下：" class="headerlink" title="很清楚这里创建message实例时要传入一个handler，也就是每一个message都要绑定发送它的handler。而handler.despatchMessage(message)方法都做了什么呢，源码如下："></a>很清楚这里创建message实例时要传入一个handler，也就是每一个message都要绑定发送它的handler。而handler.despatchMessage(message)方法都做了什么呢，源码如下：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">public void dispatchMessage(Message msg) &#123;</div><div class="line">       if (msg.callback != null) &#123;</div><div class="line">           handleCallback(msg);</div><div class="line">       &#125; else &#123;</div><div class="line">           if (mCallback != null) &#123;</div><div class="line">               if (mCallback.handleMessage(msg)) &#123;</div><div class="line">                   return;</div><div class="line">               &#125;</div><div class="line">           &#125;</div><div class="line">           handleMessage(msg);</div><div class="line">       &#125;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<h5 id="可以看到其实就是调用了我们重写的handlerMessage-方法了，这也就是为什么我们创建handler时经常要重写handlerMessage方法了。好了我们这里先大概总结一下：首先先调用Looper-prepare方法创建一个Looper实例并且让该实例与当前线程绑定，以保证一个线程只有一个Looper实例，而创建Looper实例时，我们有在内部创建了一个消息队列MessageQueue实例，其次我们调用了Looper-loop方法，该方法内先获取当前线程绑定的Looper实例，并且从该Looper实例获取对应的消息队列，然后进入死循坏不断从消息队列中获取消息，一旦获取消息后，就调用发送该消息的handler的dispatchMessage方法处理该消息。那么消息是如何添加到对应的消息队列呢？"><a href="#可以看到其实就是调用了我们重写的handlerMessage-方法了，这也就是为什么我们创建handler时经常要重写handlerMessage方法了。好了我们这里先大概总结一下：首先先调用Looper-prepare方法创建一个Looper实例并且让该实例与当前线程绑定，以保证一个线程只有一个Looper实例，而创建Looper实例时，我们有在内部创建了一个消息队列MessageQueue实例，其次我们调用了Looper-loop方法，该方法内先获取当前线程绑定的Looper实例，并且从该Looper实例获取对应的消息队列，然后进入死循坏不断从消息队列中获取消息，一旦获取消息后，就调用发送该消息的handler的dispatchMessage方法处理该消息。那么消息是如何添加到对应的消息队列呢？" class="headerlink" title="可以看到其实就是调用了我们重写的handlerMessage()方法了，这也就是为什么我们创建handler时经常要重写handlerMessage方法了。好了我们这里先大概总结一下：首先先调用Looper.prepare方法创建一个Looper实例并且让该实例与当前线程绑定，以保证一个线程只有一个Looper实例，而创建Looper实例时，我们有在内部创建了一个消息队列MessageQueue实例，其次我们调用了Looper.loop方法，该方法内先获取当前线程绑定的Looper实例，并且从该Looper实例获取对应的消息队列，然后进入死循坏不断从消息队列中获取消息，一旦获取消息后，就调用发送该消息的handler的dispatchMessage方法处理该消息。那么消息是如何添加到对应的消息队列呢？"></a>可以看到其实就是调用了我们重写的handlerMessage()方法了，这也就是为什么我们创建handler时经常要重写handlerMessage方法了。好了我们这里先大概总结一下：首先先调用Looper.prepare方法创建一个Looper实例并且让该实例与当前线程绑定，以保证一个线程只有一个Looper实例，而创建Looper实例时，我们有在内部创建了一个消息队列MessageQueue实例，其次我们调用了Looper.loop方法，该方法内先获取当前线程绑定的Looper实例，并且从该Looper实例获取对应的消息队列，然后进入死循坏不断从消息队列中获取消息，一旦获取消息后，就调用发送该消息的handler的dispatchMessage方法处理该消息。那么消息是如何添加到对应的消息队列呢？</h5><h3 id="2、Hander源码分析"><a href="#2、Hander源码分析" class="headerlink" title="2、Hander源码分析"></a>2、Hander源码分析</h3><h5 id="我们平时使用handler发送消息有很多种，我们这里只分析其中一种sendMessage-Message-msg-，其他的类似-源码如下："><a href="#我们平时使用handler发送消息有很多种，我们这里只分析其中一种sendMessage-Message-msg-，其他的类似-源码如下：" class="headerlink" title="我们平时使用handler发送消息有很多种，我们这里只分析其中一种sendMessage(Message msg)，其他的类似,源码如下："></a>我们平时使用handler发送消息有很多种，我们这里只分析其中一种sendMessage(Message msg)，其他的类似,源码如下：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">public final boolean sendMessage(Message msg)</div><div class="line">   &#123;</div><div class="line">       return sendMessageDelayed(msg, 0);</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<h5 id="其调用了sendMessageDelayed-msg-0-方法，其源码如下："><a href="#其调用了sendMessageDelayed-msg-0-方法，其源码如下：" class="headerlink" title="其调用了sendMessageDelayed(msg,0)方法，其源码如下："></a>其调用了sendMessageDelayed(msg,0)方法，其源码如下：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">public final boolean sendMessageDelayed(Message msg, long delayMillis)</div><div class="line">  &#123;</div><div class="line">      if (delayMillis &lt; 0) &#123;</div><div class="line">          delayMillis = 0;</div><div class="line">      &#125;</div><div class="line">      return sendMessageAtTime(msg, SystemClock.uptimeMillis() + delayMillis);</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<h5 id="其内部又调用了sendMessageAtTime方法："><a href="#其内部又调用了sendMessageAtTime方法：" class="headerlink" title="其内部又调用了sendMessageAtTime方法："></a>其内部又调用了sendMessageAtTime方法：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">public boolean sendMessageAtTime(Message msg, long uptimeMillis) &#123;</div><div class="line">      MessageQueue queue = mQueue;</div><div class="line">      if (queue == null) &#123;</div><div class="line">          RuntimeException e = new RuntimeException(</div><div class="line">                  this + &quot; sendMessageAtTime() called with no mQueue&quot;);</div><div class="line">          Log.w(&quot;Looper&quot;, e.getMessage(), e);</div><div class="line">          return false;</div><div class="line">      &#125;</div><div class="line">      return enqueueMessage(queue, msg, uptimeMillis);</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<h5 id="这个方法也很简单，先是获取对应的消息队列，然后调用enqueueMessage方法，将message加入到该消息队列中："><a href="#这个方法也很简单，先是获取对应的消息队列，然后调用enqueueMessage方法，将message加入到该消息队列中：" class="headerlink" title="这个方法也很简单，先是获取对应的消息队列，然后调用enqueueMessage方法，将message加入到该消息队列中："></a>这个方法也很简单，先是获取对应的消息队列，然后调用enqueueMessage方法，将message加入到该消息队列中：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">private boolean enqueueMessage(MessageQueue queue, Message msg, long uptimeMillis) &#123;</div><div class="line">        msg.target = this;</div><div class="line">        if (mAsynchronous) &#123;</div><div class="line">            msg.setAsynchronous(true);</div><div class="line">        &#125;</div><div class="line">        return queue.enqueueMessage(msg, uptimeMillis);</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h5 id="可以看到enqueueMessage方法先是将handler存到要发送的message中，再调用messageQueue-enqueueMessage方法，将消息加入到消息队列中，这样在Looper-loop启动后就可以获取到该message了。"><a href="#可以看到enqueueMessage方法先是将handler存到要发送的message中，再调用messageQueue-enqueueMessage方法，将消息加入到消息队列中，这样在Looper-loop启动后就可以获取到该message了。" class="headerlink" title="可以看到enqueueMessage方法先是将handler存到要发送的message中，再调用messageQueue.enqueueMessage方法，将消息加入到消息队列中，这样在Looper.loop启动后就可以获取到该message了。"></a>可以看到enqueueMessage方法先是将handler存到要发送的message中，再调用messageQueue.enqueueMessage方法，将消息加入到消息队列中，这样在Looper.loop启动后就可以获取到该message了。</h5><h5 id="好了，我们再来总结一下"><a href="#好了，我们再来总结一下" class="headerlink" title="好了，我们再来总结一下:"></a>好了，我们再来总结一下:</h5><ol>
+<li>Looper.prepare()在本线程中创建一个Looper实例，在该实例中创建一个消息队列MessageQueue实例，因为一个线程只能有一个Looper实例，所以一个线程也就只能有一个消息队列。</li>
+<li>Looper.loop()方法会让当前线程进入一个无限循坏中，不断从消息队列中获取message，当获取到message时，就交给发送该消息的handler处理，如果没获取到message则进入阻塞。</li>
+<li>Hander实例创建时，会先获取到当前线程的Looper实例，然后通过该Looper实例获取到消息队列。</li>
+<li>Hander.sendMessage方法，会给message绑定handler本身，然后加入到该线程的消息队列中。</li>
+<li>消息机制是基于同一个线程而言的，也就是说同一个线程的handler只能发送message到同一个线程的消息队列中。<h5 id="四、后记"><a href="#四、后记" class="headerlink" title="四、后记"></a>四、后记</h5><h5 id="前面我们说过messagequeue-next方法会阻塞线程以及Looper-loop方法会进入死循坏中，那么这就涉及到另一个问题，在主线程中为什么死循坏不会造成ANR呢？"><a href="#前面我们说过messagequeue-next方法会阻塞线程以及Looper-loop方法会进入死循坏中，那么这就涉及到另一个问题，在主线程中为什么死循坏不会造成ANR呢？" class="headerlink" title="前面我们说过messagequeue.next方法会阻塞线程以及Looper.loop方法会进入死循坏中，那么这就涉及到另一个问题，在主线程中为什么死循坏不会造成ANR呢？"></a>前面我们说过messagequeue.next方法会阻塞线程以及Looper.loop方法会进入死循坏中，那么这就涉及到另一个问题，在主线程中为什么死循坏不会造成ANR呢？</h5><h5 id="首先，我们要理解什么是ANR-ANR是指某一事件长时间未得到相应。比如说，我们先点击某一个button的点击事件，再点击另一个button的点击事件，假如这里不牵扯多线程问题，如果第一个button有耗时操作超过5s，那么第二个button的点击事件，只能在消息队列中等候，当长时间未轮到第二个button的点击事件的message时，就会报ANR。既然知道了什么是ANR，那么为什么next方法阻塞线程时不会报ANR呢，其实这里的阻塞并不是我们平时说的阻塞，我们可以理解为休眠，当消息队列中没有消息时，线程会进入休眠状态，当来新的消息时，会被唤醒，其实在主线程中我们可以看到activity等的生命周期都在一个继承Handler的类H中进行管理的，而如果主线程并不是死循环的话，当走完生命周期，那么这个线程也就结束了，我们的程序也就退出去了，所以这里设计成死循环也是为了让程序一直运行。"><a href="#首先，我们要理解什么是ANR-ANR是指某一事件长时间未得到相应。比如说，我们先点击某一个button的点击事件，再点击另一个button的点击事件，假如这里不牵扯多线程问题，如果第一个button有耗时操作超过5s，那么第二个button的点击事件，只能在消息队列中等候，当长时间未轮到第二个button的点击事件的message时，就会报ANR。既然知道了什么是ANR，那么为什么next方法阻塞线程时不会报ANR呢，其实这里的阻塞并不是我们平时说的阻塞，我们可以理解为休眠，当消息队列中没有消息时，线程会进入休眠状态，当来新的消息时，会被唤醒，其实在主线程中我们可以看到activity等的生命周期都在一个继承Handler的类H中进行管理的，而如果主线程并不是死循环的话，当走完生命周期，那么这个线程也就结束了，我们的程序也就退出去了，所以这里设计成死循环也是为了让程序一直运行。" class="headerlink" title="首先，我们要理解什么是ANR,ANR是指某一事件长时间未得到相应。比如说，我们先点击某一个button的点击事件，再点击另一个button的点击事件，假如这里不牵扯多线程问题，如果第一个button有耗时操作超过5s，那么第二个button的点击事件，只能在消息队列中等候，当长时间未轮到第二个button的点击事件的message时，就会报ANR。既然知道了什么是ANR，那么为什么next方法阻塞线程时不会报ANR呢，其实这里的阻塞并不是我们平时说的阻塞，我们可以理解为休眠，当消息队列中没有消息时，线程会进入休眠状态，当来新的消息时，会被唤醒，其实在主线程中我们可以看到activity等的生命周期都在一个继承Handler的类H中进行管理的，而如果主线程并不是死循环的话，当走完生命周期，那么这个线程也就结束了，我们的程序也就退出去了，所以这里设计成死循环也是为了让程序一直运行。"></a>首先，我们要理解什么是ANR,ANR是指某一事件长时间未得到相应。比如说，我们先点击某一个button的点击事件，再点击另一个button的点击事件，假如这里不牵扯多线程问题，如果第一个button有耗时操作超过5s，那么第二个button的点击事件，只能在消息队列中等候，当长时间未轮到第二个button的点击事件的message时，就会报ANR。既然知道了什么是ANR，那么为什么next方法阻塞线程时不会报ANR呢，其实这里的阻塞并不是我们平时说的阻塞，我们可以理解为休眠，当消息队列中没有消息时，线程会进入休眠状态，当来新的消息时，会被唤醒，其实在主线程中我们可以看到activity等的生命周期都在一个继承Handler的类H中进行管理的，而如果主线程并不是死循环的话，当走完生命周期，那么这个线程也就结束了，我们的程序也就退出去了，所以这里设计成死循环也是为了让程序一直运行。</h5></li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.coolcoolcoder.com/c_night/2017/11/06/Gradle使用技巧/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1214,7 +1351,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1222,6 +1359,15 @@
 
             
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
             
 
           </nav>
