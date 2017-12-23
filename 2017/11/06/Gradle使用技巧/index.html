@@ -1,305 +1,197 @@
 <!DOCTYPE html>
+<html lang="en">
 
-
-
-  
-
-
-<html class="theme-next muse use-motion" lang="zh-CN">
+<!-- Head tag -->
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-<meta name="theme-color" content="#222">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="c_night">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          Gradle使用技巧 - undefined
+        
+    </title>
+
+    <link rel="canonical" href="http://www.coolcoolcoder.com/c_night/2017/11/06/Gradle使用技巧/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
 
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
 
 
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
 
 
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="Hexo, NexT" />
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="一、简介在这一节中，我们总结一下在实际开发中Gradle的一些使用技巧。二、技巧 Gradle peer not authenticated 在更新Gradle依赖包事，经常会出现这个错误，导致Gradle编译失败，相信大家已经知道怎么解决了，使用VPN进行网络访问即可，另外通过修改jcenter库的地址也能修复这个问题：123jcenter&amp;#123;    url &amp;quot;http://j">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Gradle使用技巧">
-<meta property="og:url" content="http://www.coolcoolcoder.com/c_night/2017/11/06/Gradle使用技巧/index.html">
-<meta property="og:site_name" content="coolyellow的博客">
-<meta property="og:description" content="一、简介在这一节中，我们总结一下在实际开发中Gradle的一些使用技巧。二、技巧 Gradle peer not authenticated 在更新Gradle依赖包事，经常会出现这个错误，导致Gradle编译失败，相信大家已经知道怎么解决了，使用VPN进行网络访问即可，另外通过修改jcenter库的地址也能修复这个问题：123jcenter&amp;#123;    url &amp;quot;http://j">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-11-06T14:37:30.643Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Gradle使用技巧">
-<meta name="twitter:description" content="一、简介在这一节中，我们总结一下在实际开发中Gradle的一些使用技巧。二、技巧 Gradle peer not authenticated 在更新Gradle依赖包事，经常会出现这个错误，导致Gradle编译失败，相信大家已经知道怎么解决了，使用VPN进行网络访问即可，另外通过修改jcenter库的地址也能修复这个问题：123jcenter&amp;#123;    url &amp;quot;http://j">
-
-
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Muse',
-    version: '5.1.3',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('')
+            /*post*/
+        
     }
-  };
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                        </div>
+                        <h1>Gradle使用技巧</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by CoolYellow on
+                            2017-11-06
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">coolyellow的博客</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                        <li>
+                            <a href="/categories/">categories</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
 </script>
 
 
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
 
-  <link rel="canonical" href="http://www.coolcoolcoder.com/c_night/2017/11/06/Gradle使用技巧/"/>
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
 
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
 
-
-
-
-  <title>Gradle使用技巧 | coolyellow的博客</title>
-  
-
-
-
-
-
-
-
-
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">coolyellow的博客</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
-    </div>
-      
-        <p class="site-subtitle">cool</p>
-      
-  </div>
-
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
-  </div>
-</div>
-
-<nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-
-      
-    </ul>
-  
-
-  
-</nav>
-
-
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-
-  <div id="posts" class="posts-expand">
-    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.coolcoolcoder.com/c_night/2017/11/06/Gradle使用技巧/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CoolYellow">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="coolyellow的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">Gradle使用技巧</h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-06T20:38:41+08:00">
-                2017-11-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <h2 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h2><h5 id="在这一节中，我们总结一下在实际开发中Gradle的一些使用技巧。"><a href="#在这一节中，我们总结一下在实际开发中Gradle的一些使用技巧。" class="headerlink" title="在这一节中，我们总结一下在实际开发中Gradle的一些使用技巧。"></a>在这一节中，我们总结一下在实际开发中Gradle的一些使用技巧。</h5><h2 id="二、技巧"><a href="#二、技巧" class="headerlink" title="二、技巧"></a>二、技巧</h2><ol>
+                <h2 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h2><h5 id="在这一节中，我们总结一下在实际开发中Gradle的一些使用技巧。"><a href="#在这一节中，我们总结一下在实际开发中Gradle的一些使用技巧。" class="headerlink" title="在这一节中，我们总结一下在实际开发中Gradle的一些使用技巧。"></a>在这一节中，我们总结一下在实际开发中Gradle的一些使用技巧。</h5><h2 id="二、技巧"><a href="#二、技巧" class="headerlink" title="二、技巧"></a>二、技巧</h2><ol>
 <li><p>Gradle peer not authenticated</p>
 <h5 id="在更新Gradle依赖包事，经常会出现这个错误，导致Gradle编译失败，相信大家已经知道怎么解决了，使用VPN进行网络访问即可，另外通过修改jcenter库的地址也能修复这个问题："><a href="#在更新Gradle依赖包事，经常会出现这个错误，导致Gradle编译失败，相信大家已经知道怎么解决了，使用VPN进行网络访问即可，另外通过修改jcenter库的地址也能修复这个问题：" class="headerlink" title="在更新Gradle依赖包事，经常会出现这个错误，导致Gradle编译失败，相信大家已经知道怎么解决了，使用VPN进行网络访问即可，另外通过修改jcenter库的地址也能修复这个问题："></a>在更新Gradle依赖包事，经常会出现这个错误，导致Gradle编译失败，相信大家已经知道怎么解决了，使用VPN进行网络访问即可，另外通过修改jcenter库的地址也能修复这个问题：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">jcenter&#123;</div><div class="line">    url &quot;http://jcenter.bintray.com/&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
@@ -328,210 +220,55 @@
 <h5 id="开发这经常在会遇到Gradle-Version-导致的问题，通常这个问题是由gradle-wrapper导致的，要解决这个问题，只需要按照一下步骤进行检查即可。"><a href="#开发这经常在会遇到Gradle-Version-导致的问题，通常这个问题是由gradle-wrapper导致的，要解决这个问题，只需要按照一下步骤进行检查即可。" class="headerlink" title="开发这经常在会遇到Gradle Version 导致的问题，通常这个问题是由gradle wrapper导致的，要解决这个问题，只需要按照一下步骤进行检查即可。"></a>开发这经常在会遇到Gradle Version 导致的问题，通常这个问题是由gradle wrapper导致的，要解决这个问题，只需要按照一下步骤进行检查即可。</h5><h5 id="a-打开Setting界面，在Build-Build-Tools-Gradle标签中，选择Project-Level-settiong-并勾选Use-default-gradle-wrapper"><a href="#a-打开Setting界面，在Build-Build-Tools-Gradle标签中，选择Project-Level-settiong-并勾选Use-default-gradle-wrapper" class="headerlink" title="a. 打开Setting界面，在Build-Build Tools-Gradle标签中，选择Project-Level-settiong,并勾选Use default gradle wrapper."></a>a. 打开Setting界面，在Build-Build Tools-Gradle标签中，选择Project-Level-settiong,并勾选Use default gradle wrapper.</h5><h5 id="b-使用当前版本的AS创建一个空的Android工程并进行编译运行，目的是让Android-Studio拉取可能新增的依赖包。"><a href="#b-使用当前版本的AS创建一个空的Android工程并进行编译运行，目的是让Android-Studio拉取可能新增的依赖包。" class="headerlink" title="b. 使用当前版本的AS创建一个空的Android工程并进行编译运行，目的是让Android Studio拉取可能新增的依赖包。"></a>b. 使用当前版本的AS创建一个空的Android工程并进行编译运行，目的是让Android Studio拉取可能新增的依赖包。</h5><h5 id="c-复制刚刚创建的Android工程的Gradle目录，病粘贴到发生错误的工程中，替换原有的Gradle目录。"><a href="#c-复制刚刚创建的Android工程的Gradle目录，病粘贴到发生错误的工程中，替换原有的Gradle目录。" class="headerlink" title="c. 复制刚刚创建的Android工程的Gradle目录，病粘贴到发生错误的工程中，替换原有的Gradle目录。"></a>c. 复制刚刚创建的Android工程的Gradle目录，病粘贴到发生错误的工程中，替换原有的Gradle目录。</h5><h5 id="d-检查根目录下的build-gradle文件，检查Gradle的plugin版本，最好与空的Android工程中的plugin版本相同。"><a href="#d-检查根目录下的build-gradle文件，检查Gradle的plugin版本，最好与空的Android工程中的plugin版本相同。" class="headerlink" title="d. 检查根目录下的build.gradle文件，检查Gradle的plugin版本，最好与空的Android工程中的plugin版本相同。"></a>d. 检查根目录下的build.gradle文件，检查Gradle的plugin版本，最好与空的Android工程中的plugin版本相同。</h5><h5 id="执行完上边的步骤，在编译工程，基本都会解决该问题。不过我们更推荐在本地配置稳定的Gradle版本。"><a href="#执行完上边的步骤，在编译工程，基本都会解决该问题。不过我们更推荐在本地配置稳定的Gradle版本。" class="headerlink" title="执行完上边的步骤，在编译工程，基本都会解决该问题。不过我们更推荐在本地配置稳定的Gradle版本。"></a>执行完上边的步骤，在编译工程，基本都会解决该问题。不过我们更推荐在本地配置稳定的Gradle版本。</h5></li>
 </ol>
 <h2 id="三、总结"><a href="#三、总结" class="headerlink" title="三、总结"></a>三、总结</h2><h5 id="关于Gradle我们就总结到这里，相信这些掌握了这些技巧已经能够应对日常开发了，当然如果你还想更深入的研究Gradle等，就需要自己查找官网或者其他书籍等来学习了。"><a href="#关于Gradle我们就总结到这里，相信这些掌握了这些技巧已经能够应对日常开发了，当然如果你还想更深入的研究Gradle等，就需要自己查找官网或者其他书籍等来学习了。" class="headerlink" title="关于Gradle我们就总结到这里，相信这些掌握了这些技巧已经能够应对日常开发了，当然如果你还想更深入的研究Gradle等，就需要自己查找官网或者其他书籍等来学习了。"></a>关于Gradle我们就总结到这里，相信这些掌握了这些技巧已经能够应对日常开发了，当然如果你还想更深入的研究Gradle等，就需要自己查找官网或者其他书籍等来学习了。</h5>
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2017/11/04/hello-world/" rel="next" title="Hello World">
-                <i class="fa fa-chevron-left"></i> Hello World
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/11/12/Android消息机制从源码分析Handelr、Looper、Message/" rel="prev" title="Android消息机制从源码分析Handelr、Looper、Message">
-                Android消息机制从源码分析Handelr、Looper、Message <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
-  
-
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">CoolYellow</p>
-              <p class="site-description motion-element" itemprop="description">c_night</p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">8</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">1</span>
-                  <span class="site-state-item-name">标签</span>
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2017/11/12/Android消息机制从源码分析Handelr、Looper、Message/" data-toggle="tooltip" data-placement="top" title="Android消息机制从源码分析Handelr、Looper、Message">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2017/11/04/hello-world/" data-toggle="tooltip" data-placement="top" title="Hello World">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
                 
-              </div>
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+            </div>
             
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
 
-          </nav>
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
 
-          
+                <!-- Featured Tags -->
+                
 
-          <div class="links-of-author motion-element">
-            
-          </div>
-
-          
-          
-
-          
-          
-
-          
-
+                <!-- Friends Blog -->
+                
+            </div>
         </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、简介"><span class="nav-number">1.</span> <span class="nav-text">一、简介</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#在这一节中，我们总结一下在实际开发中Gradle的一些使用技巧。"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">在这一节中，我们总结一下在实际开发中Gradle的一些使用技巧。</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、技巧"><span class="nav-number">2.</span> <span class="nav-text">二、技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#在更新Gradle依赖包事，经常会出现这个错误，导致Gradle编译失败，相信大家已经知道怎么解决了，使用VPN进行网络访问即可，另外通过修改jcenter库的地址也能修复这个问题："><span class="nav-number">2.0.0.1.</span> <span class="nav-text">在更新Gradle依赖包事，经常会出现这个错误，导致Gradle编译失败，相信大家已经知道怎么解决了，使用VPN进行网络访问即可，另外通过修改jcenter库的地址也能修复这个问题：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#其实Gradle编译工具本身就内置了性能分析工具—profile。通过Gradle编译的使用，只需要增加-profile参数即可打开这个功能。执行一下脚本："><span class="nav-number">2.0.0.2.</span> <span class="nav-text">其实Gradle编译工具本身就内置了性能分析工具—profile。通过Gradle编译的使用，只需要增加-profile参数即可打开这个功能。执行一下脚本：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#通过以上脚本，我们就可以在根目录的Build目录下生成一个profile文件，该文件显示了完整的Grdle编译过程的耗时，通过查看这个profiel文件，就可以进一步优化Gradle脚本。例如关闭lint这个task、在debug版本中，可以使用以下代码提高AAPT的速度："><span class="nav-number">2.0.0.3.</span> <span class="nav-text">通过以上脚本，我们就可以在根目录的Build目录下生成一个profile文件，该文件显示了完整的Grdle编译过程的耗时，通过查看这个profiel文件，就可以进一步优化Gradle脚本。例如关闭lint这个task、在debug版本中，可以使用以下代码提高AAPT的速度：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#这里要注意，由于资源没有经过AAPT优化，可能会导致一些运行问题，所以最好只在Debug时采用，而在release时一定不要采用。"><span class="nav-number">2.0.0.4.</span> <span class="nav-text">这里要注意，由于资源没有经过AAPT优化，可能会导致一些运行问题，所以最好只在Debug时采用，而在release时一定不要采用。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#前面我们介绍了如何对Gradle的task进行加速，接下来我们就从Gradle本身讲解如何提速。由于Gradle在编译期间会执行大量的task，同时生成大量的中间文件，所以磁盘IO会造成编译速度慢，解决该问题最好的方式是使用固态硬盘，同时减少本地库项目的依赖，多使用aar进行依赖。其次，可以在gradle-properties文件中增加如下代码："><span class="nav-number">2.0.0.5.</span> <span class="nav-text">前面我们介绍了如何对Gradle的task进行加速，接下来我们就从Gradle本身讲解如何提速。由于Gradle在编译期间会执行大量的task，同时生成大量的中间文件，所以磁盘IO会造成编译速度慢，解决该问题最好的方式是使用固态硬盘，同时减少本地库项目的依赖，多使用aar进行依赖。其次，可以在gradle.properties文件中增加如下代码：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#同时，在build-gradle中增加如下代码："><span class="nav-number">2.0.0.6.</span> <span class="nav-text">同时，在build.gradle中增加如下代码：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#gradle-properties文件中的代码，表示开启Gradle的多线程跟多核心支持。而build-gradle中的代码，表示开启Gradle的增量编译，增加编译的内存到4G。"><span class="nav-number">2.0.0.7.</span> <span class="nav-text">gradle.properties文件中的代码，表示开启Gradle的多线程跟多核心支持。而build.gradle中的代码，表示开启Gradle的增量编译，增加编译的内存到4G。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#对于编译时的内存溢出问题，我们可以在gradle-properties文件中增加一下内存配置，让Gradle获取更多内存。一般来说使用默认的即可。"><span class="nav-number">2.0.0.8.</span> <span class="nav-text">对于编译时的内存溢出问题，我们可以在gradle.properties文件中增加一下内存配置，让Gradle获取更多内存。一般来说使用默认的即可。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#前面我们提到了minifyEnabled指令，这个指令不仅可以用于混淆，也可以对代码进行优化、精简。同时配合shrinkResources指令，还可以清楚醒目中的无效的资源文件，但是要注意一点的是，shrinkResources指令依赖于minifyEnabled指令，只有后者开启了，前者才起作用，代码如下："><span class="nav-number">2.0.0.9.</span> <span class="nav-text">前面我们提到了minifyEnabled指令，这个指令不仅可以用于混淆，也可以对代码进行优化、精简。同时配合shrinkResources指令，还可以清楚醒目中的无效的资源文件，但是要注意一点的是，shrinkResources指令依赖于minifyEnabled指令，只有后者开启了，前者才起作用，代码如下：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#这里要注意，这种精简资源的方式属于静态检测，一些动态加载的资源是无法检测的。"><span class="nav-number">2.0.0.10.</span> <span class="nav-text">这里要注意，这种精简资源的方式属于静态检测，一些动态加载的资源是无法检测的。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#开发中经常遇到上传同一版本的aar到maven库，在主项目中无法获得最新的aar库的。这时候就需要将本地的Gradle缓存删除，让项目重新从Maven库中拉取最新的aar库。而在平时处理多使用gradle-clean指令来清理Gradle缓存以外，Gradle还提供了一个指令来重新刷新全部的依赖库—gradle-–refresh-dependencies-通过这个指令，可以强制刷新所依赖的库项目。"><span class="nav-number">2.0.0.11.</span> <span class="nav-text">开发中经常遇到上传同一版本的aar到maven库，在主项目中无法获得最新的aar库的。这时候就需要将本地的Gradle缓存删除，让项目重新从Maven库中拉取最新的aar库。而在平时处理多使用gradle clean指令来清理Gradle缓存以外，Gradle还提供了一个指令来重新刷新全部的依赖库—gradle –refresh dependencies.通过这个指令，可以强制刷新所依赖的库项目。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#开发这经常在会遇到Gradle-Version-导致的问题，通常这个问题是由gradle-wrapper导致的，要解决这个问题，只需要按照一下步骤进行检查即可。"><span class="nav-number">2.0.0.12.</span> <span class="nav-text">开发这经常在会遇到Gradle Version 导致的问题，通常这个问题是由gradle wrapper导致的，要解决这个问题，只需要按照一下步骤进行检查即可。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#a-打开Setting界面，在Build-Build-Tools-Gradle标签中，选择Project-Level-settiong-并勾选Use-default-gradle-wrapper"><span class="nav-number">2.0.0.13.</span> <span class="nav-text">a. 打开Setting界面，在Build-Build Tools-Gradle标签中，选择Project-Level-settiong,并勾选Use default gradle wrapper.</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#b-使用当前版本的AS创建一个空的Android工程并进行编译运行，目的是让Android-Studio拉取可能新增的依赖包。"><span class="nav-number">2.0.0.14.</span> <span class="nav-text">b. 使用当前版本的AS创建一个空的Android工程并进行编译运行，目的是让Android Studio拉取可能新增的依赖包。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#c-复制刚刚创建的Android工程的Gradle目录，病粘贴到发生错误的工程中，替换原有的Gradle目录。"><span class="nav-number">2.0.0.15.</span> <span class="nav-text">c. 复制刚刚创建的Android工程的Gradle目录，病粘贴到发生错误的工程中，替换原有的Gradle目录。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#d-检查根目录下的build-gradle文件，检查Gradle的plugin版本，最好与空的Android工程中的plugin版本相同。"><span class="nav-number">2.0.0.16.</span> <span class="nav-text">d. 检查根目录下的build.gradle文件，检查Gradle的plugin版本，最好与空的Android工程中的plugin版本相同。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#执行完上边的步骤，在编译工程，基本都会解决该问题。不过我们更推荐在本地配置稳定的Gradle版本。"><span class="nav-number">2.0.0.17.</span> <span class="nav-text">执行完上边的步骤，在编译工程，基本都会解决该问题。不过我们更推荐在本地配置稳定的Gradle版本。</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、总结"><span class="nav-number">3.</span> <span class="nav-text">三、总结</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#关于Gradle我们就总结到这里，相信这些掌握了这些技巧已经能够应对日常开发了，当然如果你还想更深入的研究Gradle等，就需要自己查找官网或者其他书籍等来学习了。"><span class="nav-number">3.0.0.1.</span> <span class="nav-text">关于Gradle我们就总结到这里，相信这些掌握了这些技巧已经能够应对日常开发了，当然如果你还想更深入的研究Gradle等，就需要自己查找官网或者其他书籍等来学习了。</span></a></li></ol></li></ol></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
     </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">CoolYellow</span>
-
-  
-</div>
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
-
-
-
-
-        
+</article>
 
 
 
@@ -539,157 +276,130 @@
 
 
 
-        
-      </div>
-    </footer>
 
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
 
-    
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
 
-  </div>
+                
 
-  
+                
 
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; CoolYellow 2017 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    re-Ported by <a href="http://beantech.org">BeanTech</a> | 
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=YenYuHsuan&repo=hexo-theme-beantech&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://www.coolcoolcoder.com/c_night/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
 </script>
 
 
+<!-- Google Analytics -->
 
 
 
 
+<!-- Baidu Tongji -->
 
 
 
-  
 
 
 
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-  
-
-  
-  
-
-  
-
-  
-
-  
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="http://www.coolcoolcoder.com/c_night/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
 
 </body>
+
 </html>
