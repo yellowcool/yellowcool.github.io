@@ -109,19 +109,17 @@
 
         <div id="main" >
             <div class ="post_page_title_img" style="height: 25rem;background-image: url();background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
-                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >Hello World</h2></a>
+                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >Hadoop安装与配置</h2></a>
             </div>
             <!-- Post -->
             <div class="typo" style="padding: 3rem;">
-                <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+                <h3 id="一、Hadoop安装"><a href="#一、Hadoop安装" class="headerlink" title="一、Hadoop安装"></a>一、Hadoop安装</h3><ol>
+<li>下载Hadoop并减压到指定目录</li>
+<li>配置Hadoop环境变量：<br> 在/etc目录下的environment中添加HADOOP_INSTALL=你所减压的Hadoop的目录（注意这里不包含”/“,例如：”/usr/soft/hadoop”;然后在path中添加bin跟sbin路径，例如：”:/usr/soft/hadoop/bin:/usr/soft/hadoop/sbin”）</li>
+<li>使环境变量立即生效：<br> 执行”source environment”命令</li>
+<li>查看Hadoop是否安装成功：<br> 执行”hadoop version”命令，如果没报错，并显示了Hadoop的版本则说明配置陈宫了（注意如果未安装jdk或未配置JAVA_HOME需要先安装跟配置jdk的环境变量，如果安装并配置了jdk仍然报错，可能需要重启系统来生效）<h3 id="二、Hadoop配置模式"><a href="#二、Hadoop配置模式" class="headerlink" title="二、Hadoop配置模式"></a>二、Hadoop配置模式</h3><h5 id="使用jps命令查看当前运行的进程"><a href="#使用jps命令查看当前运行的进程" class="headerlink" title="使用jps命令查看当前运行的进程"></a>使用jps命令查看当前运行的进程</h5></li>
+<li>独立模式<br> 输入命令行与Linux一样只是需要以”hadoop fs”开始(例如”hadoop fs -ls /“查看/下的所有文件及其文件夹)</li>
+</ol>
 
             </div>
 
@@ -184,8 +182,8 @@ $('.btn_click_load').click(function() {
 -->
 <script type="text/javascript">
     var disqus_config = function () {
-        this.page.url = 'http://www.coolcoolcoder.com/c_night/2017/11/04/hello-world/';  // Replace PAGE_URL with your page's canonical URL variable
-        this.page.identifier = 'http://www.coolcoolcoder.com/c_night/2017/11/04/hello-world/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        this.page.url = 'http://www.coolcoolcoder.com/c_night/2017/12/23/Hadoop安装与配置/';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'http://www.coolcoolcoder.com/c_night/2017/12/23/Hadoop安装与配置/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
 </script>
 
