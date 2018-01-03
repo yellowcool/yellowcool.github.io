@@ -1,119 +1,336 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
 
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
 <head>
-	<link rel="bookmark"  type="image/x-icon"  href="/img/logo_miccall.png"/>
-	 <link rel="shortcut icon" href="/img/logo_miccall.png">
-	
-			
-    <title>
-    coolyellow的博客
-    </title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <link rel="stylesheet" href="/css/mic_main.css" />
-    <link rel="stylesheet" href="/css/dropdownMenu.css" />
-    
-    	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-	
-    <noscript>
-        <link rel="stylesheet" href="/css/noscript.css" />
-    </noscript>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
 
-			    <script src="/js/jquery.min.js"></script>
-    <script src="/js/jquery.scrollex.min.js"></script>
-    <script src="/js/jquery.scrolly.min.js"></script>
-    <script src="/js/skel.min.js"></script>
-    <script src="/js/util.js"></script>
-    <script src="/js/main.js"></script>
-	
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Handler 源码分析," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="一、前言关于Android消息机制想必大家都非常熟悉了，而且面试必问问题之一，如果我们仍旧只是知道怎么使用，那就太更不上时代步伐了，想想当面试问你handler机制时，你从源码给其分析一遍，那你已经踏进offer大门一只左脚了，所以这里我们一起从源码查看一下消息机制。二、源码解析1、ActivityThread.main()方法跟Looper我刚接触android时，大家都跟我说applicati">
+<meta name="keywords" content="Handler 源码分析">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android消息机制从源码分析Handelr、Looper、Message">
+<meta property="og:url" content="http://www.coolcoolcoder.com/c_night/2017/11/12/Android消息机制从源码分析Handelr、Looper、Message/index.html">
+<meta property="og:site_name" content="coolyellow的博客">
+<meta property="og:description" content="一、前言关于Android消息机制想必大家都非常熟悉了，而且面试必问问题之一，如果我们仍旧只是知道怎么使用，那就太更不上时代步伐了，想想当面试问你handler机制时，你从源码给其分析一遍，那你已经踏进offer大门一只左脚了，所以这里我们一起从源码查看一下消息机制。二、源码解析1、ActivityThread.main()方法跟Looper我刚接触android时，大家都跟我说applicati">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-11-12T14:16:33.600Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android消息机制从源码分析Handelr、Looper、Message">
+<meta name="twitter:description" content="一、前言关于Android消息机制想必大家都非常熟悉了，而且面试必问问题之一，如果我们仍旧只是知道怎么使用，那就太更不上时代步伐了，想想当面试问你handler机制时，你从源码给其分析一遍，那你已经踏进offer大门一只左脚了，所以这里我们一起从源码查看一下消息机制。二、源码解析1、ActivityThread.main()方法跟Looper我刚接触android时，大家都跟我说applicati">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.coolcoolcoder.com/c_night/2017/11/12/Android消息机制从源码分析Handelr、Looper、Message/"/>
+
+
+
+
+
+  <title>Android消息机制从源码分析Handelr、Looper、Message | coolyellow的博客</title>
+  
+
+
+
+
+
+
+
+
 </head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
     
-		
-<!-- Layouts -->
+  
 
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
 
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
 
-<!--  代码渲染  -->
-<link rel="stylesheet" href="/css/prism_coy.css" />
-<link rel="stylesheet" href="/css/typo.css" />
-<!-- 文章页 -->
-<body class="is-loading">
-    <!-- Wrapper 外包 s-->
-    <div id="wrapper" class="fade-in">
-        <!-- Intro 头部显示 s -->
-        <!-- Intro 头部显示 e -->
-        <!-- Header 头部logo start -->
-        <header id="header">
-    <a href="/" class="logo">COOL</a>
-</header>
-        <!-- Nav 导航条 start -->
-        <nav id="nav" class="special" >
-            <ul class="menu links" >
-			<!-- Homepage  主页  --> 
-			<li >
-	            <a href="/" rel="nofollow">主页</a>
-	        </li>
-			<!-- categories_name  分类   --> 
-	        
-	        <li class="active">
-	            <a href="#s1">分类</a>
-	                    <ul class="submenu">
-	                        <li>
-	                        <a class="category-link" href="/categories/HADOOP/">HADOOP</a></li><li><a class="category-link" href="/categories/ubuntu/">ubuntu</a>
-	                    </ul>
-	        </li>
-	        
-	        <!-- archives  归档   --> 
-	        
-	        
-		        <!-- Pages 自定义   -->
-		        
-		        <li>
-		            <a href="/about/" title="简历">
-		                简历
-		            </a>
-		        </li>
-		        
-		        <li>
-		            <a href="/group/" title="团队">
-		                团队
-		            </a>
-		        </li>
-		        
-		        <li>
-		            <a href="/gallery/" title="图库">
-		                图库
-		            </a>
-		        </li>
-		        
-		        <li>
-		            <a href="/tag/" title="标签">
-		                标签
-		            </a>
-		        </li>
-		        
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">coolyellow的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">cool</p>
+      
+  </div>
 
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
 
-            </ul>
-            <!-- icons 图标   -->
-			<ul class="icons">
-		            
-		                <li><a href="https://github.com/miccall" class="icon fa-github"><span class="label">GitHub</span></a></li>
-		            
-		            
-		            
-		            
-			</ul>
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Startseite
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            Über
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Kategorien
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archiv
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
 </nav>
 
-        <div id="main" >
-            <div class ="post_page_title_img" style="height: 25rem;background-image: url();background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
-                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >Android消息机制从源码分析Handelr、Looper、Message</h2></a>
-            </div>
-            <!-- Post -->
-            <div class="typo" style="padding: 3rem;">
-                <h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><h5 id="关于Android消息机制想必大家都非常熟悉了，而且面试必问问题之一，如果我们仍旧只是知道怎么使用，那就太更不上时代步伐了，想想当面试问你handler机制时，你从源码给其分析一遍，那你已经踏进offer大门一只左脚了，所以这里我们一起从源码查看一下消息机制。"><a href="#关于Android消息机制想必大家都非常熟悉了，而且面试必问问题之一，如果我们仍旧只是知道怎么使用，那就太更不上时代步伐了，想想当面试问你handler机制时，你从源码给其分析一遍，那你已经踏进offer大门一只左脚了，所以这里我们一起从源码查看一下消息机制。" class="headerlink" title="关于Android消息机制想必大家都非常熟悉了，而且面试必问问题之一，如果我们仍旧只是知道怎么使用，那就太更不上时代步伐了，想想当面试问你handler机制时，你从源码给其分析一遍，那你已经踏进offer大门一只左脚了，所以这里我们一起从源码查看一下消息机制。"></a>关于Android消息机制想必大家都非常熟悉了，而且面试必问问题之一，如果我们仍旧只是知道怎么使用，那就太更不上时代步伐了，想想当面试问你handler机制时，你从源码给其分析一遍，那你已经踏进offer大门一只左脚了，所以这里我们一起从源码查看一下消息机制。</h5><h2 id="二、源码解析"><a href="#二、源码解析" class="headerlink" title="二、源码解析"></a>二、源码解析</h2><h3 id="1、ActivityThread-main-方法跟Looper"><a href="#1、ActivityThread-main-方法跟Looper" class="headerlink" title="1、ActivityThread.main()方法跟Looper"></a>1、ActivityThread.main()方法跟Looper</h3><h5 id="我刚接触android时，大家都跟我说application的oncreate方法是，APP的入口，但这其实是不正确的，APP的真正的入口是ActivityThread类的main方法，这里要注意虽然叫ActivityThread其实它并不是我们平时所说的线程，由于我们这里只是分析消息机制，所以感兴趣的小伙伴可以自己去查询一下相关知识，既然main方法是入口，那我们就看看APP在启动时都做了什么，源码如下："><a href="#我刚接触android时，大家都跟我说application的oncreate方法是，APP的入口，但这其实是不正确的，APP的真正的入口是ActivityThread类的main方法，这里要注意虽然叫ActivityThread其实它并不是我们平时所说的线程，由于我们这里只是分析消息机制，所以感兴趣的小伙伴可以自己去查询一下相关知识，既然main方法是入口，那我们就看看APP在启动时都做了什么，源码如下：" class="headerlink" title="我刚接触android时，大家都跟我说application的oncreate方法是，APP的入口，但这其实是不正确的，APP的真正的入口是ActivityThread类的main方法，这里要注意虽然叫ActivityThread其实它并不是我们平时所说的线程，由于我们这里只是分析消息机制，所以感兴趣的小伙伴可以自己去查询一下相关知识，既然main方法是入口，那我们就看看APP在启动时都做了什么，源码如下："></a>我刚接触android时，大家都跟我说application的oncreate方法是，APP的入口，但这其实是不正确的，APP的真正的入口是ActivityThread类的main方法，这里要注意虽然叫ActivityThread其实它并不是我们平时所说的线程，由于我们这里只是分析消息机制，所以感兴趣的小伙伴可以自己去查询一下相关知识，既然main方法是入口，那我们就看看APP在启动时都做了什么，源码如下：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">  public static void main(String[] args) &#123;</div><div class="line">//省略代码</div><div class="line">......</div><div class="line">       Looper.prepareMainLooper();</div><div class="line"></div><div class="line">       ActivityThread thread = new ActivityThread();</div><div class="line">       thread.attach(false);</div><div class="line"></div><div class="line">       if (sMainThreadHandler == null) &#123;</div><div class="line">           sMainThreadHandler = thread.getHandler();</div><div class="line">       &#125;</div><div class="line"></div><div class="line">       if (false) &#123;</div><div class="line">           Looper.myLooper().setMessageLogging(new</div><div class="line">                   LogPrinter(Log.DEBUG, &quot;ActivityThread&quot;));</div><div class="line">       &#125;</div><div class="line"></div><div class="line">       // End of event ActivityThreadMain.</div><div class="line">       Trace.traceEnd(Trace.TRACE_TAG_ACTIVITY_MANAGER);</div><div class="line">       Looper.loop();</div><div class="line"></div><div class="line">       throw new RuntimeException(&quot;Main thread loop unexpectedly exited&quot;);</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.coolcoolcoder.com/c_night/2017/11/12/Android消息机制从源码分析Handelr、Looper、Message/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CoolYellow">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="coolyellow的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android消息机制从源码分析Handelr、Looper、Message</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-12T10:24:12+08:00">
+                2017-11-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><h5 id="关于Android消息机制想必大家都非常熟悉了，而且面试必问问题之一，如果我们仍旧只是知道怎么使用，那就太更不上时代步伐了，想想当面试问你handler机制时，你从源码给其分析一遍，那你已经踏进offer大门一只左脚了，所以这里我们一起从源码查看一下消息机制。"><a href="#关于Android消息机制想必大家都非常熟悉了，而且面试必问问题之一，如果我们仍旧只是知道怎么使用，那就太更不上时代步伐了，想想当面试问你handler机制时，你从源码给其分析一遍，那你已经踏进offer大门一只左脚了，所以这里我们一起从源码查看一下消息机制。" class="headerlink" title="关于Android消息机制想必大家都非常熟悉了，而且面试必问问题之一，如果我们仍旧只是知道怎么使用，那就太更不上时代步伐了，想想当面试问你handler机制时，你从源码给其分析一遍，那你已经踏进offer大门一只左脚了，所以这里我们一起从源码查看一下消息机制。"></a>关于Android消息机制想必大家都非常熟悉了，而且面试必问问题之一，如果我们仍旧只是知道怎么使用，那就太更不上时代步伐了，想想当面试问你handler机制时，你从源码给其分析一遍，那你已经踏进offer大门一只左脚了，所以这里我们一起从源码查看一下消息机制。</h5><h2 id="二、源码解析"><a href="#二、源码解析" class="headerlink" title="二、源码解析"></a>二、源码解析</h2><h3 id="1、ActivityThread-main-方法跟Looper"><a href="#1、ActivityThread-main-方法跟Looper" class="headerlink" title="1、ActivityThread.main()方法跟Looper"></a>1、ActivityThread.main()方法跟Looper</h3><h5 id="我刚接触android时，大家都跟我说application的oncreate方法是，APP的入口，但这其实是不正确的，APP的真正的入口是ActivityThread类的main方法，这里要注意虽然叫ActivityThread其实它并不是我们平时所说的线程，由于我们这里只是分析消息机制，所以感兴趣的小伙伴可以自己去查询一下相关知识，既然main方法是入口，那我们就看看APP在启动时都做了什么，源码如下："><a href="#我刚接触android时，大家都跟我说application的oncreate方法是，APP的入口，但这其实是不正确的，APP的真正的入口是ActivityThread类的main方法，这里要注意虽然叫ActivityThread其实它并不是我们平时所说的线程，由于我们这里只是分析消息机制，所以感兴趣的小伙伴可以自己去查询一下相关知识，既然main方法是入口，那我们就看看APP在启动时都做了什么，源码如下：" class="headerlink" title="我刚接触android时，大家都跟我说application的oncreate方法是，APP的入口，但这其实是不正确的，APP的真正的入口是ActivityThread类的main方法，这里要注意虽然叫ActivityThread其实它并不是我们平时所说的线程，由于我们这里只是分析消息机制，所以感兴趣的小伙伴可以自己去查询一下相关知识，既然main方法是入口，那我们就看看APP在启动时都做了什么，源码如下："></a>我刚接触android时，大家都跟我说application的oncreate方法是，APP的入口，但这其实是不正确的，APP的真正的入口是ActivityThread类的main方法，这里要注意虽然叫ActivityThread其实它并不是我们平时所说的线程，由于我们这里只是分析消息机制，所以感兴趣的小伙伴可以自己去查询一下相关知识，既然main方法是入口，那我们就看看APP在启动时都做了什么，源码如下：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">  public static void main(String[] args) &#123;</div><div class="line">//省略代码</div><div class="line">......</div><div class="line">       Looper.prepareMainLooper();</div><div class="line"></div><div class="line">       ActivityThread thread = new ActivityThread();</div><div class="line">       thread.attach(false);</div><div class="line"></div><div class="line">       if (sMainThreadHandler == null) &#123;</div><div class="line">           sMainThreadHandler = thread.getHandler();</div><div class="line">       &#125;</div><div class="line"></div><div class="line">       if (false) &#123;</div><div class="line">           Looper.myLooper().setMessageLogging(new</div><div class="line">                   LogPrinter(Log.DEBUG, &quot;ActivityThread&quot;));</div><div class="line">       &#125;</div><div class="line"></div><div class="line">       // End of event ActivityThreadMain.</div><div class="line">       Trace.traceEnd(Trace.TRACE_TAG_ACTIVITY_MANAGER);</div><div class="line">       Looper.loop();</div><div class="line"></div><div class="line">       throw new RuntimeException(&quot;Main thread loop unexpectedly exited&quot;);</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
 <h5 id="我们很容易注意到-Looper-prepareMainLooper-，Looper-loop-这两句代码，具体他们都是做什么的，我们一个一个来分析，先来看看第一句源码："><a href="#我们很容易注意到-Looper-prepareMainLooper-，Looper-loop-这两句代码，具体他们都是做什么的，我们一个一个来分析，先来看看第一句源码：" class="headerlink" title="我们很容易注意到 Looper.prepareMainLooper()，Looper.loop()这两句代码，具体他们都是做什么的，我们一个一个来分析，先来看看第一句源码："></a>我们很容易注意到 Looper.prepareMainLooper()，Looper.loop()这两句代码，具体他们都是做什么的，我们一个一个来分析，先来看看第一句源码：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">public static void prepareMainLooper() &#123;</div><div class="line">        prepare(false);</div><div class="line">        synchronized (Looper.class) &#123;</div><div class="line">            if (sMainLooper != null) &#123;</div><div class="line">                throw new IllegalStateException(&quot;The main Looper has already been prepared.&quot;);</div><div class="line">            &#125;</div><div class="line">            sMainLooper = myLooper();</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
 <h5 id="这里又调用了prepare-false-跟myLooper-方法"><a href="#这里又调用了prepare-false-跟myLooper-方法" class="headerlink" title="这里又调用了prepare(false)跟myLooper()方法"></a>这里又调用了prepare(false)跟myLooper()方法</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">private static void prepare(boolean quitAllowed) &#123;</div><div class="line">        if (sThreadLocal.get() != null) &#123;</div><div class="line">            throw new RuntimeException(&quot;Only one Looper may be created per thread&quot;);</div><div class="line">        &#125;</div><div class="line">        sThreadLocal.set(new Looper(quitAllowed));</div><div class="line">    &#125;</div><div class="line"></div><div class="line">  public static @Nullable Looper myLooper() &#123;</div><div class="line">        return sThreadLocal.get();</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
 <h5 id="prepare-false-方法大家很熟悉了吧，其实它内部非常简单，就几行代码，这里就要涉及另一个类ThreadLocal了，这个类我们一样不详细说明了，感兴趣的小伙伴多去查询吧，ThreadLocal这个类是用来绑定当前线程的，我们这里就当做一个map使用即可，好，我们再来看prepare方法，先是判断当前线程是否已经绑定Looper了，如果绑定就抛出异常，这也就说明了，一个线程只能有一个Looper实例，如果没有绑定，我们就new出一个实例并且绑定到当前线程。"><a href="#prepare-false-方法大家很熟悉了吧，其实它内部非常简单，就几行代码，这里就要涉及另一个类ThreadLocal了，这个类我们一样不详细说明了，感兴趣的小伙伴多去查询吧，ThreadLocal这个类是用来绑定当前线程的，我们这里就当做一个map使用即可，好，我们再来看prepare方法，先是判断当前线程是否已经绑定Looper了，如果绑定就抛出异常，这也就说明了，一个线程只能有一个Looper实例，如果没有绑定，我们就new出一个实例并且绑定到当前线程。" class="headerlink" title="prepare(false)方法大家很熟悉了吧，其实它内部非常简单，就几行代码，这里就要涉及另一个类ThreadLocal了，这个类我们一样不详细说明了，感兴趣的小伙伴多去查询吧，ThreadLocal这个类是用来绑定当前线程的，我们这里就当做一个map使用即可，好，我们再来看prepare方法，先是判断当前线程是否已经绑定Looper了，如果绑定就抛出异常，这也就说明了，一个线程只能有一个Looper实例，如果没有绑定，我们就new出一个实例并且绑定到当前线程。"></a>prepare(false)方法大家很熟悉了吧，其实它内部非常简单，就几行代码，这里就要涉及另一个类ThreadLocal了，这个类我们一样不详细说明了，感兴趣的小伙伴多去查询吧，ThreadLocal这个类是用来绑定当前线程的，我们这里就当做一个map使用即可，好，我们再来看prepare方法，先是判断当前线程是否已经绑定Looper了，如果绑定就抛出异常，这也就说明了，一个线程只能有一个Looper实例，如果没有绑定，我们就new出一个实例并且绑定到当前线程。</h5><h5 id="myLooper-方法更简单了，就是从当前线程获取绑定的Looper实例。"><a href="#myLooper-方法更简单了，就是从当前线程获取绑定的Looper实例。" class="headerlink" title="myLooper()方法更简单了，就是从当前线程获取绑定的Looper实例。"></a>myLooper()方法更简单了，就是从当前线程获取绑定的Looper实例。</h5><h5 id="也就是说prepareMainLooper-方法就是创建一个Looper并与当前线程绑定，那么loop-方法又做了什么呢，源码如下："><a href="#也就是说prepareMainLooper-方法就是创建一个Looper并与当前线程绑定，那么loop-方法又做了什么呢，源码如下：" class="headerlink" title="也就是说prepareMainLooper()方法就是创建一个Looper并与当前线程绑定，那么loop()方法又做了什么呢，源码如下："></a>也就是说prepareMainLooper()方法就是创建一个Looper并与当前线程绑定，那么loop()方法又做了什么呢，源码如下：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">public static void loop() &#123;</div><div class="line">       final Looper me = myLooper();</div><div class="line">       if (me == null) &#123;</div><div class="line">           throw new RuntimeException(&quot;No Looper; Looper.prepare() wasn&apos;t called on this thread.&quot;);</div><div class="line">       &#125;</div><div class="line">       final MessageQueue queue = me.mQueue;</div><div class="line"></div><div class="line">       for (;;) &#123;</div><div class="line">           Message msg = queue.next(); // might block</div><div class="line">           if (msg == null) &#123;</div><div class="line">               // No message indicates that the message queue is quitting.</div><div class="line">               return;</div><div class="line">           &#125;</div><div class="line"></div><div class="line">           try &#123;</div><div class="line">               msg.target.dispatchMessage(msg);</div><div class="line">               end = (slowDispatchThresholdMs == 0) ? 0 : SystemClock.uptimeMillis();</div><div class="line">           &#125; finally &#123;</div><div class="line">               if (traceTag != 0) &#123;</div><div class="line">                   Trace.traceEnd(traceTag);</div><div class="line">               &#125;</div><div class="line">           &#125;</div><div class="line"></div><div class="line">           msg.recycleUnchecked();</div><div class="line">       &#125;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
@@ -132,108 +349,383 @@
 <li>消息机制是基于同一个线程而言的，也就是说同一个线程的handler只能发送message到同一个线程的消息队列中。<h5 id="四、后记"><a href="#四、后记" class="headerlink" title="四、后记"></a>四、后记</h5><h5 id="前面我们说过messagequeue-next方法会阻塞线程以及Looper-loop方法会进入死循坏中，那么这就涉及到另一个问题，在主线程中为什么死循坏不会造成ANR呢？"><a href="#前面我们说过messagequeue-next方法会阻塞线程以及Looper-loop方法会进入死循坏中，那么这就涉及到另一个问题，在主线程中为什么死循坏不会造成ANR呢？" class="headerlink" title="前面我们说过messagequeue.next方法会阻塞线程以及Looper.loop方法会进入死循坏中，那么这就涉及到另一个问题，在主线程中为什么死循坏不会造成ANR呢？"></a>前面我们说过messagequeue.next方法会阻塞线程以及Looper.loop方法会进入死循坏中，那么这就涉及到另一个问题，在主线程中为什么死循坏不会造成ANR呢？</h5><h5 id="首先，我们要理解什么是ANR-ANR是指某一事件长时间未得到相应。比如说，我们先点击某一个button的点击事件，再点击另一个button的点击事件，假如这里不牵扯多线程问题，如果第一个button有耗时操作超过5s，那么第二个button的点击事件，只能在消息队列中等候，当长时间未轮到第二个button的点击事件的message时，就会报ANR。既然知道了什么是ANR，那么为什么next方法阻塞线程时不会报ANR呢，其实这里的阻塞并不是我们平时说的阻塞，我们可以理解为休眠，当消息队列中没有消息时，线程会进入休眠状态，当来新的消息时，会被唤醒，其实在主线程中我们可以看到activity等的生命周期都在一个继承Handler的类H中进行管理的，而如果主线程并不是死循环的话，当走完生命周期，那么这个线程也就结束了，我们的程序也就退出去了，所以这里设计成死循环也是为了让程序一直运行。"><a href="#首先，我们要理解什么是ANR-ANR是指某一事件长时间未得到相应。比如说，我们先点击某一个button的点击事件，再点击另一个button的点击事件，假如这里不牵扯多线程问题，如果第一个button有耗时操作超过5s，那么第二个button的点击事件，只能在消息队列中等候，当长时间未轮到第二个button的点击事件的message时，就会报ANR。既然知道了什么是ANR，那么为什么next方法阻塞线程时不会报ANR呢，其实这里的阻塞并不是我们平时说的阻塞，我们可以理解为休眠，当消息队列中没有消息时，线程会进入休眠状态，当来新的消息时，会被唤醒，其实在主线程中我们可以看到activity等的生命周期都在一个继承Handler的类H中进行管理的，而如果主线程并不是死循环的话，当走完生命周期，那么这个线程也就结束了，我们的程序也就退出去了，所以这里设计成死循环也是为了让程序一直运行。" class="headerlink" title="首先，我们要理解什么是ANR,ANR是指某一事件长时间未得到相应。比如说，我们先点击某一个button的点击事件，再点击另一个button的点击事件，假如这里不牵扯多线程问题，如果第一个button有耗时操作超过5s，那么第二个button的点击事件，只能在消息队列中等候，当长时间未轮到第二个button的点击事件的message时，就会报ANR。既然知道了什么是ANR，那么为什么next方法阻塞线程时不会报ANR呢，其实这里的阻塞并不是我们平时说的阻塞，我们可以理解为休眠，当消息队列中没有消息时，线程会进入休眠状态，当来新的消息时，会被唤醒，其实在主线程中我们可以看到activity等的生命周期都在一个继承Handler的类H中进行管理的，而如果主线程并不是死循环的话，当走完生命周期，那么这个线程也就结束了，我们的程序也就退出去了，所以这里设计成死循环也是为了让程序一直运行。"></a>首先，我们要理解什么是ANR,ANR是指某一事件长时间未得到相应。比如说，我们先点击某一个button的点击事件，再点击另一个button的点击事件，假如这里不牵扯多线程问题，如果第一个button有耗时操作超过5s，那么第二个button的点击事件，只能在消息队列中等候，当长时间未轮到第二个button的点击事件的message时，就会报ANR。既然知道了什么是ANR，那么为什么next方法阻塞线程时不会报ANR呢，其实这里的阻塞并不是我们平时说的阻塞，我们可以理解为休眠，当消息队列中没有消息时，线程会进入休眠状态，当来新的消息时，会被唤醒，其实在主线程中我们可以看到activity等的生命周期都在一个继承Handler的类H中进行管理的，而如果主线程并不是死循环的话，当走完生命周期，那么这个线程也就结束了，我们的程序也就退出去了，所以这里设计成死循环也是为了让程序一直运行。</h5></li>
 </ol>
 
-            </div>
-
-            <!-- Post Comments -->
-            
-    <!-- 使用 DISQUS_CLICK -->
-<div id="disqus-comment">
-    <div id="disqus_thread"></div>
-
-<!-- add animation -->
-<style>
-	.disqus_click_btn {
-            line-height: 30px;
-            margin: 0;
-            min-width: 50px;
-            padding: 0 14px;
-            display: inline-block;
-            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-            font-size: 14px;
-            font-weight: 400;
-            text-transform: uppercase;
-            letter-spacing: 0;
-            overflow: hidden;
-            will-change: box-shadow;
-            transition: box-shadow .2s cubic-bezier(.4, 0, 1, 1), background-color .2s cubic-bezier(.4, 0, .2, 1), color .2s cubic-bezier(.4, 0, .2, 1);
-            outline: 0;
-            cursor: pointer;
-            text-decoration: none;
-            text-align: center;
-            vertical-align: middle;
-            border: 0;
-            background: rgba(158, 158, 158, .2);
-            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
-            color: #fff;
-            background-color: #7EC0EE;
-            text-shadow: 0
-        }
-</style>
-	
-<div class="btn_click_load" id="disqus_bt"> 
-    <button class="disqus_click_btn">点击查看评论</button>
-</div>
-
-<!--
-<script type="text/javascript">
-$('.btn_click_load').click(function() {
-    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-    var disqus_shortname = 'http-miccall-tech'; // required: replace example with your forum shortname
-
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function() {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-
-    document.getElementById('disqus_bt').style.display = "none";
-});
-</script>
--->
-<script type="text/javascript">
-    var disqus_config = function () {
-        this.page.url = 'http://www.coolcoolcoder.com/c_night/2017/11/12/Android消息机制从源码分析Handelr、Looper、Message/';  // Replace PAGE_URL with your page's canonical URL variable
-        this.page.identifier = 'http://www.coolcoolcoder.com/c_night/2017/11/12/Android消息机制从源码分析Handelr、Looper、Message/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-    };
-</script>
-
-<script type="text/javascript">
-    $('.btn_click_load').click(function() {  //click to load comments
-        (function() { // DON'T EDIT BELOW THIS LINE
-            var d = document;
-            var s = d.createElement('script');
-            s.src = '//http-miccall-tech.disqus.com/embed.js';
-            s.setAttribute('data-timestamp', + new Date());
-            (d.head || d.body).appendChild(s);
-        })();
-        $('.btn_click_load').css('display','none');
-    });
-</script>
-</div>
-<style>
-    #disqus-comment{
-        background-color: #eee;
-        padding: 2pc;
-    }
-</style>
-
-
-        </div>
-        <!-- Copyright 版权 start -->
-                <div id="copyright">
-            <ul>
-                <li>&copy;Powered By <a href="https://hexo.io/zh-cn/" style="border-bottom: none;">hexo</a></li>
-                <li>Design: <a href="http://miccall.tech " style="border-bottom: none;">miccall</a></li>
-            </ul>
-            
-            	<span id="busuanzi_container_site_pv">2018总访问量<span id="busuanzi_value_site_pv"></span>次</span>
-			
-        </div>
+      
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Handler-源码分析/" rel="tag"># Handler 源码分析</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/06/Gradle使用技巧/" rel="next" title="Gradle使用技巧">
+                <i class="fa fa-chevron-left"></i> Gradle使用技巧
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/23/ubuntu代理设置/" rel="prev" title="ubuntu代理设置">
+                ubuntu代理设置 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">CoolYellow</p>
+              <p class="site-description motion-element" itemprop="description">c_night</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">Artikel</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">Kategorien</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">Tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、前言"><span class="nav-number">1.</span> <span class="nav-text">一、前言</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#关于Android消息机制想必大家都非常熟悉了，而且面试必问问题之一，如果我们仍旧只是知道怎么使用，那就太更不上时代步伐了，想想当面试问你handler机制时，你从源码给其分析一遍，那你已经踏进offer大门一只左脚了，所以这里我们一起从源码查看一下消息机制。"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">关于Android消息机制想必大家都非常熟悉了，而且面试必问问题之一，如果我们仍旧只是知道怎么使用，那就太更不上时代步伐了，想想当面试问你handler机制时，你从源码给其分析一遍，那你已经踏进offer大门一只左脚了，所以这里我们一起从源码查看一下消息机制。</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、源码解析"><span class="nav-number">2.</span> <span class="nav-text">二、源码解析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、ActivityThread-main-方法跟Looper"><span class="nav-number">2.1.</span> <span class="nav-text">1、ActivityThread.main()方法跟Looper</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#我刚接触android时，大家都跟我说application的oncreate方法是，APP的入口，但这其实是不正确的，APP的真正的入口是ActivityThread类的main方法，这里要注意虽然叫ActivityThread其实它并不是我们平时所说的线程，由于我们这里只是分析消息机制，所以感兴趣的小伙伴可以自己去查询一下相关知识，既然main方法是入口，那我们就看看APP在启动时都做了什么，源码如下："><span class="nav-number">2.1.0.1.</span> <span class="nav-text">我刚接触android时，大家都跟我说application的oncreate方法是，APP的入口，但这其实是不正确的，APP的真正的入口是ActivityThread类的main方法，这里要注意虽然叫ActivityThread其实它并不是我们平时所说的线程，由于我们这里只是分析消息机制，所以感兴趣的小伙伴可以自己去查询一下相关知识，既然main方法是入口，那我们就看看APP在启动时都做了什么，源码如下：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#我们很容易注意到-Looper-prepareMainLooper-，Looper-loop-这两句代码，具体他们都是做什么的，我们一个一个来分析，先来看看第一句源码："><span class="nav-number">2.1.0.2.</span> <span class="nav-text">我们很容易注意到 Looper.prepareMainLooper()，Looper.loop()这两句代码，具体他们都是做什么的，我们一个一个来分析，先来看看第一句源码：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#这里又调用了prepare-false-跟myLooper-方法"><span class="nav-number">2.1.0.3.</span> <span class="nav-text">这里又调用了prepare(false)跟myLooper()方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#prepare-false-方法大家很熟悉了吧，其实它内部非常简单，就几行代码，这里就要涉及另一个类ThreadLocal了，这个类我们一样不详细说明了，感兴趣的小伙伴多去查询吧，ThreadLocal这个类是用来绑定当前线程的，我们这里就当做一个map使用即可，好，我们再来看prepare方法，先是判断当前线程是否已经绑定Looper了，如果绑定就抛出异常，这也就说明了，一个线程只能有一个Looper实例，如果没有绑定，我们就new出一个实例并且绑定到当前线程。"><span class="nav-number">2.1.0.4.</span> <span class="nav-text">prepare(false)方法大家很熟悉了吧，其实它内部非常简单，就几行代码，这里就要涉及另一个类ThreadLocal了，这个类我们一样不详细说明了，感兴趣的小伙伴多去查询吧，ThreadLocal这个类是用来绑定当前线程的，我们这里就当做一个map使用即可，好，我们再来看prepare方法，先是判断当前线程是否已经绑定Looper了，如果绑定就抛出异常，这也就说明了，一个线程只能有一个Looper实例，如果没有绑定，我们就new出一个实例并且绑定到当前线程。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#myLooper-方法更简单了，就是从当前线程获取绑定的Looper实例。"><span class="nav-number">2.1.0.5.</span> <span class="nav-text">myLooper()方法更简单了，就是从当前线程获取绑定的Looper实例。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#也就是说prepareMainLooper-方法就是创建一个Looper并与当前线程绑定，那么loop-方法又做了什么呢，源码如下："><span class="nav-number">2.1.0.6.</span> <span class="nav-text">也就是说prepareMainLooper()方法就是创建一个Looper并与当前线程绑定，那么loop()方法又做了什么呢，源码如下：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#loop-方法我这里只贴出了需要的代码，这里第一句也是调用了myLooper-方法，也即获取当前线程绑定的Looper，而me-mQueue是什么呢，其实就是message内部的一个MessageQueue，我们看一下Looper的构造方法："><span class="nav-number">2.1.0.7.</span> <span class="nav-text">loop()方法我这里只贴出了需要的代码，这里第一句也是调用了myLooper()方法，也即获取当前线程绑定的Looper，而me.mQueue是什么呢，其实就是message内部的一个MessageQueue，我们看一下Looper的构造方法：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#就两句代码第一句就是创建了一个MessageQueue，第二句就是获取当前线程，由于一个线程只能有一个Looper实例，而一个Looper实例也只创建一个MessageQueue实例，所以一个线程只能绑定一个MessageQueue实例，好了，我们接着看loop-方法，获取message内部的messageQueue实例后，接着就是一个死循坏，当然这里说是死循坏并不恰当，后面我们会说明为什么，这个循坏里面不断从消息队列messageQueue中获取message实例，注意这句话might-bolck意思是说可能会阻塞，具体我们后面会说道，接下来，获取到message实例后会调用message-target-dispatchMessage-msg-方法，这里的target其实就是发送该message的handel看下message创建实例的方法："><span class="nav-number">2.1.0.8.</span> <span class="nav-text">就两句代码第一句就是创建了一个MessageQueue，第二句就是获取当前线程，由于一个线程只能有一个Looper实例，而一个Looper实例也只创建一个MessageQueue实例，所以一个线程只能绑定一个MessageQueue实例，好了，我们接着看loop()方法，获取message内部的messageQueue实例后，接着就是一个死循坏，当然这里说是死循坏并不恰当，后面我们会说明为什么，这个循坏里面不断从消息队列messageQueue中获取message实例，注意这句话might bolck意思是说可能会阻塞，具体我们后面会说道，接下来，获取到message实例后会调用message.target.dispatchMessage(msg)方法，这里的target其实就是发送该message的handel看下message创建实例的方法：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#很清楚这里创建message实例时要传入一个handler，也就是每一个message都要绑定发送它的handler。而handler-despatchMessage-message-方法都做了什么呢，源码如下："><span class="nav-number">2.1.0.9.</span> <span class="nav-text">很清楚这里创建message实例时要传入一个handler，也就是每一个message都要绑定发送它的handler。而handler.despatchMessage(message)方法都做了什么呢，源码如下：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#可以看到其实就是调用了我们重写的handlerMessage-方法了，这也就是为什么我们创建handler时经常要重写handlerMessage方法了。好了我们这里先大概总结一下：首先先调用Looper-prepare方法创建一个Looper实例并且让该实例与当前线程绑定，以保证一个线程只有一个Looper实例，而创建Looper实例时，我们有在内部创建了一个消息队列MessageQueue实例，其次我们调用了Looper-loop方法，该方法内先获取当前线程绑定的Looper实例，并且从该Looper实例获取对应的消息队列，然后进入死循坏不断从消息队列中获取消息，一旦获取消息后，就调用发送该消息的handler的dispatchMessage方法处理该消息。那么消息是如何添加到对应的消息队列呢？"><span class="nav-number">2.1.0.10.</span> <span class="nav-text">可以看到其实就是调用了我们重写的handlerMessage()方法了，这也就是为什么我们创建handler时经常要重写handlerMessage方法了。好了我们这里先大概总结一下：首先先调用Looper.prepare方法创建一个Looper实例并且让该实例与当前线程绑定，以保证一个线程只有一个Looper实例，而创建Looper实例时，我们有在内部创建了一个消息队列MessageQueue实例，其次我们调用了Looper.loop方法，该方法内先获取当前线程绑定的Looper实例，并且从该Looper实例获取对应的消息队列，然后进入死循坏不断从消息队列中获取消息，一旦获取消息后，就调用发送该消息的handler的dispatchMessage方法处理该消息。那么消息是如何添加到对应的消息队列呢？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、Hander源码分析"><span class="nav-number">2.2.</span> <span class="nav-text">2、Hander源码分析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#我们平时使用handler发送消息有很多种，我们这里只分析其中一种sendMessage-Message-msg-，其他的类似-源码如下："><span class="nav-number">2.2.0.1.</span> <span class="nav-text">我们平时使用handler发送消息有很多种，我们这里只分析其中一种sendMessage(Message msg)，其他的类似,源码如下：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#其调用了sendMessageDelayed-msg-0-方法，其源码如下："><span class="nav-number">2.2.0.2.</span> <span class="nav-text">其调用了sendMessageDelayed(msg,0)方法，其源码如下：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#其内部又调用了sendMessageAtTime方法："><span class="nav-number">2.2.0.3.</span> <span class="nav-text">其内部又调用了sendMessageAtTime方法：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#这个方法也很简单，先是获取对应的消息队列，然后调用enqueueMessage方法，将message加入到该消息队列中："><span class="nav-number">2.2.0.4.</span> <span class="nav-text">这个方法也很简单，先是获取对应的消息队列，然后调用enqueueMessage方法，将message加入到该消息队列中：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#可以看到enqueueMessage方法先是将handler存到要发送的message中，再调用messageQueue-enqueueMessage方法，将消息加入到消息队列中，这样在Looper-loop启动后就可以获取到该message了。"><span class="nav-number">2.2.0.5.</span> <span class="nav-text">可以看到enqueueMessage方法先是将handler存到要发送的message中，再调用messageQueue.enqueueMessage方法，将消息加入到消息队列中，这样在Looper.loop启动后就可以获取到该message了。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#好了，我们再来总结一下"><span class="nav-number">2.2.0.6.</span> <span class="nav-text">好了，我们再来总结一下:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#四、后记"><span class="nav-number">2.2.0.7.</span> <span class="nav-text">四、后记</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#前面我们说过messagequeue-next方法会阻塞线程以及Looper-loop方法会进入死循坏中，那么这就涉及到另一个问题，在主线程中为什么死循坏不会造成ANR呢？"><span class="nav-number">2.2.0.8.</span> <span class="nav-text">前面我们说过messagequeue.next方法会阻塞线程以及Looper.loop方法会进入死循坏中，那么这就涉及到另一个问题，在主线程中为什么死循坏不会造成ANR呢？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#首先，我们要理解什么是ANR-ANR是指某一事件长时间未得到相应。比如说，我们先点击某一个button的点击事件，再点击另一个button的点击事件，假如这里不牵扯多线程问题，如果第一个button有耗时操作超过5s，那么第二个button的点击事件，只能在消息队列中等候，当长时间未轮到第二个button的点击事件的message时，就会报ANR。既然知道了什么是ANR，那么为什么next方法阻塞线程时不会报ANR呢，其实这里的阻塞并不是我们平时说的阻塞，我们可以理解为休眠，当消息队列中没有消息时，线程会进入休眠状态，当来新的消息时，会被唤醒，其实在主线程中我们可以看到activity等的生命周期都在一个继承Handler的类H中进行管理的，而如果主线程并不是死循环的话，当走完生命周期，那么这个线程也就结束了，我们的程序也就退出去了，所以这里设计成死循环也是为了让程序一直运行。"><span class="nav-number">2.2.0.9.</span> <span class="nav-text">首先，我们要理解什么是ANR,ANR是指某一事件长时间未得到相应。比如说，我们先点击某一个button的点击事件，再点击另一个button的点击事件，假如这里不牵扯多线程问题，如果第一个button有耗时操作超过5s，那么第二个button的点击事件，只能在消息队列中等候，当长时间未轮到第二个button的点击事件的message时，就会报ANR。既然知道了什么是ANR，那么为什么next方法阻塞线程时不会报ANR呢，其实这里的阻塞并不是我们平时说的阻塞，我们可以理解为休眠，当消息队列中没有消息时，线程会进入休眠状态，当来新的消息时，会被唤醒，其实在主线程中我们可以看到activity等的生命周期都在一个继承Handler的类H中进行管理的，而如果主线程并不是死循环的话，当走完生命周期，那么这个线程也就结束了，我们的程序也就退出去了，所以这里设计成死循环也是为了让程序一直运行。</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CoolYellow</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
 </body>
-
-
-
- 	
 </html>

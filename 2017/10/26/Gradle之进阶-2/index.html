@@ -1,119 +1,335 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
 
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
 <head>
-	<link rel="bookmark"  type="image/x-icon"  href="/img/logo_miccall.png"/>
-	 <link rel="shortcut icon" href="/img/logo_miccall.png">
-	
-			
-    <title>
-    coolyellow的博客
-    </title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <link rel="stylesheet" href="/css/mic_main.css" />
-    <link rel="stylesheet" href="/css/dropdownMenu.css" />
-    
-    	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-	
-    <noscript>
-        <link rel="stylesheet" href="/css/noscript.css" />
-    </noscript>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
 
-			    <script src="/js/jquery.min.js"></script>
-    <script src="/js/jquery.scrollex.min.js"></script>
-    <script src="/js/jquery.scrolly.min.js"></script>
-    <script src="/js/skel.min.js"></script>
-    <script src="/js/util.js"></script>
-    <script src="/js/main.js"></script>
-	
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="一、简介上一节我们讲解了部分gradle进阶的用法，这一节我们继续讲解gradle进阶。二构建ProguardProguard配置是Android的apk混淆文件配置，但它的作用绝对仅仅是混淆代码。它同样可以精简代码、资源，优化代码结构。所以新版studio中，google将runProguard的参数名改为了minifyEnabled，更加直白的显示了它的作用。它的配置也非常简单，在构建类型中直">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gradle之进阶-2">
+<meta property="og:url" content="http://www.coolcoolcoder.com/c_night/2017/10/26/Gradle之进阶-2/index.html">
+<meta property="og:site_name" content="coolyellow的博客">
+<meta property="og:description" content="一、简介上一节我们讲解了部分gradle进阶的用法，这一节我们继续讲解gradle进阶。二构建ProguardProguard配置是Android的apk混淆文件配置，但它的作用绝对仅仅是混淆代码。它同样可以精简代码、资源，优化代码结构。所以新版studio中，google将runProguard的参数名改为了minifyEnabled，更加直白的显示了它的作用。它的配置也非常简单，在构建类型中直">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-11-04T14:04:01.390Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Gradle之进阶-2">
+<meta name="twitter:description" content="一、简介上一节我们讲解了部分gradle进阶的用法，这一节我们继续讲解gradle进阶。二构建ProguardProguard配置是Android的apk混淆文件配置，但它的作用绝对仅仅是混淆代码。它同样可以精简代码、资源，优化代码结构。所以新版studio中，google将runProguard的参数名改为了minifyEnabled，更加直白的显示了它的作用。它的配置也非常简单，在构建类型中直">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.coolcoolcoder.com/c_night/2017/10/26/Gradle之进阶-2/"/>
+
+
+
+
+
+  <title>Gradle之进阶-2 | coolyellow的博客</title>
+  
+
+
+
+
+
+
+
+
 </head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
     
-		
-<!-- Layouts -->
+  
 
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
 
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
 
-<!--  代码渲染  -->
-<link rel="stylesheet" href="/css/prism_coy.css" />
-<link rel="stylesheet" href="/css/typo.css" />
-<!-- 文章页 -->
-<body class="is-loading">
-    <!-- Wrapper 外包 s-->
-    <div id="wrapper" class="fade-in">
-        <!-- Intro 头部显示 s -->
-        <!-- Intro 头部显示 e -->
-        <!-- Header 头部logo start -->
-        <header id="header">
-    <a href="/" class="logo">COOL</a>
-</header>
-        <!-- Nav 导航条 start -->
-        <nav id="nav" class="special" >
-            <ul class="menu links" >
-			<!-- Homepage  主页  --> 
-			<li >
-	            <a href="/" rel="nofollow">主页</a>
-	        </li>
-			<!-- categories_name  分类   --> 
-	        
-	        <li class="active">
-	            <a href="#s1">分类</a>
-	                    <ul class="submenu">
-	                        <li>
-	                        <a class="category-link" href="/categories/HADOOP/">HADOOP</a></li><li><a class="category-link" href="/categories/ubuntu/">ubuntu</a>
-	                    </ul>
-	        </li>
-	        
-	        <!-- archives  归档   --> 
-	        
-	        
-		        <!-- Pages 自定义   -->
-		        
-		        <li>
-		            <a href="/about/" title="简历">
-		                简历
-		            </a>
-		        </li>
-		        
-		        <li>
-		            <a href="/group/" title="团队">
-		                团队
-		            </a>
-		        </li>
-		        
-		        <li>
-		            <a href="/gallery/" title="图库">
-		                图库
-		            </a>
-		        </li>
-		        
-		        <li>
-		            <a href="/tag/" title="标签">
-		                标签
-		            </a>
-		        </li>
-		        
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">coolyellow的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">cool</p>
+      
+  </div>
 
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
 
-            </ul>
-            <!-- icons 图标   -->
-			<ul class="icons">
-		            
-		                <li><a href="https://github.com/miccall" class="icon fa-github"><span class="label">GitHub</span></a></li>
-		            
-		            
-		            
-		            
-			</ul>
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Startseite
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            Über
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Kategorien
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archiv
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
 </nav>
 
-        <div id="main" >
-            <div class ="post_page_title_img" style="height: 25rem;background-image: url();background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
-                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >Gradle之进阶-2</h2></a>
-            </div>
-            <!-- Post -->
-            <div class="typo" style="padding: 3rem;">
-                <h2 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h2><h5 id="上一节我们讲解了部分gradle进阶的用法，这一节我们继续讲解gradle进阶。"><a href="#上一节我们讲解了部分gradle进阶的用法，这一节我们继续讲解gradle进阶。" class="headerlink" title="上一节我们讲解了部分gradle进阶的用法，这一节我们继续讲解gradle进阶。"></a>上一节我们讲解了部分gradle进阶的用法，这一节我们继续讲解gradle进阶。</h5><h2 id="二构建Proguard"><a href="#二构建Proguard" class="headerlink" title="二构建Proguard"></a>二构建Proguard</h2><h5 id="Proguard配置是Android的apk混淆文件配置，但它的作用绝对仅仅是混淆代码。它同样可以精简代码、资源，优化代码结构。所以新版studio中，google将runProguard的参数名改为了minifyEnabled，更加直白的显示了它的作用。它的配置也非常简单，在构建类型中直接配置参数启用即可，代码如下："><a href="#Proguard配置是Android的apk混淆文件配置，但它的作用绝对仅仅是混淆代码。它同样可以精简代码、资源，优化代码结构。所以新版studio中，google将runProguard的参数名改为了minifyEnabled，更加直白的显示了它的作用。它的配置也非常简单，在构建类型中直接配置参数启用即可，代码如下：" class="headerlink" title="Proguard配置是Android的apk混淆文件配置，但它的作用绝对仅仅是混淆代码。它同样可以精简代码、资源，优化代码结构。所以新版studio中，google将runProguard的参数名改为了minifyEnabled，更加直白的显示了它的作用。它的配置也非常简单，在构建类型中直接配置参数启用即可，代码如下："></a>Proguard配置是Android的apk混淆文件配置，但它的作用绝对仅仅是混淆代码。它同样可以精简代码、资源，优化代码结构。所以新版studio中，google将runProguard的参数名改为了minifyEnabled，更加直白的显示了它的作用。它的配置也非常简单，在构建类型中直接配置参数启用即可，代码如下：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">buildTypes &#123;</div><div class="line">       release &#123;</div><div class="line">           minifyEnabled false</div><div class="line">           proguardFiles getDefaultProguardFile(&apos;proguard-android.txt&apos;), &apos;proguard-rules.pro&apos;</div><div class="line">       &#125;</div><div class="line"></div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.coolcoolcoder.com/c_night/2017/10/26/Gradle之进阶-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CoolYellow">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="coolyellow的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Gradle之进阶-2</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-26T22:09:53+08:00">
+                2017-10-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h2><h5 id="上一节我们讲解了部分gradle进阶的用法，这一节我们继续讲解gradle进阶。"><a href="#上一节我们讲解了部分gradle进阶的用法，这一节我们继续讲解gradle进阶。" class="headerlink" title="上一节我们讲解了部分gradle进阶的用法，这一节我们继续讲解gradle进阶。"></a>上一节我们讲解了部分gradle进阶的用法，这一节我们继续讲解gradle进阶。</h5><h2 id="二构建Proguard"><a href="#二构建Proguard" class="headerlink" title="二构建Proguard"></a>二构建Proguard</h2><h5 id="Proguard配置是Android的apk混淆文件配置，但它的作用绝对仅仅是混淆代码。它同样可以精简代码、资源，优化代码结构。所以新版studio中，google将runProguard的参数名改为了minifyEnabled，更加直白的显示了它的作用。它的配置也非常简单，在构建类型中直接配置参数启用即可，代码如下："><a href="#Proguard配置是Android的apk混淆文件配置，但它的作用绝对仅仅是混淆代码。它同样可以精简代码、资源，优化代码结构。所以新版studio中，google将runProguard的参数名改为了minifyEnabled，更加直白的显示了它的作用。它的配置也非常简单，在构建类型中直接配置参数启用即可，代码如下：" class="headerlink" title="Proguard配置是Android的apk混淆文件配置，但它的作用绝对仅仅是混淆代码。它同样可以精简代码、资源，优化代码结构。所以新版studio中，google将runProguard的参数名改为了minifyEnabled，更加直白的显示了它的作用。它的配置也非常简单，在构建类型中直接配置参数启用即可，代码如下："></a>Proguard配置是Android的apk混淆文件配置，但它的作用绝对仅仅是混淆代码。它同样可以精简代码、资源，优化代码结构。所以新版studio中，google将runProguard的参数名改为了minifyEnabled，更加直白的显示了它的作用。它的配置也非常简单，在构建类型中直接配置参数启用即可，代码如下：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">buildTypes &#123;</div><div class="line">       release &#123;</div><div class="line">           minifyEnabled false</div><div class="line">           proguardFiles getDefaultProguardFile(&apos;proguard-android.txt&apos;), &apos;proguard-rules.pro&apos;</div><div class="line">       &#125;</div><div class="line"></div><div class="line">   &#125;</div></pre></td></tr></table></figure>
 <h5 id="这样在构建release版本时，系统就会自动进行混淆，而混淆配置文件的地址，则通过getDefaultProguardFile方法来获取。SDK默认的混淆文件配置模板，在SDK的tool-proguard目录下可以找到。"><a href="#这样在构建release版本时，系统就会自动进行混淆，而混淆配置文件的地址，则通过getDefaultProguardFile方法来获取。SDK默认的混淆文件配置模板，在SDK的tool-proguard目录下可以找到。" class="headerlink" title="这样在构建release版本时，系统就会自动进行混淆，而混淆配置文件的地址，则通过getDefaultProguardFile方法来获取。SDK默认的混淆文件配置模板，在SDK的tool/proguard目录下可以找到。"></a>这样在构建release版本时，系统就会自动进行混淆，而混淆配置文件的地址，则通过getDefaultProguardFile方法来获取。SDK默认的混淆文件配置模板，在SDK的tool/proguard目录下可以找到。</h5><h2 id="三、Gradle动态参数配置"><a href="#三、Gradle动态参数配置" class="headerlink" title="三、Gradle动态参数配置"></a>三、Gradle动态参数配置</h2><h5 id="Gradle既然是一种脚本配置语言，那么就一定可以通过配置文件动态配置其编译脚本。那么如何进行脚本的动态配置呢？在gradle中提供了gradle-properties文件来配置脚本中的动态参数。"><a href="#Gradle既然是一种脚本配置语言，那么就一定可以通过配置文件动态配置其编译脚本。那么如何进行脚本的动态配置呢？在gradle中提供了gradle-properties文件来配置脚本中的动态参数。" class="headerlink" title="Gradle既然是一种脚本配置语言，那么就一定可以通过配置文件动态配置其编译脚本。那么如何进行脚本的动态配置呢？在gradle中提供了gradle.properties文件来配置脚本中的动态参数。"></a>Gradle既然是一种脚本配置语言，那么就一定可以通过配置文件动态配置其编译脚本。那么如何进行脚本的动态配置呢？在gradle中提供了gradle.properties文件来配置脚本中的动态参数。</h5><p>###（一）System.properties方式</p>
 <h5 id="首先打开gradle-properties文件，添加如下配置："><a href="#首先打开gradle-properties文件，添加如下配置：" class="headerlink" title="首先打开gradle.properties文件，添加如下配置："></a>首先打开gradle.properties文件，添加如下配置：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">systemProp.keyAliasPassword=123456</div><div class="line">systemProp.keyALias=cool</div><div class="line">systemProp.keyStorePassword=123456</div><div class="line">systemProp.keyStore=cool.jks</div></pre></td></tr></table></figure>
 <h5 id="然后在build-gradle脚本中进行引用的时候，就可以统统System-properties-key-获取这些参数，代码如下："><a href="#然后在build-gradle脚本中进行引用的时候，就可以统统System-properties-key-获取这些参数，代码如下：" class="headerlink" title="然后在build.gradle脚本中进行引用的时候，就可以统统System.properties[key]获取这些参数，代码如下："></a>然后在build.gradle脚本中进行引用的时候，就可以统统System.properties[key]获取这些参数，代码如下：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">signingConfigs &#123;</div><div class="line">        cool &#123;</div><div class="line">            storeFile file(System.properties[&quot;keyStore&quot;])</div><div class="line">            storePassword System.properties[&quot;keyStorePassword&quot;]</div><div class="line">            keyAlias System.properties[&quot;keyAlias&quot;]</div><div class="line">            keyPassword System.properties[&quot;keyALiasPassword&quot;]</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
@@ -130,108 +346,377 @@
 <h5 id="同时在设置变量的时候，甚至可以继续使用变量，代码如下："><a href="#同时在设置变量的时候，甚至可以继续使用变量，代码如下：" class="headerlink" title="同时在设置变量的时候，甚至可以继续使用变量，代码如下："></a>同时在设置变量的时候，甚至可以继续使用变量，代码如下：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">def param = ......</div><div class="line">buildConfigField &quot;String&quot;,&quot;name&quot;,&quot;\&quot;String.$&#123;param&#125;.String\&quot;&quot;</div></pre></td></tr></table></figure>
 <h5 id="此外我们也可以使用资源文件进行分版本设置属性，例如要给不同版本设置不同的AppName，代码如下："><a href="#此外我们也可以使用资源文件进行分版本设置属性，例如要给不同版本设置不同的AppName，代码如下：" class="headerlink" title="此外我们也可以使用资源文件进行分版本设置属性，例如要给不同版本设置不同的AppName，代码如下："></a>此外我们也可以使用资源文件进行分版本设置属性，例如要给不同版本设置不同的AppName，代码如下：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">buildTypes &#123;</div><div class="line">       release &#123;</div><div class="line">           resValue(&quot;string&quot;,&quot;appName&quot;,&quot;releaseApp&quot;)</div><div class="line">           minifyEnabled false</div><div class="line">           proguardFiles getDefaultProguardFile(&apos;proguard-android.txt&apos;), &apos;proguard-rules.pro&apos;</div><div class="line">       &#125;</div><div class="line">       cool &#123;</div><div class="line">	resValue(&quot;string&quot;,&quot;appName&quot;,&quot;coolApp&quot;)</div><div class="line">           buildConfigField(&quot;boolean&quot;,&quot;test&quot;,&quot;false&quot;)</div><div class="line">       &#125;</div></pre></td></tr></table></figure>
 <h5 id="在代码中同样使用R-string-appName来获取，但是一定要注意要把string-xml中的appName删掉，这样才能编译通过。因为Gradle在编译过程中将会将脚本中的配置和string-xml文件中的配置进行merge操作，如果同时存在两份相同的属性值，就会发生冲突。"><a href="#在代码中同样使用R-string-appName来获取，但是一定要注意要把string-xml中的appName删掉，这样才能编译通过。因为Gradle在编译过程中将会将脚本中的配置和string-xml文件中的配置进行merge操作，如果同时存在两份相同的属性值，就会发生冲突。" class="headerlink" title="在代码中同样使用R.string.appName来获取，但是一定要注意要把string.xml中的appName删掉，这样才能编译通过。因为Gradle在编译过程中将会将脚本中的配置和string.xml文件中的配置进行merge操作，如果同时存在两份相同的属性值，就会发生冲突。"></a>在代码中同样使用R.string.appName来获取，但是一定要注意要把string.xml中的appName删掉，这样才能编译通过。因为Gradle在编译过程中将会将脚本中的配置和string.xml文件中的配置进行merge操作，如果同时存在两份相同的属性值，就会发生冲突。</h5>
-            </div>
-
-            <!-- Post Comments -->
-            
-    <!-- 使用 DISQUS_CLICK -->
-<div id="disqus-comment">
-    <div id="disqus_thread"></div>
-
-<!-- add animation -->
-<style>
-	.disqus_click_btn {
-            line-height: 30px;
-            margin: 0;
-            min-width: 50px;
-            padding: 0 14px;
-            display: inline-block;
-            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-            font-size: 14px;
-            font-weight: 400;
-            text-transform: uppercase;
-            letter-spacing: 0;
-            overflow: hidden;
-            will-change: box-shadow;
-            transition: box-shadow .2s cubic-bezier(.4, 0, 1, 1), background-color .2s cubic-bezier(.4, 0, .2, 1), color .2s cubic-bezier(.4, 0, .2, 1);
-            outline: 0;
-            cursor: pointer;
-            text-decoration: none;
-            text-align: center;
-            vertical-align: middle;
-            border: 0;
-            background: rgba(158, 158, 158, .2);
-            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
-            color: #fff;
-            background-color: #7EC0EE;
-            text-shadow: 0
-        }
-</style>
-	
-<div class="btn_click_load" id="disqus_bt"> 
-    <button class="disqus_click_btn">点击查看评论</button>
-</div>
-
-<!--
-<script type="text/javascript">
-$('.btn_click_load').click(function() {
-    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-    var disqus_shortname = 'http-miccall-tech'; // required: replace example with your forum shortname
-
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function() {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-
-    document.getElementById('disqus_bt').style.display = "none";
-});
-</script>
--->
-<script type="text/javascript">
-    var disqus_config = function () {
-        this.page.url = 'http://www.coolcoolcoder.com/c_night/2017/10/26/Gradle之进阶-2/';  // Replace PAGE_URL with your page's canonical URL variable
-        this.page.identifier = 'http://www.coolcoolcoder.com/c_night/2017/10/26/Gradle之进阶-2/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-    };
-</script>
-
-<script type="text/javascript">
-    $('.btn_click_load').click(function() {  //click to load comments
-        (function() { // DON'T EDIT BELOW THIS LINE
-            var d = document;
-            var s = d.createElement('script');
-            s.src = '//http-miccall-tech.disqus.com/embed.js';
-            s.setAttribute('data-timestamp', + new Date());
-            (d.head || d.body).appendChild(s);
-        })();
-        $('.btn_click_load').css('display','none');
-    });
-</script>
-</div>
-<style>
-    #disqus-comment{
-        background-color: #eee;
-        padding: 2pc;
-    }
-</style>
-
-
-        </div>
-        <!-- Copyright 版权 start -->
-                <div id="copyright">
-            <ul>
-                <li>&copy;Powered By <a href="https://hexo.io/zh-cn/" style="border-bottom: none;">hexo</a></li>
-                <li>Design: <a href="http://miccall.tech " style="border-bottom: none;">miccall</a></li>
-            </ul>
-            
-            	<span id="busuanzi_container_site_pv">2018总访问量<span id="busuanzi_value_site_pv"></span>次</span>
-			
-        </div>
+      
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/22/Gradle之进阶-1/" rel="next" title="Gradle之进阶-1">
+                <i class="fa fa-chevron-left"></i> Gradle之进阶-1
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/11/04/Gradle多项目依赖/" rel="prev" title="Gradle多项目依赖">
+                Gradle多项目依赖 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">CoolYellow</p>
+              <p class="site-description motion-element" itemprop="description">c_night</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">Artikel</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">Kategorien</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">Tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、简介"><span class="nav-number">1.</span> <span class="nav-text">一、简介</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#上一节我们讲解了部分gradle进阶的用法，这一节我们继续讲解gradle进阶。"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">上一节我们讲解了部分gradle进阶的用法，这一节我们继续讲解gradle进阶。</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二构建Proguard"><span class="nav-number">2.</span> <span class="nav-text">二构建Proguard</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Proguard配置是Android的apk混淆文件配置，但它的作用绝对仅仅是混淆代码。它同样可以精简代码、资源，优化代码结构。所以新版studio中，google将runProguard的参数名改为了minifyEnabled，更加直白的显示了它的作用。它的配置也非常简单，在构建类型中直接配置参数启用即可，代码如下："><span class="nav-number">2.0.0.1.</span> <span class="nav-text">Proguard配置是Android的apk混淆文件配置，但它的作用绝对仅仅是混淆代码。它同样可以精简代码、资源，优化代码结构。所以新版studio中，google将runProguard的参数名改为了minifyEnabled，更加直白的显示了它的作用。它的配置也非常简单，在构建类型中直接配置参数启用即可，代码如下：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#这样在构建release版本时，系统就会自动进行混淆，而混淆配置文件的地址，则通过getDefaultProguardFile方法来获取。SDK默认的混淆文件配置模板，在SDK的tool-proguard目录下可以找到。"><span class="nav-number">2.0.0.2.</span> <span class="nav-text">这样在构建release版本时，系统就会自动进行混淆，而混淆配置文件的地址，则通过getDefaultProguardFile方法来获取。SDK默认的混淆文件配置模板，在SDK的tool/proguard目录下可以找到。</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、Gradle动态参数配置"><span class="nav-number">3.</span> <span class="nav-text">三、Gradle动态参数配置</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Gradle既然是一种脚本配置语言，那么就一定可以通过配置文件动态配置其编译脚本。那么如何进行脚本的动态配置呢？在gradle中提供了gradle-properties文件来配置脚本中的动态参数。"><span class="nav-number">3.0.0.1.</span> <span class="nav-text">Gradle既然是一种脚本配置语言，那么就一定可以通过配置文件动态配置其编译脚本。那么如何进行脚本的动态配置呢？在gradle中提供了gradle.properties文件来配置脚本中的动态参数。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#首先打开gradle-properties文件，添加如下配置："><span class="nav-number">3.0.0.2.</span> <span class="nav-text">首先打开gradle.properties文件，添加如下配置：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#然后在build-gradle脚本中进行引用的时候，就可以统统System-properties-key-获取这些参数，代码如下："><span class="nav-number">3.0.0.3.</span> <span class="nav-text">然后在build.gradle脚本中进行引用的时候，就可以统统System.properties[key]获取这些参数，代码如下：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二-Key-Value方式"><span class="nav-number">3.1.</span> <span class="nav-text">(二)Key\Value方式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#除了使用System-properties方式获取自定义的配置参数之外，还可以使用Key-Value方式来定义。在gradle-properties文件中，添加如下代码："><span class="nav-number">3.1.0.1.</span> <span class="nav-text">除了使用System.properties方式获取自定义的配置参数之外，还可以使用Key\Value方式来定义。在gradle.properties文件中，添加如下代码：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#然后在build-gradle中进行引用"><span class="nav-number">3.1.0.2.</span> <span class="nav-text">然后在build.gradle中进行引用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#通过project-property-key-方法，就可以取出对应的value，这种方式与使用System-properties的方式一样，所以可以根据情况使用任意一种即可。"><span class="nav-number">3.1.0.3.</span> <span class="nav-text">通过project.property(key)方法，就可以取出对应的value，这种方式与使用System.properties的方式一样，所以可以根据情况使用任意一种即可。</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（三）属性方式"><span class="nav-number">3.2.</span> <span class="nav-text">（三）属性方式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#前面两种方式，均可以在命令行中设置参数，从而设置给编译命令。如果不需要在命令行中设置参数，那么直接写属性名，同样可以引用，代码如下："><span class="nav-number">3.2.0.1.</span> <span class="nav-text">前面两种方式，均可以在命令行中设置参数，从而设置给编译命令。如果不需要在命令行中设置参数，那么直接写属性名，同样可以引用，代码如下：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#这样在build-gradle脚本中就可以直接引用了，代码如下："><span class="nav-number">3.2.0.2.</span> <span class="nav-text">这样在build.gradle脚本中就可以直接引用了，代码如下：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#这样设置的效果与前面两种一样，区别就是是否支持命令行配置参数。"><span class="nav-number">3.2.0.3.</span> <span class="nav-text">这样设置的效果与前面两种一样，区别就是是否支持命令行配置参数。</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、多渠道打包"><span class="nav-number">4.</span> <span class="nav-text">四、多渠道打包</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#多渠道打包其实就是在代码层上标记不同的渠道名，这样便于统计不同的应用市场该apk的下载量。利用Gradle打包，将开发者从之间繁杂的ant打包中解救出来，我们只需要在Gradle中进行简单配置即可。"><span class="nav-number">4.0.0.1.</span> <span class="nav-text">多渠道打包其实就是在代码层上标记不同的渠道名，这样便于统计不同的应用市场该apk的下载量。利用Gradle打包，将开发者从之间繁杂的ant打包中解救出来，我们只需要在Gradle中进行简单配置即可。</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一-创建渠道占位符"><span class="nav-number">4.1.</span> <span class="nav-text">(一)创建渠道占位符</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#首先在AndraoidManifest文件的Application节点下，创建如下所示的meta-data节点。"><span class="nav-number">4.1.0.1.</span> <span class="nav-text">首先在AndraoidManifest文件的Application节点下，创建如下所示的meta-data节点。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#其中-COOL-VALUE-就是要进行替换的渠道占位符。"><span class="nav-number">4.1.0.2.</span> <span class="nav-text">其中${COOL_VALUE}就是要进行替换的渠道占位符。</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（二）配置Gradle脚本"><span class="nav-number">4.2.</span> <span class="nav-text">（二）配置Gradle脚本</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#在项目的Gradle脚本的android领域中，添加productFlavors领域，并添加定义的渠道名，同时使用manifestPlaceholders指定要替换渠道占位符的值，代码如下"><span class="nav-number">4.2.0.1.</span> <span class="nav-text">在项目的Gradle脚本的android领域中，添加productFlavors领域，并添加定义的渠道名，同时使用manifestPlaceholders指定要替换渠道占位符的值，代码如下</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#这样我们就定义了两个不同的渠道—-product1、product2-每个渠道都将指定值赋值给渠道占位符。这样配置后，就完成了多渠道的打包工作。只需要在终端中执行gradle-build即可开始构建。"><span class="nav-number">4.2.0.2.</span> <span class="nav-text">这样我们就定义了两个不同的渠道—-product1、product2.每个渠道都将指定值赋值给渠道占位符。这样配置后，就完成了多渠道的打包工作。只需要在终端中执行gradle build即可开始构建。</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（三）脚本优化"><span class="nav-number">4.3.</span> <span class="nav-text">（三）脚本优化</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#对于上面的多渠道打包脚本，由于每个渠道的替换工作基本类似，因此我们可以对脚本进行以下优化。"><span class="nav-number">4.3.0.1.</span> <span class="nav-text">对于上面的多渠道打包脚本，由于每个渠道的替换工作基本类似，因此我们可以对脚本进行以下优化。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#增加了productFlavors-all领域对所有的productFlavors进行了遍历，并使用其那么作为渠道名。这些name实际就是product1-product2"><span class="nav-number">4.3.0.2.</span> <span class="nav-text">增加了productFlavors.all领域对所有的productFlavors进行了遍历，并使用其那么作为渠道名。这些name实际就是product1,product2.</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（四）生成重命名包"><span class="nav-number">4.4.</span> <span class="nav-text">（四）生成重命名包</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#在生成渠道包后，包的命名通常都不会满足项目经理的要求。那么这时候就可以通过gradle脚本进行快速重命名，代码如下："><span class="nav-number">4.4.0.1.</span> <span class="nav-text">在生成渠道包后，包的命名通常都不会满足项目经理的要求。那么这时候就可以通过gradle脚本进行快速重命名，代码如下：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#将这段代码放到android领域即可，当执行gradle-build指令时该task也会执行，代码含义很好理解，这里就不多说了。"><span class="nav-number">4.4.0.2.</span> <span class="nav-text">将这段代码放到android领域即可，当执行gradle build指令时该task也会执行，代码含义很好理解，这里就不多说了。</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五-为不同版本添加不同代码"><span class="nav-number">4.5.</span> <span class="nav-text">(五)为不同版本添加不同代码</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#在开发中，不同版本通常有不同的代码功能，比如最常用的Log开关。因此，一般会有一个全局变量开关，根据不同版本设置不同的值。接下来我们就以buildType为例，为不同的buildType添加不同的参数配置，代码如下"><span class="nav-number">4.5.0.1.</span> <span class="nav-text">在开发中，不同版本通常有不同的代码功能，比如最常用的Log开关。因此，一般会有一个全局变量开关，根据不同版本设置不同的值。接下来我们就以buildType为例，为不同的buildType添加不同的参数配置，代码如下</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#通过指定buildConfigField的三个参数—类型、名称、值，就可以将变量设置到不同的buildType中去。打开系统的BuildConfig类，可以看到不同的buildType下对应的flag值。然后我们直接使用BuildConfig类，就可以获取到不同的buildType所对应的值了。这里演示的是boolean类型的变量，如果是string类型的，在写入字符串时，需要加转移字符。"><span class="nav-number">4.5.0.2.</span> <span class="nav-text">通过指定buildConfigField的三个参数—类型、名称、值，就可以将变量设置到不同的buildType中去。打开系统的BuildConfig类，可以看到不同的buildType下对应的flag值。然后我们直接使用BuildConfig类，就可以获取到不同的buildType所对应的值了。这里演示的是boolean类型的变量，如果是string类型的，在写入字符串时，需要加转移字符。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#同时在设置变量的时候，甚至可以继续使用变量，代码如下："><span class="nav-number">4.5.0.3.</span> <span class="nav-text">同时在设置变量的时候，甚至可以继续使用变量，代码如下：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#此外我们也可以使用资源文件进行分版本设置属性，例如要给不同版本设置不同的AppName，代码如下："><span class="nav-number">4.5.0.4.</span> <span class="nav-text">此外我们也可以使用资源文件进行分版本设置属性，例如要给不同版本设置不同的AppName，代码如下：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#在代码中同样使用R-string-appName来获取，但是一定要注意要把string-xml中的appName删掉，这样才能编译通过。因为Gradle在编译过程中将会将脚本中的配置和string-xml文件中的配置进行merge操作，如果同时存在两份相同的属性值，就会发生冲突。"><span class="nav-number">4.5.0.5.</span> <span class="nav-text">在代码中同样使用R.string.appName来获取，但是一定要注意要把string.xml中的appName删掉，这样才能编译通过。因为Gradle在编译过程中将会将脚本中的配置和string.xml文件中的配置进行merge操作，如果同时存在两份相同的属性值，就会发生冲突。</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CoolYellow</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
 </body>
-
-
-
- 	
 </html>
