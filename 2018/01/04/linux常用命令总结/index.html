@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="coolyellow的博客">
 <meta property="og:description" content="一、前言关于linux我们这里不深入研究，只总结一下常用的命令，以便为以后学习大数据打下基础。二、linux常用基础 命令行字体变大ctrl + shift + “+” 命令行字体变小ctrl + “-“ 查看当前所在路径pwd 跳转到当前目录的上一级目录(当前目录的父目录)cd ..  跳转到当前目录下的某一个目录cd ./xxx’或者’cd xxx 回到上次的目录cd - 回到当前用户的主目录">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-04T13:07:00.341Z">
+<meta property="og:updated_time" content="2018-01-04T14:08:09.170Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux常用命令总结">
 <meta name="twitter:description" content="一、前言关于linux我们这里不深入研究，只总结一下常用的命令，以便为以后学习大数据打下基础。二、linux常用基础 命令行字体变大ctrl + shift + “+” 命令行字体变小ctrl + “-“ 查看当前所在路径pwd 跳转到当前目录的上一级目录(当前目录的父目录)cd ..  跳转到当前目录下的某一个目录cd ./xxx’或者’cd xxx 回到上次的目录cd - 回到当前用户的主目录">
@@ -369,7 +369,134 @@
 <li>清空当前的dos界面(并非真正意义上的清空，只是上移)<br>clear</li>
 <li>查看当前dos窗口敲过的命令<br>history</li>
 <li>创建文件<br>touch 文件名.后缀</li>
+<li>重定向<blockquote>
+<p>（例如 ls -l &gt; test.txt,将详细信息保存到test.txt中，如果没有test.txt会重新创建，如果存在会删除其内容，然后再添加）</p>
+<blockquote>
+<p>(例如 ls -l &gt;&gt; test.txt,将详细信息保存到test.txt中，如果没有会重新创建，如果存在会在文件末尾继续添加)</p>
+</blockquote>
+</blockquote>
+</li>
+<li>使用默认编辑器打开某一文件(gedit)<br>gedit xxx.txt</li>
+<li>查看某一文件内容<br>cat xxx.txt</li>
+<li>将两个文件内容合并到另一个文件中<br>cat 1.txt 2.txt &gt; 3.txt</li>
+<li>创建文件夹<br>mkdir xxx</li>
+<li>删除文件文件夹相关</li>
 </ol>
+<ul>
+<li>rmdir xxx //只能删除空文件夹</li>
+<li>rm *.txt //删除某个文件</li>
+<li>rm xxx -r //递归删除某个文件夹</li>
+<li>rm *.txt -f //强制删除某个文件</li>
+<li>rm *.txt -i //交互式删除某个文件，即删除前询问</li>
+</ul>
+<ol>
+<li>建立链接(源文件只能是文件不能是文件夹)</li>
+</ol>
+<ul>
+<li>硬链接：ln 源文件 链接文件(就是相当于给文件添加多个文件名，只有所有文件名都删除后才能真正的删除该文件)</li>
+<li>软链接: ln -s 源文件 链接文件(不占用磁盘空间，源文件删除后，链接失效，相当于创建了快捷方式)</li>
+</ul>
+<ol>
+<li>搜索</li>
+</ol>
+<ul>
+<li>grep 搜索内容 搜索文件:grep “aa” 1.txt(搜索1.txt文件中的aa)</li>
+<li>grep -n 搜索内容 搜索文件:grep -n “aa” 1.txt(搜索1.txt文件中的aa并显示所在行数)</li>
+<li>grep -n 正则匹配规则 搜索文件:grep -n “^a”/“a$” 1.txt(搜索1.txt文件中的以a开头/以a结尾的内容，并显示所在行数)</li>
+</ul>
+<ol>
+<li>查找<br>find 要查找的目录 -name 要查找的文件：find xxx -name *.txt(查找xxx目录下的后缀名为txt的所有文件)</li>
+<li>复制</li>
+</ol>
+<ul>
+<li>cp 要复制的文件 要复制到的文件夹路径: cp 1.txt test/(将1.txt文件复制到test文件夹下)</li>
+<li>cp 要复制的文件 要复制到的文件夹路径 -v: cp 1.txt test/ -v (将1.txt文件复制到test文件夹下，并显示进度)</li>
+<li>cp 要复制的文件夹 要复制到的文件夹路径 -a: cp test test2/ -a(将test文件夹整体复制到test2文件夹下)</li>
+<li>cp 要复制的文件夹 要复制到的文件夹路径 -r: cp test test2/ -r(将test文件夹以递归的形式整体复制到test2文件夹下)</li>
+</ul>
+<ol>
+<li>移动(剪切)</li>
+</ol>
+<ul>
+<li>mv 要移动的文件 要移动到的文件夹路径: mv 1.txt test(将1.txt文件移动到test文件夹下)</li>
+<li>mv 要移动的文件夹 要移动到的文件夹路径(-r可加可不加): mv test test2/(将test文件夹移动到test2文件夹下)</li>
+<li>mv 1.txt 2.txt: 将文件1.txt改名为2.txt</li>
+</ul>
+<ol>
+<li>打包<br> z:压缩   c:打包  x:减压   v：显示进度 f:指定档案名称，f后面必须是.tar，并且f必须放在选项最后</li>
+</ol>
+<ul>
+<li>tar -cvf test.tar 1.txt 2.txt 3.txt:将1.txt 2.txt 3.txt 打包成test.tar（只打包不压缩，大小不变）</li>
+<li>tar -zcvf test.tar.gzip 1.txt 2.txt 3.txt:将1.txt 2.txt 3.txt 打包压缩成test.tar（即打包也压缩）</li>
+<li>tar -xvf test.tar:减包test.tar</li>
+<li>tar -zxvf test.tar.gzip:减压缩test.tar.gzip</li>
+<li>tar -zxvf test.tar.gzip -C test/:减压缩test.tar.gzip到test目录下<br>bz2:</li>
+<li>tar -jcvf test.tar.bz2 1.txt 2.txt 3.txt:将1.txt 2.txt 3.txt 打包压缩成test.tar.bz2（即打包也压缩）</li>
+<li>tar -jxvf test.tar.bz2:减压缩test.tar.bz2</li>
+</ul>
+<ol>
+<li>gzip:压缩，减压</li>
+</ol>
+<ul>
+<li>gzip -r test.tar:压缩所有子目录到test.tar.gzip</li>
+<li>gzip -d test.tar.gzip:减压缩test.tar.gzip</li>
+</ul>
+<ol>
+<li>zip unzip:压缩，减压缩</li>
+</ol>
+<ul>
+<li>zip [-r] 目标文件（没有扩展名） 源文件 zip [-r] my 1.txt===&gt;my.zip</li>
+<li>unzip -d 减压后目录文件 压缩文件:unzip -d test my.zip===&gt;将my.zip减压缩到test目录下</li>
+</ul>
+<ol>
+<li>which：查看某个文件所在的目录<br>which ls:查看ls文件所在的目录</li>
+<li>data：显示当前日期，时间<br>cal:显示当前日历 cal 2016:显示2016年的日历</li>
+<li>ps:查看进程信息</li>
+</ol>
+<ul>
+<li>ps -a:显示终端上所有的进程，包括其他用户进程</li>
+<li>ps -u：显示进程的详细状态</li>
+<li>ps -x：显示没有控制终端的进程</li>
+<li>ps -w：显示加宽，以便显示更多的信息</li>
+<li>ps -r：只显示正在运行的进程<br> 常用的是 ps -aux</li>
+</ul>
+<ol>
+<li>kill :杀死某个进程<br>先用ps -aux查看所有进程，然后kill 要杀死的进程前的编号（pid）<br>kill -9 pid:强制杀死某个进程</li>
+<li>reboot：重启<br>shutdown -r now:立刻重启<br>shutdown -h now:立刻关机<br>shutdown -h 20:35:在20:35时关机<br>shutdwon -h +10:10分钟后关机</li>
+<li>top：动态显示运行中的进程<pre><code>按下top后可以根据如下按键得到队形的结果排序：
+M：根据内存使用量来排序
+</code></pre>P:根据cup占有率来排序<br>T:根据进程运行时间长短来排序<br>U:可以根据后面输入的而用户名来筛选进程<br>K:可以根据后面输入的PID来杀死进程<br>q:退出<br>h:获得帮助</li>
+<li>df:查看磁盘的使用情况<br>df -lh:查看格式化后磁盘的使用情况</li>
+<li>du:显示当前目录所占用的磁盘情况<br>du -alh:显示当前目录所有子目录所占磁盘的情况</li>
+<li>ifconfig:查看当前PC的网卡信息等</li>
+<li>ctrl+alt+f1~f6:进入非图形界面<br>ctrl+alt+f7:进入图形界面<br>ctrl+alt:鼠标才能从非图形界面中出来</li>
+<li>ssh:远程登录<br>ssh 用户名@ip:远程登录某个用户名</li>
+<li>who：查看当前登录的用户的信息<br>whoami:查看当前命令窗口是哪个用户在使用</li>
+<li>useradd(adduser):添加用户（但是没有超级管理员，即不能使用sudo）<br>useradd yellowcool：添加用户名为yellowcool的用户，但没有家目录，即在home目录下没有yellowcool这个目录（一般每个用户在home中都有对应的目录）<br>useradd coolyellow -m:添加用户名为coolyellow的用户，并且在home目录下有其对应的目录</li>
+<li>userdel:删除某个用户（该用户不能是正在登陆使用的，如果正在使用要exit再删除）<br>userdel 用户名：删除某个用户，但不删除其在home中的文件夹目录<br>userdel -r 用户名：删除某个用户，并且删除其在home中的文件夹目录</li>
+<li>passwd:修改用户密码<br>passwd yellowcool:修改用户名为yellowcool的密码</li>
+<li>su 用户名：切换到某个用户下</li>
+<li>所有用户名都在/etc/passwd文件中<br>cat /etc/passwd查看</li>
+<li>所有用户组都在/etc/group文件中<br>查看都有哪些用户组：<br> cat /etc/group或者groupmod 三次tab键</li>
+<li>增加，删除组：<br>groupadd 组名<br>groupdel 组名</li>
+<li>groups 用户名：查看用户名在哪个组中(只有在sudo组中的用户才具有超级管理员)<br>groups coolyellow</li>
+<li>groupmod -g 用户组名 用户名：将某个用户添加到某个用户组中，会修改替换默认的用户组<br>groupmod -G 用户组名 用户名：将某个用户添加到某个用户组中，会随机替换非默认用户组<br>groupmod -a -G 用户组名 用户名：将某个用户添加到某个用户组中,不修改任何用户组，直接添加到新的用户组中</li>
+<li>为创建的普通用户添加sudo权限，必须同时添加到adm跟sudo组中，必须在root用户下操作：<br>sudo usermod -a -G adm 用户名<br>sudo usermod -a -G sudo 用户名（可能不需要sudo）</li>
+<li>chmod：修改权限<br>chmod u+x 1.txt:为1.txt的拥有者添加可执行权限<pre><code>g:组 o:其他用户 
+</code></pre>chmod u-x 1.txt：修改拥有者为不可执行权限<br>chmod u=x 1.txt:修改拥有者的权限只为可执行<br>chmod 761 1.txt:该方式是最常用的<br>注意：对于文件夹如果没有可执行权限，则进不去这个文件夹</li>
+<li>chown:修改文件的所有者<br>chown 用户名 文件或者目录名；</li>
+<li>chgrp:修改文件所属组<br>chgrp 用户组名 文件或目录名</li>
+<li>ssh服务器</li>
+</ol>
+<ul>
+<li>安装ssh<br>  sudo apt-get install openssh-server</li>
+<li>远程登录<br>   ssh 用户名@IP</li>
+<li>远程拷贝<br>   scp -r 目标用户名@目标主机IP：/目标文件的绝对路径   /保存到本机的绝对（或者相对）路径<br>  ①本地文件复制到远程：（拷贝单个文件可以不加参数-r）<pre><code>scp filename remoteUserName@RemoteHostIp:RemoteFile
+</code></pre>  scp filename RemoteHostIp:RemoteFile<br>  ②本地目录复制到远程：<pre><code>scp -r foldername remoteUserName@RemoteHostIp:RemoteFolder
+</code></pre>   scp -r foldername RemoteHostIp:RemoteFolder<br>   ③远程文件复制到本地<pre><code>scp remoteUserName@RemoteHostIp:RemoteFile filename 
+</code></pre>  scp RemoteHostIp:RemoteFile  filename<br>   ④远程目录复制到本地<pre><code>scp -r remoteUserName@RemoteHostIp:RemoteFolder  foldername 
+</code></pre>   scp -r RemoteHostIp:RemoteFolder  foldername </li>
+</ul>
 
       
     </div>
