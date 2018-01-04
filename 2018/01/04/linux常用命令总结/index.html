@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="ubuntu linux," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -80,14 +80,13 @@
 
 
 <meta name="description" content="一、前言关于linux我们这里不深入研究，只总结一下常用的命令，以便为以后学习大数据打下基础。二、linux常用基础 命令行字体变大ctrl + shift + “+” 命令行字体变小ctrl + “-“ 查看当前所在路径pwd 跳转到当前目录的上一级目录(当前目录的父目录)cd ..  跳转到当前目录下的某一个目录cd ./xxx’或者’cd xxx 回到上次的目录cd - 回到当前用户的主目录">
-<meta name="keywords" content="ubuntu linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="linux常用命令总结">
 <meta property="og:url" content="http://www.coolcoolcoder.com/c_night/2018/01/04/linux常用命令总结/index.html">
 <meta property="og:site_name" content="coolyellow的博客">
 <meta property="og:description" content="一、前言关于linux我们这里不深入研究，只总结一下常用的命令，以便为以后学习大数据打下基础。二、linux常用基础 命令行字体变大ctrl + shift + “+” 命令行字体变小ctrl + “-“ 查看当前所在路径pwd 跳转到当前目录的上一级目录(当前目录的父目录)cd ..  跳转到当前目录下的某一个目录cd ./xxx’或者’cd xxx 回到上次的目录cd - 回到当前用户的主目录">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-04T14:08:09.170Z">
+<meta property="og:updated_time" content="2018-01-04T14:33:17.831Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux常用命令总结">
 <meta name="twitter:description" content="一、前言关于linux我们这里不深入研究，只总结一下常用的命令，以便为以后学习大数据打下基础。二、linux常用基础 命令行字体变大ctrl + shift + “+” 命令行字体变小ctrl + “-“ 查看当前所在路径pwd 跳转到当前目录的上一级目录(当前目录的父目录)cd ..  跳转到当前目录下的某一个目录cd ./xxx’或者’cd xxx 回到上次的目录cd - 回到当前用户的主目录">
@@ -380,123 +379,187 @@
 <li>查看某一文件内容<br>cat xxx.txt</li>
 <li>将两个文件内容合并到另一个文件中<br>cat 1.txt 2.txt &gt; 3.txt</li>
 <li>创建文件夹<br>mkdir xxx</li>
-<li>删除文件文件夹相关</li>
-</ol>
-<ul>
+<li>删除文件文件夹相关<ul>
 <li>rmdir xxx //只能删除空文件夹</li>
 <li>rm *.txt //删除某个文件</li>
 <li>rm xxx -r //递归删除某个文件夹</li>
 <li>rm *.txt -f //强制删除某个文件</li>
 <li>rm *.txt -i //交互式删除某个文件，即删除前询问</li>
 </ul>
-<ol>
-<li>建立链接(源文件只能是文件不能是文件夹)</li>
-</ol>
-<ul>
+</li>
+<li>建立链接(源文件只能是文件不能是文件夹)<ul>
 <li>硬链接：ln 源文件 链接文件(就是相当于给文件添加多个文件名，只有所有文件名都删除后才能真正的删除该文件)</li>
 <li>软链接: ln -s 源文件 链接文件(不占用磁盘空间，源文件删除后，链接失效，相当于创建了快捷方式)</li>
 </ul>
-<ol>
-<li>搜索</li>
-</ol>
-<ul>
+</li>
+<li>搜索<ul>
 <li>grep 搜索内容 搜索文件:grep “aa” 1.txt(搜索1.txt文件中的aa)</li>
 <li>grep -n 搜索内容 搜索文件:grep -n “aa” 1.txt(搜索1.txt文件中的aa并显示所在行数)</li>
 <li>grep -n 正则匹配规则 搜索文件:grep -n “^a”/“a$” 1.txt(搜索1.txt文件中的以a开头/以a结尾的内容，并显示所在行数)</li>
 </ul>
-<ol>
+</li>
 <li>查找<br>find 要查找的目录 -name 要查找的文件：find xxx -name *.txt(查找xxx目录下的后缀名为txt的所有文件)</li>
-<li>复制</li>
-</ol>
-<ul>
+<li>复制<ul>
 <li>cp 要复制的文件 要复制到的文件夹路径: cp 1.txt test/(将1.txt文件复制到test文件夹下)</li>
 <li>cp 要复制的文件 要复制到的文件夹路径 -v: cp 1.txt test/ -v (将1.txt文件复制到test文件夹下，并显示进度)</li>
 <li>cp 要复制的文件夹 要复制到的文件夹路径 -a: cp test test2/ -a(将test文件夹整体复制到test2文件夹下)</li>
 <li>cp 要复制的文件夹 要复制到的文件夹路径 -r: cp test test2/ -r(将test文件夹以递归的形式整体复制到test2文件夹下)</li>
 </ul>
-<ol>
-<li>移动(剪切)</li>
-</ol>
-<ul>
+</li>
+<li>移动(剪切)<ul>
 <li>mv 要移动的文件 要移动到的文件夹路径: mv 1.txt test(将1.txt文件移动到test文件夹下)</li>
 <li>mv 要移动的文件夹 要移动到的文件夹路径(-r可加可不加): mv test test2/(将test文件夹移动到test2文件夹下)</li>
 <li>mv 1.txt 2.txt: 将文件1.txt改名为2.txt</li>
 </ul>
-<ol>
-<li>打包<br> z:压缩   c:打包  x:减压   v：显示进度 f:指定档案名称，f后面必须是.tar，并且f必须放在选项最后</li>
+</li>
+<li><p>打包压缩减压缩</p>
+<p>z:压缩    c:打包  x:减压  v：显示进度 f:指定档案名称，f后面必须是.tar，并且f必须放在选项最后<br>tar -cvf test.tar 1.txt 2.txt 3.txt:将1.txt 2.txt 3.txt 打包成test.tar（只打包不压缩，大小不变）</p>
+<p>tar -zcvf test.tar.gzip 1.txt 2.txt 3.txt:将1.txt 2.txt 3.txt 打包压缩成test.tar（即打包也压缩）</p>
+<p>tar -xvf test.tar:减包test.tar</p>
+<p>tar -zxvf test.tar.gzip:减压缩test.tar.gzip</p>
+<p>tar -zxvf test.tar.gzip -C test/:减压缩test.tar.gzip到test目录下</p>
+<p>bz2:</p>
+<p>tar -jcvf test.tar.bz2 1.txt 2.txt 3.txt:将1.txt 2.txt 3.txt 打包压缩成test.tar.bz2（即打包也压缩）</p>
+<p>tar -jxvf test.tar.bz2:减压缩test.tar.bz2</p>
+</li>
+<li><p>gzip:压缩，减压</p>
+<p>gzip -r test.tar:压缩所有子目录到test.tar.gzip</p>
+<p>gzip -d test.tar.gzip:减压缩test.tar.gzip</p>
+</li>
+<li><p>zip unzip:压缩，减压缩</p>
+<p>zip [-r] 目标文件（没有扩展名） 源文件 zip [-r] my 1.txt===&gt;my.zip</p>
+<p>unzip -d 减压后目录文件 压缩文件:unzip -d test my.zip===&gt;将my.zip减压缩到test目录下</p>
+</li>
+<li><p>which：查看某个文件所在的目录</p>
+<p>which ls:查看ls文件所在的目录</p>
+</li>
+<li><p>data：显示当前日期，时间</p>
+<p>cal:显示当前日历 cal 2016:显示2016年的日历</p>
+</li>
+<li><p>ps:查看进程信息</p>
+<p>ps -a:显示终端上所有的进程，包括其他用户进程</p>
+<p>ps -u：显示进程的详细状态</p>
+<p>ps -x：显示没有控制终端的进程</p>
+<p>ps -w：显示加宽，以便显示更多的信息</p>
+<p>ps -r：只显示正在运行的进程</p>
+<p>常用的是 ps -aux</p>
+</li>
+<li><p>kill :杀死某个进程</p>
+<p>先用ps -aux查看所有进程，然后kill 要杀死的进程前的编号（pid）</p>
+<p>kill -9 pid:强制杀死某个进程</p>
+</li>
+<li><p>reboot：重启</p>
+<p>shutdown -r now:立刻重启</p>
+<p>shutdown -h now:立刻关机</p>
+<p>shutdown -h 20:35:在20:35时关机</p>
+<p>shutdwon -h +10:10分钟后关机</p>
+</li>
+<li><p>top：动态显示运行中的进程</p>
+<p>按下top后可以根据如下按键得到队形的结果排序：</p>
+<p>M：根据内存使用量来排序</p>
+<p>P:根据cup占有率来排序</p>
+<p>T:根据进程运行时间长短来排序</p>
+<p>U:可以根据后面输入的而用户名来筛选进程</p>
+<p>K:可以根据后面输入的PID来杀死进程</p>
+<p>q:退出</p>
+<p>h:获得帮助</p>
+</li>
+<li><p>df:查看磁盘的使用情况</p>
+<p>df -lh:查看格式化后磁盘的使用情况</p>
+</li>
+<li><p>du:显示当前目录所占用的磁盘情况</p>
+<p>du -alh:显示当前目录所有子目录所占磁盘的情况</p>
+</li>
+<li><p>ifconfig:查看当前PC的网卡信息等</p>
+</li>
+<li><p>ctrl+alt+f1~f6:进入非图形界面</p>
+<p>ctrl+alt+f7:进入图形界面</p>
+<p>ctrl+alt:鼠标才能从非图形界面中出来</p>
+</li>
+<li><p>ssh:远程登录</p>
+<p>ssh 用户名@ip:远程登录某个用户名</p>
+</li>
+<li><p>who：查看当前登录的用户的信息</p>
+<p>whoami:查看当前命令窗口是哪个用户在使用</p>
+</li>
+<li><p>useradd(adduser):添加用户（但是没有超级管理员，即不能使用sudo）</p>
+<p>useradd yellowcool：添加用户名为yellowcool的用户，但没有家目录，即在home目录下没有yellowcool这个目录（一般每个用户在home中都有对应的目录）</p>
+<p>useradd coolyellow -m:添加用户名为coolyellow的用户，并且在home目录下有其对应的目录</p>
+</li>
+<li><p>userdel:删除某个用户（该用户不能是正在登陆使用的，如果正在使用要exit再删除）</p>
+<p>userdel 用户名：删除某个用户，但不删除其在home中的文件夹目录</p>
+<p>userdel -r 用户名：删除某个用户，并且删除其在home中的文件夹目录</p>
+</li>
+<li><p>passwd:修改用户密码</p>
+<p>passwd yellowcool:修改用户名为yellowcool的密码</p>
+</li>
+<li><p>su 用户名：切换到某个用户下</p>
+</li>
+<li><p>所有用户名都在/etc/passwd文件中</p>
+<p>cat /etc/passwd查看</p>
+</li>
+<li><p>所有用户组都在/etc/group文件中</p>
+<p>查看都有哪些用户组：</p>
+<p> cat /etc/group或者groupmod 三次tab键</p>
+</li>
+<li><p>增加，删除组：</p>
+<p>groupadd 组名</p>
+<p>groupdel 组名</p>
+</li>
+<li><p>groups 用户名：查看用户名在哪个组中(只有在sudo组中的用户才具有超级管理员)</p>
+<p>groups coolyellow</p>
+</li>
+<li><p>groupmod -g 用户组名 用户名：将某个用户添加到某个用户组中，会修改替换默认的用户组</p>
+<p>groupmod -G 用户组名 用户名：将某个用户添加到某个用户组中，会随机替换非默认用户组</p>
+<p>groupmod -a -G 用户组名 用户名：将某个用户添加到某个用户组中,不修改任何用户组，直接添加到新的用户组中</p>
+</li>
+<li><p>为创建的普通用户添加sudo权限，必须同时添加到adm跟sudo组中，必须在root用户下操作：</p>
+<p>sudo usermod -a -G adm 用户名</p>
+<p>sudo usermod -a -G sudo 用户名（可能不需要sudo）</p>
+</li>
+<li><p>chmod：修改权限</p>
+<p>chmod u+x 1.txt:为1.txt的拥有者添加可执行权限</p>
+<pre><code>g:组 o:其他用户 
+</code></pre><p>chmod u-x 1.txt：修改拥有者为不可执行权限</p>
+<p>chmod u=x 1.txt:修改拥有者的权限只为可执行</p>
+<p>chmod 761 1.txt:该方式是最常用的</p>
+</li>
 </ol>
-<ul>
-<li>tar -cvf test.tar 1.txt 2.txt 3.txt:将1.txt 2.txt 3.txt 打包成test.tar（只打包不压缩，大小不变）</li>
-<li>tar -zcvf test.tar.gzip 1.txt 2.txt 3.txt:将1.txt 2.txt 3.txt 打包压缩成test.tar（即打包也压缩）</li>
-<li>tar -xvf test.tar:减包test.tar</li>
-<li>tar -zxvf test.tar.gzip:减压缩test.tar.gzip</li>
-<li>tar -zxvf test.tar.gzip -C test/:减压缩test.tar.gzip到test目录下<br>bz2:</li>
-<li>tar -jcvf test.tar.bz2 1.txt 2.txt 3.txt:将1.txt 2.txt 3.txt 打包压缩成test.tar.bz2（即打包也压缩）</li>
-<li>tar -jxvf test.tar.bz2:减压缩test.tar.bz2</li>
-</ul>
+<p>注意：对于文件夹如果没有可执行权限，则进不去这个文件夹</p>
 <ol>
-<li>gzip:压缩，减压</li>
+<li><p>chown:修改文件的所有者</p>
+<p>chown 用户名 文件或者目录名；</p>
+</li>
+<li><p>chgrp:修改文件所属组</p>
+<p>chgrp 用户组名 文件或目录名</p>
+</li>
+<li><p>ubuntu软件安装与卸载：</p>
+<p>1）修改Ubuntu默认的软件下载服务器，注意先备份</p>
+<p> gedit /etc/apt/sources.list</p>
+<p>2)从更新源地址：<a href="https://mirrors.tuna.tsinghua.edu.cn中找到Ubuntu对应的版本" target="_blank" rel="external">https://mirrors.tuna.tsinghua.edu.cn中找到Ubuntu对应的版本</a></p>
+<p> 然后复制到sources.list中的<a href="http://help.ubuntu.com...中，、" target="_blank" rel="external">http://help.ubuntu.com...中，、</a></p>
+<p>3）执行apt-get update命令，验证是否成功（必须验证），让更新源生效</p>
+<p>4）开始安装软件</p>
+<p>   apt-get install 软件名</p>
+<p>5）删除软件</p>
+<p>   apt-get remove package</p>
+</li>
+<li><p>ftp服务器：文件上传下载协议（文件传输协议）</p>
+<p>1）安装vsftpd服务器</p>
+<p>  sudo apt-get install vsftpd</p>
+<p>2)配置vsftpd.conf文件(验证上传文件是否合法)</p>
+<p> sudo vi /etc/vsftpd.conf</p>
+<p>3）重启FTP服务，使其生效</p>
+<p> sudo /etc/init.d/vsftpd restart</p>
+<p>4)登录ftp</p>
+<p>5)上传或者下载文件<br> put somefile:上传某个文件<br> get somefile：下载某个文件</p>
+</li>
+<li>ssh服务器<br>1）安装ssh<br>sudo apt-get install openssh-server<br>2)远程登录<br> ssh 用户名@IP<br>3）远程拷贝<br> scp -r 目标用户名@目标主机IP：/目标文件的绝对路径   /保存到本机的绝对（或者相对）路径<br>①本地文件复制到远程：（拷贝单个文件可以不加参数-r）<pre><code>scp filename remoteUserName@RemoteHostIp:RemoteFile
+</code></pre>scp filename RemoteHostIp:RemoteFile<br>②本地目录复制到远程：<pre><code>scp -r foldername remoteUserName@RemoteHostIp:RemoteFolder
+</code></pre> scp -r foldername RemoteHostIp:RemoteFolder<br> ③远程文件复制到本地<pre><code>scp remoteUserName@RemoteHostIp:RemoteFile filename 
+</code></pre>scp RemoteHostIp:RemoteFile  filename<br> ④远程目录复制到本地<pre><code>scp -r remoteUserName@RemoteHostIp:RemoteFolder  foldername 
+</code></pre> scp -r RemoteHostIp:RemoteFolder  foldername </li>
 </ol>
-<ul>
-<li>gzip -r test.tar:压缩所有子目录到test.tar.gzip</li>
-<li>gzip -d test.tar.gzip:减压缩test.tar.gzip</li>
-</ul>
-<ol>
-<li>zip unzip:压缩，减压缩</li>
-</ol>
-<ul>
-<li>zip [-r] 目标文件（没有扩展名） 源文件 zip [-r] my 1.txt===&gt;my.zip</li>
-<li>unzip -d 减压后目录文件 压缩文件:unzip -d test my.zip===&gt;将my.zip减压缩到test目录下</li>
-</ul>
-<ol>
-<li>which：查看某个文件所在的目录<br>which ls:查看ls文件所在的目录</li>
-<li>data：显示当前日期，时间<br>cal:显示当前日历 cal 2016:显示2016年的日历</li>
-<li>ps:查看进程信息</li>
-</ol>
-<ul>
-<li>ps -a:显示终端上所有的进程，包括其他用户进程</li>
-<li>ps -u：显示进程的详细状态</li>
-<li>ps -x：显示没有控制终端的进程</li>
-<li>ps -w：显示加宽，以便显示更多的信息</li>
-<li>ps -r：只显示正在运行的进程<br> 常用的是 ps -aux</li>
-</ul>
-<ol>
-<li>kill :杀死某个进程<br>先用ps -aux查看所有进程，然后kill 要杀死的进程前的编号（pid）<br>kill -9 pid:强制杀死某个进程</li>
-<li>reboot：重启<br>shutdown -r now:立刻重启<br>shutdown -h now:立刻关机<br>shutdown -h 20:35:在20:35时关机<br>shutdwon -h +10:10分钟后关机</li>
-<li>top：动态显示运行中的进程<pre><code>按下top后可以根据如下按键得到队形的结果排序：
-M：根据内存使用量来排序
-</code></pre>P:根据cup占有率来排序<br>T:根据进程运行时间长短来排序<br>U:可以根据后面输入的而用户名来筛选进程<br>K:可以根据后面输入的PID来杀死进程<br>q:退出<br>h:获得帮助</li>
-<li>df:查看磁盘的使用情况<br>df -lh:查看格式化后磁盘的使用情况</li>
-<li>du:显示当前目录所占用的磁盘情况<br>du -alh:显示当前目录所有子目录所占磁盘的情况</li>
-<li>ifconfig:查看当前PC的网卡信息等</li>
-<li>ctrl+alt+f1~f6:进入非图形界面<br>ctrl+alt+f7:进入图形界面<br>ctrl+alt:鼠标才能从非图形界面中出来</li>
-<li>ssh:远程登录<br>ssh 用户名@ip:远程登录某个用户名</li>
-<li>who：查看当前登录的用户的信息<br>whoami:查看当前命令窗口是哪个用户在使用</li>
-<li>useradd(adduser):添加用户（但是没有超级管理员，即不能使用sudo）<br>useradd yellowcool：添加用户名为yellowcool的用户，但没有家目录，即在home目录下没有yellowcool这个目录（一般每个用户在home中都有对应的目录）<br>useradd coolyellow -m:添加用户名为coolyellow的用户，并且在home目录下有其对应的目录</li>
-<li>userdel:删除某个用户（该用户不能是正在登陆使用的，如果正在使用要exit再删除）<br>userdel 用户名：删除某个用户，但不删除其在home中的文件夹目录<br>userdel -r 用户名：删除某个用户，并且删除其在home中的文件夹目录</li>
-<li>passwd:修改用户密码<br>passwd yellowcool:修改用户名为yellowcool的密码</li>
-<li>su 用户名：切换到某个用户下</li>
-<li>所有用户名都在/etc/passwd文件中<br>cat /etc/passwd查看</li>
-<li>所有用户组都在/etc/group文件中<br>查看都有哪些用户组：<br> cat /etc/group或者groupmod 三次tab键</li>
-<li>增加，删除组：<br>groupadd 组名<br>groupdel 组名</li>
-<li>groups 用户名：查看用户名在哪个组中(只有在sudo组中的用户才具有超级管理员)<br>groups coolyellow</li>
-<li>groupmod -g 用户组名 用户名：将某个用户添加到某个用户组中，会修改替换默认的用户组<br>groupmod -G 用户组名 用户名：将某个用户添加到某个用户组中，会随机替换非默认用户组<br>groupmod -a -G 用户组名 用户名：将某个用户添加到某个用户组中,不修改任何用户组，直接添加到新的用户组中</li>
-<li>为创建的普通用户添加sudo权限，必须同时添加到adm跟sudo组中，必须在root用户下操作：<br>sudo usermod -a -G adm 用户名<br>sudo usermod -a -G sudo 用户名（可能不需要sudo）</li>
-<li>chmod：修改权限<br>chmod u+x 1.txt:为1.txt的拥有者添加可执行权限<pre><code>g:组 o:其他用户 
-</code></pre>chmod u-x 1.txt：修改拥有者为不可执行权限<br>chmod u=x 1.txt:修改拥有者的权限只为可执行<br>chmod 761 1.txt:该方式是最常用的<br>注意：对于文件夹如果没有可执行权限，则进不去这个文件夹</li>
-<li>chown:修改文件的所有者<br>chown 用户名 文件或者目录名；</li>
-<li>chgrp:修改文件所属组<br>chgrp 用户组名 文件或目录名</li>
-<li>ssh服务器</li>
-</ol>
-<ul>
-<li>安装ssh<br>  sudo apt-get install openssh-server</li>
-<li>远程登录<br>   ssh 用户名@IP</li>
-<li>远程拷贝<br>   scp -r 目标用户名@目标主机IP：/目标文件的绝对路径   /保存到本机的绝对（或者相对）路径<br>  ①本地文件复制到远程：（拷贝单个文件可以不加参数-r）<pre><code>scp filename remoteUserName@RemoteHostIp:RemoteFile
-</code></pre>  scp filename RemoteHostIp:RemoteFile<br>  ②本地目录复制到远程：<pre><code>scp -r foldername remoteUserName@RemoteHostIp:RemoteFolder
-</code></pre>   scp -r foldername RemoteHostIp:RemoteFolder<br>   ③远程文件复制到本地<pre><code>scp remoteUserName@RemoteHostIp:RemoteFile filename 
-</code></pre>  scp RemoteHostIp:RemoteFile  filename<br>   ④远程目录复制到本地<pre><code>scp -r remoteUserName@RemoteHostIp:RemoteFolder  foldername 
-</code></pre>   scp -r RemoteHostIp:RemoteFolder  foldername </li>
-</ul>
 
       
     </div>
@@ -511,12 +574,6 @@ M：根据内存使用量来排序
     
 
     <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/ubuntu-linux/" rel="tag"># ubuntu linux</a>
-          
-        </div>
       
 
       
@@ -634,7 +691,7 @@ M：根据内存使用量来排序
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">1</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
