@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="coolyellow的博客">
 <meta property="og:description" content="一、前言关于linux我们这里不深入研究，只总结一下常用的命令，以便为以后学习大数据打下基础。二、linux常用基础 命令行字体变大ctrl + shift + “+” 命令行字体变小ctrl + “-“ 查看当前所在路径pwd 跳转到当前目录的上一级目录(当前目录的父目录)cd ..  跳转到当前目录下的某一个目录cd ./xxx’或者’cd xxx 回到上次的目录cd - 回到当前用户的主目录">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-07T01:32:19.493Z">
+<meta property="og:updated_time" content="2018-01-07T01:35:56.117Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux常用命令总结">
 <meta name="twitter:description" content="一、前言关于linux我们这里不深入研究，只总结一下常用的命令，以便为以后学习大数据打下基础。二、linux常用基础 命令行字体变大ctrl + shift + “+” 命令行字体变小ctrl + “-“ 查看当前所在路径pwd 跳转到当前目录的上一级目录(当前目录的父目录)cd ..  跳转到当前目录下的某一个目录cd ./xxx’或者’cd xxx 回到上次的目录cd - 回到当前用户的主目录">
@@ -368,13 +368,7 @@
 <li>清空当前的dos界面(并非真正意义上的清空，只是上移)<br>clear</li>
 <li>查看当前dos窗口敲过的命令<br>history</li>
 <li>创建文件<br>touch 文件名.后缀</li>
-<li>重定向<blockquote>
-<p>（例如 ls -l &gt; test.txt,将详细信息保存到test.txt中，如果没有test.txt会重新创建，如果存在会删除其内容，然后再添加）</p>
-<blockquote>
-<p>(例如 ls -l &gt;&gt; test.txt,将详细信息保存到test.txt中，如果没有会重新创建，如果存在会在文件末尾继续添加)</p>
-</blockquote>
-</blockquote>
-</li>
+<li>重定向<br>“&gt;”（例如 ls -l &gt; test.txt,将详细信息保存到test.txt中，如果没有test.txt会重新创建，如果存在会删除其内容，然后再添加）<br>“&gt;&gt;” (例如 ls -l &gt;&gt; test.txt,将详细信息保存到test.txt中，如果没有会重新创建，如果存在会在文件末尾继续添加)</li>
 <li>使用默认编辑器打开某一文件(gedit)<br>gedit xxx.txt</li>
 <li>查看某一文件内容<br>cat xxx.txt</li>
 <li>将两个文件内容合并到另一个文件中<br>cat 1.txt 2.txt &gt; 3.txt</li>
