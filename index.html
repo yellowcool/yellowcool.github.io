@@ -603,8 +603,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/HADOOP/" itemprop="url" rel="index">
-                    <span itemprop="name">HADOOP</span>
+                  <a href="/categories/hadoop/" itemprop="url" rel="index">
+                    <span itemprop="name">hadoop</span>
                   </a>
                 </span>
 
@@ -644,10 +644,38 @@
           
             <h3 id="一、Hadoop安装"><a href="#一、Hadoop安装" class="headerlink" title="一、Hadoop安装"></a>一、Hadoop安装</h3><ol>
 <li>下载Hadoop并减压到指定目录</li>
-<li>配置Hadoop环境变量：<br> 在/etc目录下的environment中添加HADOOP_INSTALL=你所减压的Hadoop的目录（注意这里不包含”/“,例如：”/usr/soft/hadoop”;然后在path中添加bin跟sbin路径，例如：”:/usr/soft/hadoop/bin:/usr/soft/hadoop/sbin”）</li>
+<li>配置Hadoop环境变量(注意这里的HADOOP_INSTALL不是必须配置的，只是为了方便以后我们调用hadoop目录，但不能设置为HADOOP_HOME因为hadoop会动态创建，如果我们也设置为HADOOP_HOME会干扰其创建)：<br> 在/etc目录下的environment中添加HADOOP_INSTALL=你所减压的Hadoop的目录（注意这里不包含”/“,例如：”/usr/soft/hadoop”;然后在path中添加bin跟sbin路径，例如：”:/usr/soft/hadoop/bin:/usr/soft/hadoop/sbin”）</li>
 <li>使环境变量立即生效：<br> 执行”source environment”命令</li>
-<li>查看Hadoop是否安装成功：<br> 执行”hadoop version”命令，如果没报错，并显示了Hadoop的版本则说明配置陈宫了（注意如果未安装jdk或未配置JAVA_HOME需要先安装跟配置jdk的环境变量，如果安装并配置了jdk仍然报错，可能需要重启系统来生效）<h3 id="二、Hadoop配置模式"><a href="#二、Hadoop配置模式" class="headerlink" title="二、Hadoop配置模式"></a>二、Hadoop配置模式</h3><h5 id="使用jps命令查看当前运行的进程"><a href="#使用jps命令查看当前运行的进程" class="headerlink" title="使用jps命令查看当前运行的进程"></a>使用jps命令查看当前运行的进程</h5></li>
-<li>独立模式<br> 输入命令行与Linux一样只是需要以”hadoop fs”开始(例如”hadoop fs -ls /“查看/下的所有文件及其文件夹)</li>
+<li>查看Hadoop是否安装成功：<br> 执行”hadoop version”命令，如果没报错，并显示了Hadoop的版本则说明配置成功了（注意如果未安装jdk或未配置JAVA_HOME需要先安装跟配置jdk的环境变量，如果安装并配置了jdk仍然报错，可能需要重启系统来生效）<h3 id="二、Hadoop配置模式"><a href="#二、Hadoop配置模式" class="headerlink" title="二、Hadoop配置模式"></a>二、Hadoop配置模式</h3><h5 id="使用jps命令查看当前运行的java进程"><a href="#使用jps命令查看当前运行的java进程" class="headerlink" title="使用jps命令查看当前运行的java进程"></a>使用jps命令查看当前运行的java进程</h5></li>
+</ol>
+<ul>
+<li>hadoop中输入命令行与Linux一样只是需要以”hadoop fs”开始(例如”hadoop fs -ls /“查看/下的所有文件及其文件夹)</li>
+</ul>
+<ol>
+<li>独立模式:没有守护进程，所有程序呢运行在一个jvm上，适合开发期间运行mapreduce程序，易于测试和调试。<ul>
+<li>配置:不需要配置，默认的配置就是独立模式。</li>
+</ul>
+</li>
+<li>伪分布式模式:守护进程在本机上，模拟一个小规模的集群<br>(1) 配置:<br>首先我们需要设置一下配置文件，所有的配置文件都在Hadoop安装目录/etc/hadoop目录下，一般来说会将hadoop安装目录/etc/hadooop进行拷贝一份(比如起名为hadoop_pse),然后在拷贝的目录下设置配置文件内容，需要配置的内容如下：<br>‘’’<br><!-- core-site.xml -->//配置通用属性<configuration><br><property><br><name>fs.defaultFS</name><br><value>hdfs://localhost/</value><br></property><br></configuration>
+
+</li>
+</ol>
+<p><!-- hdfs-site.xml -->//配置HDFS属性</p>
+<configuration><br><property><br><name>dfs.replication</name><br><value>1</value><br></property><br></configuration>
+
+<p><!-- mapred-site.xml -->//配置mapReduce属性</p>
+<configuration><br><property><br><name>mapreduce.framework.name</name><br><value>yarn</value><br></property><br></configuration>
+
+<p><!-- yarn-site.xml -->//配置yarn属性</p>
+<p><configuration></configuration></p>
+<p><property></property></p>
+<p><name>yarn.resourcemanager.hostname</name></p>
+<p><value>localhost</value><br></p>
+<p><property></property></p>
+<p><name>yarn.nodemanager.aux-services</name></p>
+<p><value>mapreduce_shuffle</value><br><br><br>‘’’<br> (2) 配置ssh：<br>因为伪分布模式需要启动守护进程，而启动守护进程的前提是已经安装了SSH。那么首先，我们要确认是否安装了ssh，在Linux下可以输入以下命令来测试：<br>‘’’<br>sudo apt-get install ssh<br>‘’’<br>然后基于一个空口令创建一个新的SSH秘钥，用于免密登录：<br>‘’’<br>ssh-keygen -t rsa -P ‘’ -f ~/.ssh/id_rsa<br>cat ~/.ssh/id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys<br>‘’’<br>最后测试是否免密登录成功：<br>‘’’<br>ssh localhost<br>‘’’<br>如果登录成功则证明配置成功<br> (3) 格式化HDFS文件系统<br>在使用Hadoop之前必须要格式化生虫一个全新的HDFS文件系统，该过程创建一个空文件系统，仅含存储目录和namenode持久化数据结构的初始版本。由于datenode可以动态的加入或者离开集群，所以这个格式化并不包含datenode。格式化HDFS文件系统只需要执行如下命令即可:<br>‘’’<br>hadoop namenode -fromat<br>‘’’<br> (4) 启动守护进程<br>执行如下命令：<br>‘’’<br>start-dfs.sh //启动名称节点，数据节点，辅助节点<br>start-yarn.sh //启动节点管理器，资源管理器<br>‘’’<br>也可以使用如下命令来代替上面两行的命令<br>‘’’<br>start-all.sh<br>‘’’<br>由于我们的配置文件在拷贝的hadoop_pse中，并非默认的配置路径，所以我们要在环境变量中配置HADOOP_CONF_DIR=我们配置的目录，或者通过config来动态配置<br>‘’’<br>start-all.sh –config $HADOOP_INSTALL/etc/hadoop_pse//其中HADOOP_INSTALL是我们配置在环境变量中的Hadoop安装目录<br>‘’<br>我们可以通过jps命令来查看启动的进程<br> (5) 创建文件测试<br>如果以上配置都成功了，那么我们就可以对Hadoop进行操作了，这里我们只是创建一个文件夹进行测试<br>首先要配置HADOOP_CONF_DIR,这里我们通过动态设置，执行如下命令<br>‘’’<br>export HADOOP_CONF_DIR=$HADOOP_INSTALL/etc/hadoop_pse<br>‘’’<br>然后执行创建文件夹命令<br>‘’’<br>hadoop fs -mkdir /user/<br>‘’’<br>最后查看是否创建成功：<br>‘’’<br>hadoop fs -ls /<br>‘’’<br>如果显示了user文件夹，则说明配置成功了。<br> (6) 停止守护进程<br>执行如下命令：<br>‘’’<br>stop-dfs.sh<br>stop-yarn.sh<br>‘’’<br>也可以使用如下命令停止守护进程：<br>‘’’<br>stop-all.sh<br>‘’’</p>
+<ol>
+<li>完全分布式模式:守护进程运行在多个主机的集群上。<br>关于完全分布式模式，我们后面会详细介绍。</li>
 </ol>
 
           
@@ -1153,7 +1181,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
