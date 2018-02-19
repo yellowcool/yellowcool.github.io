@@ -87,13 +87,13 @@
 <meta property="og:site_name" content="coolyellow的博客">
 <meta property="og:description" content="一、概述 HDFS集群分为两大角色：NameNode(Secondary NameNode)、DataNode NameNode负责管理整个文件系统的元数据 DataNode负责管理用户文件的数据块 文件会按照固定大小(blocksize)切成若干块后分布式存储在若干台datanode上 每一个文件块会被分成多个副本分别存储在不同的datanode上 datanode会定期向NameNode汇报自">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.coolcoolcoder.com/c_night/2018/02/19/hadoop/hdfs工作机制/%22/pics/HDFS写数据流程图.png%22">
-<meta property="og:image" content="http://www.coolcoolcoder.com/c_night/2018/02/19/hadoop/hdfs工作机制/%22/pics/HDFS读数据流程图.png%22">
-<meta property="og:updated_time" content="2018-02-19T05:14:38.032Z">
+<meta property="og:image" content="http://www.coolcoolcoder.com/pics/HDFS写数据流程图.png">
+<meta property="og:image" content="http://www.coolcoolcoder.com/pics/HDFS读数据流程图.png">
+<meta property="og:updated_time" content="2018-02-19T05:18:49.219Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hdfs工作机制">
 <meta name="twitter:description" content="一、概述 HDFS集群分为两大角色：NameNode(Secondary NameNode)、DataNode NameNode负责管理整个文件系统的元数据 DataNode负责管理用户文件的数据块 文件会按照固定大小(blocksize)切成若干块后分布式存储在若干台datanode上 每一个文件块会被分成多个副本分别存储在不同的datanode上 datanode会定期向NameNode汇报自">
-<meta name="twitter:image" content="http://www.coolcoolcoder.com/c_night/2018/02/19/hadoop/hdfs工作机制/%22/pics/HDFS写数据流程图.png%22">
+<meta name="twitter:image" content="http://www.coolcoolcoder.com/pics/HDFS写数据流程图.png">
 
 
 
@@ -306,6 +306,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/hsdoop/" itemprop="url" rel="index">
+                    <span itemprop="name">hsdoop</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -341,8 +363,8 @@
 <li>每一个文件块会被分成多个副本分别存储在不同的datanode上</li>
 <li>datanode会定期向NameNode汇报自身所保存的文件block信息，而NameNode则会负责保持文件的副本数量</li>
 <li>HDFS的内部工作机制对客户端保持透明，客户端请求访问HDFS都是通过向NameNode申请来进行</li>
-<li>HDFS写数据流程图<br><img src="&quot;/pics/HDFS写数据流程图.png&quot;" alt="HDFS写数据流程图"></li>
-<li>HDFS读数据流程图<br><img src="&quot;/pics/HDFS读数据流程图.png&quot;" alt="HDFS读数据流程图"></li>
+<li>HDFS写数据流程图<br><img src="/pics/HDFS写数据流程图.png" alt="HDFS写数据流程图"></li>
+<li>HDFS读数据流程图<br><img src="/pics/HDFS读数据流程图.png" alt="HDFS读数据流程图"></li>
 </ol>
 
       
@@ -470,7 +492,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
