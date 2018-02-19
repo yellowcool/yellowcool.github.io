@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="hadoop hdfs," />
 
 
 
@@ -79,16 +79,21 @@
 
 
 
-<meta name="description" content="c_night">
-<meta property="og:type" content="website">
-<meta property="og:title" content="coolyellow的博客">
-<meta property="og:url" content="http://www.coolcoolcoder.com/c_night/archives/2017/index.html">
+<meta name="description" content="一、概述 HDFS集群分为两大角色：NameNode(Secondary NameNode)、DataNode NameNode负责管理整个文件系统的元数据 DataNode负责管理用户文件的数据块 文件会按照固定大小(blocksize)切成若干块后分布式存储在若干台datanode上 每一个文件块会被分成多个副本分别存储在不同的datanode上 datanode会定期向NameNode汇报自">
+<meta name="keywords" content="hadoop hdfs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hdfs工作机制">
+<meta property="og:url" content="http://www.coolcoolcoder.com/c_night/2018/02/19/hadoop/hdfs工作机制/index.html">
 <meta property="og:site_name" content="coolyellow的博客">
-<meta property="og:description" content="c_night">
+<meta property="og:description" content="一、概述 HDFS集群分为两大角色：NameNode(Secondary NameNode)、DataNode NameNode负责管理整个文件系统的元数据 DataNode负责管理用户文件的数据块 文件会按照固定大小(blocksize)切成若干块后分布式存储在若干台datanode上 每一个文件块会被分成多个副本分别存储在不同的datanode上 datanode会定期向NameNode汇报自">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://www.coolcoolcoder.com/c_night/2018/02/19/hadoop/hdfs工作机制/%22/pics/HDFS写数据流程图.png%22">
+<meta property="og:image" content="http://www.coolcoolcoder.com/c_night/2018/02/19/hadoop/hdfs工作机制/%22/pics/HDFS读数据流程图.png%22">
+<meta property="og:updated_time" content="2018-02-19T05:14:38.032Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="coolyellow的博客">
-<meta name="twitter:description" content="c_night">
+<meta name="twitter:title" content="hdfs工作机制">
+<meta name="twitter:description" content="一、概述 HDFS集群分为两大角色：NameNode(Secondary NameNode)、DataNode NameNode负责管理整个文件系统的元数据 DataNode负责管理用户文件的数据块 文件会按照固定大小(blocksize)切成若干块后分布式存储在若干台datanode上 每一个文件块会被分成多个副本分别存储在不同的datanode上 datanode会定期向NameNode汇报自">
+<meta name="twitter:image" content="http://www.coolcoolcoder.com/c_night/2018/02/19/hadoop/hdfs工作机制/%22/pics/HDFS写数据流程图.png%22">
 
 
 
@@ -118,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://www.coolcoolcoder.com/c_night/archives/2017/"/>
+  <link rel="canonical" href="http://www.coolcoolcoder.com/c_night/2018/02/19/hadoop/hdfs工作机制/"/>
 
 
 
 
 
-  <title>归档 | coolyellow的博客</title>
+  <title>hdfs工作机制 | coolyellow的博客</title>
   
 
 
@@ -143,7 +148,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -247,185 +252,157 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.coolcoolcoder.com/c_night/2018/02/19/hadoop/hdfs工作机制/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CoolYellow">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="coolyellow的博客">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">hdfs工作机制</h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-19T10:34:45+08:00">
+                2018-02-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-        嗯..! 目前共计 6 篇日志。 继续努力。
-      </span>
 
-      
-
-        
-        
-        
-
-        
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2017">2017</h1>
-          </div>
-        
-        
+            
+          
 
-        
+          
+          
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/12/23/hadoop/Hadoop安装与配置/" itemprop="url">
-              
-                <span itemprop="name">Hadoop安装与配置</span>
-              
-            </a>
-        
-      </h2>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-12-23T19:14:05+08:00"
-              content="2017-12-23" >
-          12-23
-        </time>
-      </div>
+          
 
-    </header>
-  </article>
+        </div>
+      </header>
+    
 
-
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/12/23/linux/ubuntu代理设置/" itemprop="url">
-              
-                <span itemprop="name">ubuntu代理设置</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-12-23T16:15:37+08:00"
-              content="2017-12-23" >
-          12-23
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/11/12/android/Android消息机制从源码分析Handelr、Looper、Message/" itemprop="url">
-              
-                <span itemprop="name">Android消息机制从源码分析Handelr、Looper、Message</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-11-12T10:24:12+08:00"
-              content="2017-11-12" >
-          11-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+      
+        <h3 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h3><ol>
+<li>HDFS集群分为两大角色：NameNode(Secondary NameNode)、DataNode</li>
+<li>NameNode负责管理整个文件系统的元数据</li>
+<li>DataNode负责管理用户文件的数据块</li>
+<li>文件会按照固定大小(blocksize)切成若干块后分布式存储在若干台datanode上</li>
+<li>每一个文件块会被分成多个副本分别存储在不同的datanode上</li>
+<li>datanode会定期向NameNode汇报自身所保存的文件block信息，而NameNode则会负责保持文件的副本数量</li>
+<li>HDFS的内部工作机制对客户端保持透明，客户端请求访问HDFS都是通过向NameNode申请来进行</li>
+<li>HDFS写数据流程图<br><img src="&quot;/pics/HDFS写数据流程图.png&quot;" alt="HDFS写数据流程图"></li>
+<li>HDFS读数据流程图<br><img src="&quot;/pics/HDFS读数据流程图.png&quot;" alt="HDFS读数据流程图"></li>
+</ol>
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/10/16/other/Hexo安装配置/" itemprop="url">
-              
-                <span itemprop="name">Hexo安装配置</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-10-16T21:46:30+08:00"
-              content="2017-10-16" >
-          10-16
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/hadoop-hdfs/" rel="tag"># hadoop hdfs</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/04/linux/linux常用命令总结/" rel="next" title="linux常用命令总结">
+                <i class="fa fa-chevron-left"></i> linux常用命令总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -433,6 +410,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -453,8 +434,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -514,6 +504,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、概述"><span class="nav-number">1.</span> <span class="nav-text">一、概述</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -654,6 +660,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
